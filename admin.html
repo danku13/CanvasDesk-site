@@ -5,58 +5,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>CanvasDesk Admin — редактор контента</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚙️</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23fbbf24'/><path d='M25 72 50 30l25 42' stroke='%2309090b' stroke-width='9' fill='none'/></svg>">
 <style>
-:root{--bg:#0b0f17;--card:#141a26;--line:#232c3d;--txt:#e8edf5;--mut:#8b96ab;--acc:#5b8cff;--acc2:#9b6bff;--ok:#2ecc71;--warn:#e67e22;--bad:#e74c3c}
+:root{--bg:#09090b;--card:#18181b;--line:#27272a;--txt:#fafafa;--mut:#a1a1aa;--mut2:#71717a;--amber:#fbbf24;--amber2:#fcd34d;--teal:#2dd4bf;--rose:#fb7185;--ok:#34d399;--warn:#fbbf24;--bad:#f87171}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--txt);font:15px/1.55 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;padding-bottom:80px}
-a{color:var(--acc);text-decoration:none}
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-header{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+a{color:var(--amber2);text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:rgba(9,9,11,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;gap:10px;padding:12px 0;flex-wrap:wrap}
 .bar h1{font-size:1.15em;font-weight:800}
+.bar h1 b{color:var(--amber)}
 .bar .spacer{flex:1}
 .btn{padding:8px 14px;border-radius:9px;font-weight:600;border:1px solid var(--line);color:var(--txt);cursor:pointer;background:var(--card);font-size:.92em}
-.btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#fff}
+.btn.primary{background:var(--amber);border:none;color:#09090b}
 .btn.danger{border-color:var(--bad);color:var(--bad)}
 .btn:hover{filter:brightness(1.15)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-#status{font-size:.85em;color:var(--mut)}
+#status{font-size:.85em;color:var(--mut2)}
 #status.dirty{color:var(--warn)}
-.hint{background:linear-gradient(135deg,rgba(91,140,255,.08),rgba(155,107,255,.08));border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:20px 0;color:var(--mut);font-size:.93em}
+.hint{background:linear-gradient(135deg,rgba(251,191,36,.08),rgba(249,115,22,.06));border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:20px 0;color:var(--mut);font-size:.93em}
 .hint b{color:var(--txt)}
 section{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
 section>h2{font-size:1.05em;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+section>h3.sub{font-size:.92em;margin:20px 0 12px;padding-bottom:8px;border-bottom:1px dashed var(--line);color:var(--amber2)}
 .field{margin-bottom:14px}
 .field:last-child{margin-bottom:0}
-.field>label{display:block;font-weight:600;font-size:.9em;margin-bottom:6px;color:var(--txt)}
-.field .sub{color:var(--mut);font-weight:400;font-size:.85em}
+.field>label{display:block;font-weight:600;font-size:.9em;margin-bottom:6px}
+.field .sub{color:var(--mut2);font-weight:400;font-size:.85em}
 .i18n{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 input[type=text],input[type=url],textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:9px 12px;font:inherit}
-textarea{min-height:70px;resize:vertical}
-input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
-.lang-tag{display:inline-block;font-size:.72em;font-weight:700;color:var(--mut);margin-bottom:3px}
-.item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:rgba(11,15,23,.4)}
+textarea{min-height:70px;resize:vertical;font-family:ui-monospace,Menlo,monospace;font-size:.85em}
+textarea.txt{font-family:inherit;font-size:inherit}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--amber)}
+input.bad,textarea.bad{border-color:var(--bad)}
+.lang-tag{display:inline-block;font-size:.72em;font-weight:700;color:var(--mut2);margin-bottom:3px}
+.item{border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px;background:rgba(9,9,11,.4)}
 .item-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.item-head .num{width:24px;height:24px;flex:none;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-size:.75em;color:#fff}
-.item-head .grow{flex:1}
+.item-head .num{width:24px;height:24px;flex:none;border-radius:50%;background:linear-gradient(135deg,var(--amber),#f97316);display:flex;align-items:center;justify-content:center;font-size:.72em;font-weight:700;color:#09090b}
+.item-head .grow{flex:1;color:var(--mut2);font-size:.85em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .icon-btn{width:32px;height:32px;flex:none;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--mut);cursor:pointer;font-size:.95em}
-.icon-btn:hover{color:var(--txt);border-color:var(--acc)}
+.icon-btn:hover{color:var(--txt);border-color:var(--amber)}
 .icon-btn.del:hover{color:var(--bad);border-color:var(--bad)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
 .prio-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:var(--bg)}
 .prio-row .name{flex:1;font-weight:600}
 .addrow{display:flex;gap:10px;margin-top:10px}
 .addrow select{flex:1}
+.checkline{display:flex;align-items:center;gap:.5rem}
+.checkline input[type=checkbox]{width:18px;height:18px;accent-color:var(--amber)}
 #toast{position:fixed;bottom:22px;right:22px;background:var(--card);border:1px solid var(--ok);color:var(--txt);padding:12px 18px;border-radius:12px;font-weight:600;opacity:0;transform:translateY(10px);transition:.25s;pointer-events:none;z-index:50}
 #toast.show{opacity:1;transform:none}
-@media(max-width:640px){.i18n,.grid2{grid-template-columns:1fr}}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.toc a{font-size:.78em;border:1px solid var(--line);border-radius:99px;padding:4px 10px;color:var(--mut)}
+.toc a:hover{border-color:var(--amber);color:var(--amber2)}
+@media(max-width:640px){.i18n,.grid2,.grid3{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
 <header><div class="wrap bar">
-  <h1>⚙️ CanvasDesk Admin</h1>
+  <h1>⚙️ Canvas<b>Desk</b> Admin</h1>
   <span id="status">сохранено ✓</span>
   <span class="spacer"></span>
   <button class="btn" id="btnReset" title="Отменить все правки">↺ Сброс</button>
@@ -72,8 +81,9 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
     <b>Как это работает.</b> Правки сохраняются в <b>localStorage</b> браузера — после «Сохранить» они сразу видны
     на <a href="index.html" target="_blank">index.html</a> (кнопка «Превью»). Это черновик, видимый только вам.<br>
     Чтобы изменения увидели все посетители: <b>⬇ Экспорт</b> → скачается <b>config.json</b> (только ваши изменения) →
-    положите его в корень сайта рядом с index.html и закоммитьте. Подробности — в readme.md.
+    положите его в корень сайта и закоммитьте. Подробности — в readme.md.
   </div>
+  <nav class="toc" id="toc" aria-label="Разделы"></nav>
   <form id="form" onsubmit="return false"></form>
 </div>
 
@@ -82,34 +92,24 @@ input:focus,textarea:focus,select:focus{outline:none;border-color:var(--acc)}
 <script src="config.js"></script>
 <script>
 /* ===== Состояние ===== */
-let cfg = loadConfig();          // рабочая копия (дефолты + localStorage)
+let cfg = loadConfig();
 let dirty = false;
 const statusEl = document.getElementById('status');
+const esc = s => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-function markDirty() {
-  dirty = true;
-  statusEl.textContent = '● есть несохранённые правки';
-  statusEl.classList.add('dirty');
-}
-function markSaved() {
-  dirty = false;
-  statusEl.textContent = 'сохранено ✓';
-  statusEl.classList.remove('dirty');
-}
+function markDirty() { dirty = true; statusEl.textContent = '● есть несохранённые правки'; statusEl.classList.add('dirty'); }
+function markSaved() { dirty = false; statusEl.textContent = 'сохранено ✓'; statusEl.classList.remove('dirty'); }
 
 let toastTimer;
 function toast(msg) {
   const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.classList.add('show');
+  el.textContent = msg; el.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => el.classList.remove('show'), 2600);
 }
 
-/* Минимальный дифф против дефолтов — в config.json идут только изменения */
 function diffConfig(base, over) {
-  const out = {};
-  let has = false;
+  const out = {}; let has = false;
   for (const k in over) {
     if (JSON.stringify(over[k]) === JSON.stringify(base?.[k])) continue;
     if (isPlainObj(base?.[k]) && isPlainObj(over[k])) {
@@ -120,360 +120,523 @@ function diffConfig(base, over) {
   return out;
 }
 
-/* ===== Схема формы (простые поля; списки — кастомные секции ниже) ===== */
-const SCHEMA = [
-  { title: '🏷️ Бренд', fields: [
-    { path: 'brand.name',     label: 'Название продукта' },
-    { path: 'brand.tagline',  label: 'Слоган', i18n: true },
-  ]},
-  { title: '🔍 SEO', fields: [
-    { path: 'seo.title',       label: 'Title (заголовок вкладки и поиска)', i18n: true },
-    { path: 'seo.description', label: 'Description (описание для поисковиков)', type: 'textarea', i18n: true },
-    { path: 'seo.keywords',    label: 'Keywords (через запятую)', type: 'textarea', i18n: true },
-    { path: 'seo.ogImage',     label: 'OG-картинка (путь или URL)', sub: 'например: assets/og-cover.png' },
-  ]},
-  { title: '🦸 Hero (первый экран)', fields: [
-    { path: 'hero.badge',        label: 'Бейдж над заголовком', i18n: true },
-    { path: 'hero.title',        label: 'Заголовок H1', i18n: true },
-    { path: 'hero.subtitle',     label: 'Подзаголовок', type: 'textarea', i18n: true },
-    { path: 'hero.ctaPrimary',   label: 'Главная кнопка (ведёт на GitHub)', i18n: true },
-    { path: 'hero.ctaSecondary', label: 'Вторая кнопка (ведёт к демо)', i18n: true },
-  ]},
-  { title: '🧭 Блок «Выберите платформу»', fields: [
-    { path: 'platformsBlock.title',    label: 'Заголовок', i18n: true },
-    { path: 'platformsBlock.subtitle', label: 'Подзаголовок', i18n: true },
-  ]},
-  { title: '📑 Заголовки секций', fields: [
-    { path: 'features.title',    label: 'Секция возможностей', i18n: true },
-    { path: 'demoBlock.title',   label: 'Секция демо (GIF)', i18n: true },
-    { path: 'screensBlock.title',label: 'Секция скриншотов', i18n: true },
-    { path: 'videoBlock.title',  label: 'Секция видео', i18n: true },
-  ]},
-  { title: '💜 Блок «Поддержать проект»', fields: [
-    { path: 'support.title',              label: 'Заголовок', i18n: true },
-    { path: 'support.subtitle',           label: 'Подзаголовок', type: 'textarea', i18n: true },
-    { path: 'support.boostyLabel',        label: 'Кнопка Boosty', i18n: true },
-    { path: 'support.donationalertsLabel',label: 'Кнопка DonationAlerts', i18n: true },
-  ]},
-  { title: '🦶 Футер', fields: [
-    { path: 'footer.made', label: 'Строка «сделано с ❤️»', i18n: true },
-  ]},
-  { title: '🔗 Ссылки на платформы', fields: [
-    { path: 'links.github',         label: '🐙 GitHub' },
-    { path: 'links.donationalerts', label: '💜 DonationAlerts' },
-    { path: 'links.boosty',         label: '🚀 Boosty' },
-    { path: 'links.habr',           label: '📝 Habr' },
-    { path: 'links.linkedin',       label: '💼 LinkedIn' },
-    { path: 'links.medium',         label: '✍️ Medium' },
-    { path: 'links.telegram',       label: '✈️ Telegram' },
-  ]},
-];
-
-/* ===== Билдеры простых полей ===== */
-function inputEl(value, oninput, type = 'text') {
-  const el = document.createElement(type === 'textarea' ? 'textarea' : 'input');
-  if (type !== 'textarea') el.type = type === 'url' ? 'url' : 'text';
+/* ===== Примитивы формы ===== */
+function inputEl(value, oninput, opts = {}) {
+  const el = document.createElement(opts.textarea ? 'textarea' : 'input');
+  if (!opts.textarea) el.type = 'text';
+  if (opts.mono) el.classList.add(opts.textarea ? '' : '');
+  if (opts.textarea && !opts.mono) el.classList.add('txt');
   el.value = value ?? '';
-  el.addEventListener('input', () => oninput(el.value));
+  el.spellcheck = false;
+  el.addEventListener('input', () => oninput(el.value, el));
   return el;
 }
 
-function fieldEl({ path, label, sub, type, i18n }) {
+function fieldEl({ path, label, sub, type, i18n, textarea, rows }) {
   const wrap = document.createElement('div');
   wrap.className = 'field';
   const lab = document.createElement('label');
   lab.innerHTML = label + (sub ? ` <span class="sub">— ${sub}</span>` : '');
   wrap.appendChild(lab);
-
+  const make = (p) => {
+    const el = inputEl(getPath(cfg, p), v => { setPath(cfg, p, v); markDirty(); }, { textarea: type === 'textarea', mono: type === 'mono' });
+    if (rows) el.rows = rows;
+    return el;
+  };
   if (i18n) {
-    const grid = document.createElement('div');
-    grid.className = 'i18n';
+    const grid = document.createElement('div'); grid.className = 'i18n';
     for (const lang of ['en', 'ru']) {
       const col = document.createElement('div');
       col.innerHTML = `<span class="lang-tag">${lang.toUpperCase()}</span>`;
-      col.appendChild(inputEl(getPath(cfg, `${path}.${lang}`), v => { setPath(cfg, `${path}.${lang}`, v); markDirty(); }, type));
+      col.appendChild(make(`${path}.${lang}`));
       grid.appendChild(col);
     }
     wrap.appendChild(grid);
   } else {
-    wrap.appendChild(inputEl(getPath(cfg, path), v => { setPath(cfg, path, v); markDirty(); }, type));
+    wrap.appendChild(make(path));
   }
   return wrap;
 }
 
-/* ===== Кастомные секции ===== */
-function sectionEl(title) {
+function sectionEl(title, id) {
   const s = document.createElement('section');
-  const h = document.createElement('h2');
-  h.textContent = title;
-  s.appendChild(h);
+  if (id) s.id = 'sec-' + id;
+  const h = document.createElement('h2'); h.textContent = title; s.appendChild(h);
   return s;
 }
 
-function move(arr, i, d) {
-  const j = i + d;
-  if (j < 0 || j >= arr.length) return;
-  [arr[i], arr[j]] = [arr[j], arr[i]];
+function move(arr, i, d) { const j = i + d; if (j < 0 || j >= arr.length) return; [arr[i], arr[j]] = [arr[j], arr[i]]; }
+
+/* Универсальный редактор списка объектов */
+function listEditor(container, items, itemFields, opts = {}) {
+  const render = () => {
+    container.innerHTML = '';
+    items.forEach((it, i) => {
+      const item = document.createElement('div'); item.className = 'item';
+      const head = document.createElement('div'); head.className = 'item-head';
+      head.innerHTML = `<span class="num">${i + 1}</span><span class="grow">${esc(opts.summary ? opts.summary(it) : '')}</span>`;
+      head.insertAdjacentHTML('beforeend',
+        `<button type="button" class="icon-btn" data-a="up" title="Вверх">↑</button>
+         <button type="button" class="icon-btn" data-a="down" title="Вниз">↓</button>
+         <button type="button" class="icon-btn del" data-a="del" title="Удалить">✕</button>`);
+      item.appendChild(head);
+
+      for (const f of itemFields) {
+        const w = document.createElement('div'); w.className = 'field';
+        const lab = document.createElement('label'); lab.innerHTML = f.label; w.appendChild(lab);
+        const bind = (get, set) => {
+          if (f.i18n) {
+            const grid = document.createElement('div'); grid.className = 'i18n';
+            for (const lang of ['en', 'ru']) {
+              const col = document.createElement('div');
+              col.innerHTML = `<span class="lang-tag">${lang.toUpperCase()}</span>`;
+              col.appendChild(inputEl(get(lang), v => { set(lang, v); markDirty(); }, { textarea: f.type === 'textarea', mono: f.type === 'mono' }));
+              grid.appendChild(col);
+            }
+            w.appendChild(grid);
+          } else if (f.type === 'select') {
+            const sel = document.createElement('select');
+            sel.innerHTML = f.options.map(o => `<option value="${o}" ${get() === o ? 'selected' : ''}>${o}</option>`).join('');
+            sel.addEventListener('change', () => { set(sel.value); markDirty(); });
+            w.appendChild(sel);
+          } else if (f.type === 'checkbox') {
+            const cl = document.createElement('label'); cl.className = 'checkline';
+            const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = !!get();
+            cb.addEventListener('change', () => { set(cb.checked); markDirty(); });
+            cl.appendChild(cb); cl.appendChild(document.createTextNode(f.on || 'вкл'));
+            w.appendChild(cl);
+          } else {
+            w.appendChild(inputEl(get(), v => { set(v); markDirty(); }, { textarea: f.type === 'textarea', mono: f.type === 'mono' }));
+          }
+        };
+        bind(lang => f.i18n ? (it[f.key]?.[lang] ?? '') : it[f.key],
+             (a, v) => { if (f.i18n) { it[f.key] ??= { en: '', ru: '' }; it[f.key][a] = v; } else it[f.key] = v; });
+        item.appendChild(w);
+      }
+
+      item.querySelectorAll('.icon-btn').forEach(b => b.addEventListener('click', () => {
+        const a = b.dataset.a;
+        if (a === 'up') move(items, i, -1);
+        if (a === 'down') move(items, i, +1);
+        if (a === 'del') items.splice(i, 1);
+        markDirty(); render();
+      }));
+      container.appendChild(item);
+    });
+    const add = document.createElement('div'); add.className = 'addrow';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn';
+    btn.textContent = '＋ ' + (opts.addLabel || 'Добавить');
+    btn.addEventListener('click', () => { items.push(opts.makeItem()); markDirty(); render(); });
+    add.appendChild(btn); container.appendChild(add);
+  };
+  render();
 }
 
-function renderFeatures(container) {
-  container.innerHTML = '';
-  const items = cfg.features.items;
-  items.forEach((it, i) => {
-    const item = document.createElement('div');
-    item.className = 'item';
-    item.innerHTML = `
-      <div class="item-head">
-        <span class="num">${i + 1}</span>
-        <div class="grow"></div>
-        <button type="button" class="icon-btn" data-a="up"  title="Вверх">↑</button>
-        <button type="button" class="icon-btn" data-a="down" title="Вниз">↓</button>
-        <button type="button" class="icon-btn del" data-a="del" title="Удалить">✕</button>
-      </div>
-      <div class="field"><label>Иконка (эмодзи)</label></div>
-      <div class="field"><label>Заголовок</label></div>
-      <div class="field"><label>Описание</label></div>`;
-    const [icoLab, ttlLab, txtLab] = item.querySelectorAll('.field label');
-    icoLab.after(inputEl(it.icon, v => { it.icon = v; markDirty(); }));
-    for (const lang of ['en', 'ru']) {
-      ttlLab.before(Object.assign(document.createElement('span'), { className: 'lang-tag', textContent: lang.toUpperCase() }));
-      ttlLab.before(inputEl(it.title[lang], v => { it.title[lang] = v; markDirty(); }));
-      const sp = document.createElement('span'); sp.className = 'lang-tag'; sp.textContent = lang.toUpperCase();
-      txtLab.before(sp, inputEl(it.text[lang], v => { it.text[lang] = v; markDirty(); }));
-    }
-    item.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
-      const a = b.dataset.a;
-      if (a === 'up')   move(items, i, -1);
-      if (a === 'down') move(items, i, +1);
-      if (a === 'del')  items.splice(i, 1);
-      markDirty(); renderFeatures(container);
-    }));
-    container.appendChild(item);
-  });
-  const add = document.createElement('div');
-  add.className = 'addrow';
-  add.innerHTML = `<button type="button" class="btn">＋ Добавить возможность</button>`;
-  add.querySelector('button').addEventListener('click', () => {
-    items.push({ icon: '✨', title: { en: 'New feature', ru: 'Новая возможность' }, text: { en: '', ru: '' } });
-    markDirty(); renderFeatures(container);
-  });
-  container.appendChild(add);
+/* Редактор строкового списка (плюс/удаление/сортировка) */
+function strListEditor(host, getArr, setArr) {
+  const render = () => {
+    host.innerHTML = '';
+    const arr = getArr();
+    arr.forEach((v, i) => {
+      const row = document.createElement('div'); row.className = 'addrow'; row.style.marginBottom = '8px';
+      const inp = inputEl(v, val => { arr[i] = val; setArr(arr); markDirty(); });
+      const up = document.createElement('button'); up.type = 'button'; up.className = 'icon-btn'; up.textContent = '↑'; up.title = 'Вверх';
+      up.addEventListener('click', () => { move(arr, i, -1); setArr(arr); markDirty(); render(); });
+      const dn = document.createElement('button'); dn.type = 'button'; dn.className = 'icon-btn'; dn.textContent = '↓'; dn.title = 'Вниз';
+      dn.addEventListener('click', () => { move(arr, i, +1); setArr(arr); markDirty(); render(); });
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'icon-btn del'; del.textContent = '✕'; del.title = 'Удалить';
+      del.addEventListener('click', () => { arr.splice(i, 1); setArr(arr); markDirty(); render(); });
+      row.append(inp, up, dn, del); host.appendChild(row);
+    });
+    const add = document.createElement('div'); add.className = 'addrow';
+    const btn = document.createElement('button'); btn.type = 'button'; btn.className = 'btn'; btn.textContent = '＋ Добавить';
+    btn.addEventListener('click', () => { arr.push(''); setArr(arr); markDirty(); render(); });
+    add.appendChild(btn); host.appendChild(add);
+  };
+  render();
 }
 
-function renderScreens(container) {
-  container.innerHTML = '';
-  const items = cfg.media.screenshots;
-  items.forEach((it, i) => {
-    const item = document.createElement('div');
-    item.className = 'item';
-    item.innerHTML = `
-      <div class="item-head">
-        <span class="num">${i + 1}</span>
-        <div class="grow"></div>
+/* RAW-JSON поле для сложных структур (таблицы и т.п.) */
+function rawJsonField(title, getObj, setObj) {
+  const wrap = document.createElement('div'); wrap.className = 'field';
+  wrap.innerHTML = `<label>${title} <span class="sub">— JSON, проверяется при вводе</span></label>`;
+  const ta = document.createElement('textarea');
+  ta.rows = Math.min(24, JSON.stringify(getObj(), null, 2).split('\n').length + 1);
+  ta.value = JSON.stringify(getObj(), null, 2); ta.spellcheck = false;
+  ta.addEventListener('input', () => {
+    try { setObj(JSON.parse(ta.value)); ta.classList.remove('bad'); markDirty(); }
+    catch (e) { ta.classList.add('bad'); }
+  });
+  wrap.appendChild(ta);
+  return wrap;
+}
+
+/* Приоритеты платформ (для EN и RU) */
+function prioEditor(host, lang) {
+  const render = () => {
+    host.innerHTML = '';
+    const list = cfg.priorities[lang];
+    list.forEach((key, i) => {
+      const p = PLATFORMS[key] || { icon: '🔗', label: key };
+      const row = document.createElement('div'); row.className = 'prio-row';
+      row.innerHTML = `<span class="name">${p.icon} ${p.label}</span>
         <button type="button" class="icon-btn" data-a="up" title="Вверх">↑</button>
         <button type="button" class="icon-btn" data-a="down" title="Вниз">↓</button>
-        <button type="button" class="icon-btn del" data-a="del" title="Удалить">✕</button>
-      </div>
-      <div class="field"><label>Файл или URL картинки</label><span class="sub">например: assets/screen-1.png</span></div>
-      <div class="field"><label>Подпись</label></div>`;
-    const [srcLab, capLab] = item.querySelectorAll('.field');
-    srcLab.querySelector('label').after(inputEl(it.src, v => { it.src = v; markDirty(); }));
-    for (const lang of ['en', 'ru']) {
-      const sp = document.createElement('span'); sp.className = 'lang-tag'; sp.textContent = lang.toUpperCase();
-      capLab.appendChild(sp);
-      capLab.appendChild(inputEl(it.caption[lang], v => { it.caption[lang] = v; markDirty(); }));
-    }
-    item.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
-      const a = b.dataset.a;
-      if (a === 'up')   move(items, i, -1);
-      if (a === 'down') move(items, i, +1);
-      if (a === 'del')  items.splice(i, 1);
-      markDirty(); renderScreens(container);
-    }));
-    container.appendChild(item);
-  });
-  const add = document.createElement('div');
-  add.className = 'addrow';
-  add.innerHTML = `<button type="button" class="btn">＋ Добавить скриншот</button>`;
-  add.querySelector('button').addEventListener('click', () => {
-    items.push({ src: '', caption: { en: 'New screenshot', ru: 'Новый скриншот' } });
-    markDirty(); renderScreens(container);
-  });
-  container.appendChild(add);
-}
-
-function renderPrioList(container, lang) {
-  container.innerHTML = '';
-  const list = cfg.priorities[lang];
-  list.forEach((key, i) => {
-    const p = PLATFORMS[key] || { icon: '🔗', label: key };
-    const row = document.createElement('div');
-    row.className = 'prio-row';
-    row.innerHTML = `<span class="name">${p.icon} ${p.label}</span>
-      <button type="button" class="icon-btn" data-a="up" title="Вверх">↑</button>
-      <button type="button" class="icon-btn" data-a="down" title="Вниз">↓</button>
-      <button type="button" class="icon-btn del" data-a="del" title="Убрать">✕</button>`;
-    row.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
-      const a = b.dataset.a;
-      if (a === 'up')   move(list, i, -1);
-      if (a === 'down') move(list, i, +1);
-      if (a === 'del')  list.splice(i, 1);
-      markDirty(); renderPrioList(container, lang);
-    }));
-    container.appendChild(row);
-  });
-  const add = document.createElement('div');
-  add.className = 'addrow';
-  const rest = Object.keys(PLATFORMS).filter(k => !list.includes(k));
-  add.innerHTML = `
-    <select><option value="">— добавить платформу —</option>
-      ${rest.map(k => `<option value="${k}">${PLATFORMS[k].icon} ${PLATFORMS[k].label}</option>`).join('')}
-    </select>
-    <button type="button" class="btn">＋</button>`;
-  add.querySelector('button').addEventListener('click', () => {
-    const sel = add.querySelector('select');
-    if (!sel.value) return;
-    list.push(sel.value);
-    markDirty(); renderPrioList(container, lang);
-  });
-  container.appendChild(add);
-}
-
-function buildMediaSection() {
-  const s = sectionEl('🖼️ Медиа');
-  const f = (label, sub) => {
-    const d = document.createElement('div');
-    d.className = 'field';
-    d.innerHTML = `<label>${label}${sub ? ` <span class="sub">— ${sub}</span>` : ''}</label>`;
-    return d;
+        <button type="button" class="icon-btn del" data-a="del" title="Убрать">✕</button>`;
+      row.querySelectorAll('[data-a]').forEach(b => b.addEventListener('click', () => {
+        const a = b.dataset.a;
+        if (a === 'up') move(list, i, -1);
+        if (a === 'down') move(list, i, +1);
+        if (a === 'del') list.splice(i, 1);
+        markDirty(); render();
+      }));
+      host.appendChild(row);
+    });
+    const add = document.createElement('div'); add.className = 'addrow';
+    const rest = Object.keys(PLATFORMS).filter(k => !list.includes(k));
+    add.innerHTML = `<select><option value="">— добавить платформу —</option>
+      ${rest.map(k => `<option value="${k}">${PLATFORMS[k].icon} ${PLATFORMS[k].label}</option>`).join('')}</select>
+      <button type="button" class="btn">＋</button>`;
+    add.querySelector('button').addEventListener('click', () => {
+      const sel = add.querySelector('select'); if (!sel.value) return;
+      list.push(sel.value); markDirty(); render();
+    });
+    host.appendChild(add);
   };
-
-  let d = f('Hero-медиа (первый экран)');
-  d.appendChild(inputEl(cfg.media.hero.src, v => { cfg.media.hero.src = v; markDirty(); }));
-  s.appendChild(d);
-
-  d = f('GIF-демо (секция «Посмотрите в движении»)');
-  d.appendChild(inputEl(cfg.media.gif.src, v => { cfg.media.gif.src = v; markDirty(); }));
-  s.appendChild(d);
-  d = f('Подпись к GIF');
-  const gi = document.createElement('div'); gi.className = 'i18n';
-  for (const lang of ['en', 'ru']) {
-    const col = document.createElement('div');
-    col.innerHTML = `<span class="lang-tag">${lang.toUpperCase()}</span>`;
-    col.appendChild(inputEl(cfg.media.gif.caption[lang], v => { cfg.media.gif.caption[lang] = v; markDirty(); }));
-    gi.appendChild(col);
-  }
-  d.appendChild(gi); s.appendChild(d);
-
-  d = f('Видео (mp4/webm или ссылка)');
-  d.appendChild(inputEl(cfg.media.video.src, v => { cfg.media.video.src = v; markDirty(); }));
-  s.appendChild(d);
-  d = f('Постер видео (превью до нажатия play)');
-  d.appendChild(inputEl(cfg.media.video.poster, v => { cfg.media.video.poster = v; markDirty(); }));
-  s.appendChild(d);
-  d = f('Подпись к видео');
-  const vi = document.createElement('div'); vi.className = 'i18n';
-  for (const lang of ['en', 'ru']) {
-    const col = document.createElement('div');
-    col.innerHTML = `<span class="lang-tag">${lang.toUpperCase()}</span>`;
-    col.appendChild(inputEl(cfg.media.video.caption[lang], v => { cfg.media.video.caption[lang] = v; markDirty(); }));
-    vi.appendChild(col);
-  }
-  d.appendChild(vi); s.appendChild(d);
-
-  const h = document.createElement('h2');
-  h.textContent = '🖼️ Скриншоты';
-  h.style.cssText = 'margin:28px 0 16px;padding-bottom:10px;border-bottom:1px solid var(--line);font-size:1.05em';
-  s.appendChild(h);
-
-  const screens = document.createElement('div');
-  s.appendChild(screens);
-  renderScreens(screens);
-  return s;
+  render();
 }
+
+/* ===== Схема простых секций ===== */
+const sec = (id, title, fields) => ({ id, title, fields });
+const I18N = (path, label, type) => ({ path, label, i18n: true, type });
+
+const SIMPLE_SECTIONS = [
+  sec('brand', '🏷️ Бренд', [
+    { path: 'brand.name', label: 'Название продукта' },
+    I18N('brand.tagline', 'Слоган (футер)'),
+  ]),
+  sec('seo', '🔍 SEO', [
+    I18N('seo.title', 'Title (заголовок вкладки и поиска)'),
+    I18N('seo.description', 'Description (для поисковиков)', 'textarea'),
+    I18N('seo.keywords', 'Keywords (через запятую)', 'textarea'),
+    { path: 'seo.ogImage', label: 'OG-картинка', sub: 'путь или URL, напр. assets/og-cover.png' },
+  ]),
+  sec('nav', '🧭 Навигация (шапка)', [
+    I18N('nav.features', 'Возможности'), I18N('nav.demo', 'Демо'), I18N('nav.steps', 'Начало работы'),
+    I18N('nav.widgets', 'Виджеты'), I18N('nav.ai', 'ИИ и MCP'), I18N('nav.faq', 'FAQ'),
+    I18N('nav.community', 'Сообщество'), I18N('nav.star', 'Кнопка «звезда»'), I18N('nav.menu', 'Меню (мобильное)'),
+  ]),
+  sec('announcement', '📣 Полоса-объявление', [
+    I18N('announcement.text', 'Текст'),
+    I18N('announcement.cta', 'Ссылка-CTA'),
+  ]),
+  sec('hero', '🦸 Hero (первый экран)', [
+    I18N('hero.badge', 'Бейдж'),
+    I18N('hero.titleA', 'Заголовок — начало'),
+    I18N('hero.titleAccent', 'Заголовок — акцент (градиент)'),
+    I18N('hero.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('hero.ctaPrimary', 'Кнопка 1 (Скачать)'),
+    I18N('hero.ctaSecondary', 'Кнопка 2 (GitHub)'),
+    I18N('hero.ctaTertiary', 'Ссылка 3 (Документация)'),
+    I18N('hero.communityLink', 'Ссылка внизу hero → сообщество'),
+    I18N('hero.mediaTitle', 'Медиа: описание (alt)'),
+    I18N('hero.mediaHint', 'Медиа: подсказка (куда положить файл)'),
+  ]),
+  sec('trust', '🛡️ Trust-полоса', [
+    I18N('trust.stars', 'Подпись «звёзды»'), I18N('trust.forks', 'Подпись «форки»'),
+    I18N('trust.commit', 'Подпись «коммит»'), I18N('trust.today', '«сегодня»'),
+  ]),
+  sec('features', '✨ Возможности', [
+    I18N('features.kicker', 'Кикер (надзаголовок)'),
+    I18N('features.title', 'Заголовок'),
+    I18N('features.subtitle', 'Подзаголовок', 'textarea'),
+  ]),
+  sec('steps', '🚀 Шаги', [
+    I18N('steps.kicker', 'Кикер'), I18N('steps.title', 'Заголовок'),
+    I18N('steps.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('steps.installTitle', 'Терминал: заголовок'),
+    { path: 'steps.installCommands', label: 'Терминал: команды', type: 'textarea' },
+    I18N('steps.installHint', 'Терминал: подсказка'),
+    I18N('steps.copy', 'Кнопка «копировать»'), I18N('steps.copied', '«Скопировано!»'),
+  ]),
+  sec('gallery', '🖼️ Галерея', [
+    I18N('gallery.kicker', 'Кикер'), I18N('gallery.title', 'Заголовок'),
+    I18N('gallery.subtitle', 'Подзаголовок', 'textarea'),
+  ]),
+  sec('useCases', '👥 Сценарии', [
+    I18N('useCases.kicker', 'Кикер'), I18N('useCases.title', 'Заголовок'),
+    I18N('useCases.subtitle', 'Подзаголовок', 'textarea'),
+  ]),
+  sec('compare', '⚖️ Сравнение (шапка)', [
+    I18N('compare.kicker', 'Кикер'), I18N('compare.title', 'Заголовок'),
+    I18N('compare.subtitle', 'Подзаголовок', 'textarea'),
+  ]),
+  sec('matrix', '🖥️ Матрица платформ (шапка)', [
+    I18N('matrix.kicker', 'Кикер'), I18N('matrix.title', 'Заголовок'),
+    I18N('matrix.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('matrix.yes', '«Полностью»'), I18N('matrix.hotkeysTitle', 'Заголовок хоткеев'),
+  ]),
+  sec('roadmap', '🗺️ Роадмап (шапка)', [
+    I18N('roadmap.kicker', 'Кикер'), I18N('roadmap.title', 'Заголовок'),
+    I18N('roadmap.subtitle', 'Подзаголовок', 'textarea'), I18N('roadmap.changelog', 'Ссылка changelog'),
+  ]),
+  sec('quotes', '💬 Отзывы (шапка)', [
+    I18N('quotes.kicker', 'Кикер'), I18N('quotes.title', 'Заголовок'),
+    I18N('quotes.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('quotes.slotHint', 'Подсказка в пустых слотах', 'textarea'),
+    I18N('quotes.emptyAuthor', 'Подпись пустого слота'),
+  ]),
+  sec('ctaBand', '📣 CTA-полоса (середина)', [
+    I18N('ctaBand.title', 'Заголовок'), I18N('ctaBand.text', 'Текст', 'textarea'),
+    I18N('ctaBand.download', 'Кнопка 1'), I18N('ctaBand.star', 'Кнопка 2'),
+  ]),
+  sec('faq', '❓ FAQ (шапка)', [
+    I18N('faq.kicker', 'Кикер'), I18N('faq.title', 'Заголовок'),
+  ]),
+  sec('community', '🤝 Сообщество', [
+    I18N('community.kicker', 'Кикер'), I18N('community.title', 'Заголовок'),
+    I18N('community.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('community.donateTitle', 'Донат: заголовок'), I18N('community.donateText', 'Донат: текст', 'textarea'),
+    I18N('community.donateCta', 'Донат: кнопка'),
+  ]),
+  sec('finalCta', '🏁 Финальный CTA', [
+    I18N('finalCta.title', 'Заголовок'), I18N('finalCta.text', 'Текст', 'textarea'),
+    I18N('finalCta.download', 'Кнопка 1'), I18N('finalCta.star', 'Кнопка 2'),
+    I18N('finalCta.support', 'Строка «поддержать через»'),
+  ]),
+  sec('sticky', '📱 Мобильная sticky-кнопка', [
+    I18N('stickyCta.download', 'Кнопка 1'), I18N('stickyCta.star', 'Кнопка 2'),
+  ]),
+  sec('footer', '🦶 Футер', [
+    I18N('footer.tagline', 'Слоган'),
+    I18N('footer.sectionsProduct', 'Колонка «Продукт»'),
+    I18N('footer.sectionsContent', 'Колонка «Контент»'),
+    I18N('footer.sectionsAbout', 'Колонка «О проекте»'),
+    I18N('footer.disclaimer', 'Дисклеймер', 'textarea'),
+    I18N('footer.builtWith', '«Сделано на…»'),
+    I18N('footer.made', '«Made with ❤️»'),
+  ]),
+  sec('links', '🔗 Ссылки на платформы', [
+    { path: 'links.github', label: '🐙 GitHub' },
+    { path: 'links.telegram', label: '✈️ Telegram' },
+    { path: 'links.habr', label: '📝 Habr' },
+    { path: 'links.linkedin', label: '💼 LinkedIn' },
+    { path: 'links.medium', label: '✍️ Medium' },
+    { path: 'links.boosty', label: '🚀 Boosty' },
+    { path: 'links.donationalerts', label: '💜 DonationAlerts' },
+  ]),
+];
 
 /* ===== Сборка формы ===== */
 function buildForm() {
   const form = document.getElementById('form');
-  form.innerHTML = '';
-  for (const sec of SCHEMA) {
-    const s = sectionEl(sec.title);
-    for (const f of sec.fields) s.appendChild(fieldEl(f));
-    form.appendChild(s);
+  const toc = document.getElementById('toc');
+  form.innerHTML = ''; toc.innerHTML = '';
+
+  for (const s of SIMPLE_SECTIONS) {
+    const el = sectionEl(s.title, s.id);
+    for (const f of s.fields) el.appendChild(fieldEl(f));
+    form.appendChild(el);
+    toc.insertAdjacentHTML('beforeend', `<a href="#sec-${s.id}">${s.title.split(' ')[0]}</a>`);
   }
-  form.appendChild(buildMediaSection());
 
-  const sF = sectionEl('✨ Возможности (карточки)');
-  const feats = document.createElement('div');
-  sF.appendChild(feats);
-  renderFeatures(feats);
-  form.appendChild(sF);
+  /* Hero chips */
+  const sChips = sectionEl('🦸 Hero — чипы платформ', 'heroChips');
+  sChips.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Строка под кнопками (Windows, Linux, macOS, JSON Canvas, MCP).</p>');
+  const chipsHost = document.createElement('div'); sChips.appendChild(chipsHost);
+  strListEditor(chipsHost, () => cfg.hero.chips, a => { cfg.hero.chips = a; });
+  form.appendChild(sChips);
 
-  const sP = sectionEl('⭐ Приоритеты платформ');
-  sP.insertAdjacentHTML('beforeend',
-    `<p class="sub" style="color:var(--mut);margin-bottom:12px">Порядок кнопок в блоке «Выберите платформу» отдельно для EN и RU аудиторий.</p>`);
+  /* Trust badges (EN + RU) */
+  const sTrust = sectionEl('🛡️ Trust — бейджи', 'trustBadges');
   for (const lang of ['en', 'ru']) {
-    const h = document.createElement('div');
-    h.innerHTML = `<span class="lang-tag" style="font-size:.85em">АУДИТОРИЯ ${lang.toUpperCase()}</span>`;
-    sP.appendChild(h);
-    const list = document.createElement('div');
-    sP.appendChild(list);
-    renderPrioList(list, lang);
+    sTrust.insertAdjacentHTML('beforeend', `<span class="lang-tag" style="font-size:.85em">ЯЗЫК ${lang.toUpperCase()}</span>`);
+    const host = document.createElement('div'); sTrust.appendChild(host);
+    strListEditor(host, () => cfg.trust.badges[lang], a => { cfg.trust.badges[lang] = a; });
   }
-  form.appendChild(sP);
+  form.appendChild(sTrust);
+
+  /* Stats */
+  const sStats = sectionEl('📊 Цифры (stats strip)', 'stats');
+  const statsHost = document.createElement('div'); sStats.appendChild(statsHost);
+  listEditor(statsHost, cfg.stats, [
+    { key: 'value', label: 'Значение' },
+    { key: 'label', label: 'Подпись', i18n: true },
+  ], { addLabel: 'Добавить цифру', makeItem: () => ({ value: '100', label: { en: 'new stat', ru: 'новая цифра' } }), summary: it => `${it.value} — ${it.label?.en || ''}` });
+  form.appendChild(sStats);
+
+  /* Features items */
+  const sFeat = sectionEl('✨ Возможности — карточки', 'featItems');
+  const featHost = document.createElement('div'); sFeat.appendChild(featHost);
+  listEditor(featHost, cfg.features.items, [
+    { key: 'icon', label: 'Иконка (эмодзи)' },
+    { key: 'title', label: 'Заголовок', i18n: true },
+    { key: 'text', label: 'Описание', i18n: true, type: 'textarea' },
+  ], { addLabel: 'Добавить возможность', makeItem: () => ({ icon: '✨', title: { en: 'New feature', ru: 'Новая возможность' }, text: { en: '', ru: '' } }), summary: it => it.title?.en || '' });
+  form.appendChild(sFeat);
+
+  /* Steps items */
+  const sSteps = sectionEl('🚀 Шаги — карточки', 'stepItems');
+  const stepsHost = document.createElement('div'); sSteps.appendChild(stepsHost);
+  listEditor(stepsHost, cfg.steps.items, [
+    { key: 'icon', label: 'Иконка (эмодзи)' },
+    { key: 'title', label: 'Заголовок', i18n: true },
+    { key: 'text', label: 'Описание', i18n: true, type: 'textarea' },
+  ], { addLabel: 'Добавить шаг', makeItem: () => ({ icon: '🔹', title: { en: 'New step', ru: 'Новый шаг' }, text: { en: '', ru: '' } }), summary: it => it.title?.en || '' });
+  form.appendChild(sSteps);
+
+  /* Dives: 4 подраздела */
+  for (const [key, title] of [['files', '📂 Dive: Реальные файлы'], ['widgets', '🧩 Dive: Виджеты'], ['ai', '🤖 Dive: ИИ/MCP'], ['desktop', '🖥️ Dive: Режим стола']]) {
+    const sD = sectionEl(title, 'dive-' + key);
+    const d = cfg.dives[key];
+    sD.appendChild(fieldEl({ path: `dives.${key}.kicker`, label: 'Кикер', i18n: true }));
+    sD.appendChild(fieldEl({ path: `dives.${key}.title`, label: 'Заголовок', i18n: true }));
+    sD.appendChild(fieldEl({ path: `dives.${key}.text`, label: 'Текст', i18n: true, type: 'textarea' }));
+    sD.appendChild(fieldEl({ path: `dives.${key}.mediaTitle`, label: 'Медиа: описание', i18n: true }));
+    sD.appendChild(fieldEl({ path: `dives.${key}.mediaHint`, label: 'Медиа: подсказка', i18n: true }));
+    for (const lang of ['en', 'ru']) {
+      sD.insertAdjacentHTML('beforeend', `<span class="lang-tag" style="font-size:.85em">БУЛЛЕТЫ ${lang.toUpperCase()}</span>`);
+      const host = document.createElement('div'); sD.appendChild(host);
+      strListEditor(host, () => d.bullets[lang], a => { d.bullets[lang] = a; });
+    }
+    form.appendChild(sD);
+  }
+
+  /* Gallery items */
+  const sGal = sectionEl('🖼️ Галерея — слоты', 'galItems');
+  const galHost = document.createElement('div'); sGal.appendChild(galHost);
+  listEditor(galHost, cfg.gallery.items, [
+    { key: 'title', label: 'Подпись', i18n: true },
+    { key: 'hint', label: 'Путь к будущему файлу (моно)', type: 'mono' },
+    { key: 'poster', label: 'Постер (превью сейчас)' },
+  ], { addLabel: 'Добавить слот', makeItem: () => ({ title: { en: 'New shot', ru: 'Новый скриншот' }, hint: 'assets/shot-new.png', poster: 'assets/shot-search.png' }), summary: it => it.title?.en || '' });
+  form.appendChild(sGal);
+
+  /* Use cases */
+  const sUc = sectionEl('👥 Сценарии — карточки', 'ucItems');
+  const ucHost = document.createElement('div'); sUc.appendChild(ucHost);
+  listEditor(ucHost, cfg.useCases.items, [
+    { key: 'icon', label: 'Иконка (эмодзи)' },
+    { key: 'title', label: 'Заголовок', i18n: true },
+    { key: 'text', label: 'Описание', i18n: true, type: 'textarea' },
+  ], { addLabel: 'Добавить сценарий', makeItem: () => ({ icon: '🔹', title: { en: 'New persona', ru: 'Новая аудитория' }, text: { en: '', ru: '' } }), summary: it => it.title?.en || '' });
+  form.appendChild(sUc);
+
+  /* Compare: шапка в SIMPLE_SECTIONS + RAW */
+  const sCmp = sectionEl('⚖️ Сравнение — таблица (JSON)', 'cmpRaw');
+  sCmp.appendChild(rawJsonField('columns / columnsFull / labels / rows',
+    () => ({ columns: cfg.compare.columns, columnsFull: cfg.compare.columnsFull, labels: cfg.compare.labels, rows: cfg.compare.rows }),
+    o => { if (o.columns) cfg.compare.columns = o.columns; if (o.columnsFull) cfg.compare.columnsFull = o.columnsFull; if (o.labels) cfg.compare.labels = o.labels; if (o.rows) cfg.compare.rows = o.rows; }));
+  form.appendChild(sCmp);
+
+  /* Matrix RAW */
+  const sMx = sectionEl('🖥️ Матрица — таблица и хоткеи (JSON)', 'mxRaw');
+  sMx.appendChild(rawJsonField('columns / rows / hotkeys',
+    () => ({ columns: cfg.matrix.columns, rows: cfg.matrix.rows, hotkeys: cfg.matrix.hotkeys }),
+    o => { if (o.columns) cfg.matrix.columns = o.columns; if (o.rows) cfg.matrix.rows = o.rows; if (o.hotkeys) cfg.matrix.hotkeys = o.hotkeys; }));
+  form.appendChild(sMx);
+
+  /* Roadmap items */
+  const sRm = sectionEl('🗺️ Роадмап — майлстоуны', 'rmItems');
+  const rmHost = document.createElement('div'); sRm.appendChild(rmHost);
+  listEditor(rmHost, cfg.roadmap.items, [
+    { key: 'id', label: 'ID (M1…)' },
+    { key: 'title', label: 'Название', i18n: true },
+    { key: 'status', label: 'Статус', type: 'select', options: ['done', 'progress'] },
+  ], { addLabel: 'Добавить майлстоун', makeItem: () => ({ id: 'M8', title: { en: 'New milestone', ru: 'Новый майлстоун' }, status: 'progress' }), summary: it => `${it.id} · ${it.status}` });
+  form.appendChild(sRm);
+
+  /* Quotes items */
+  const sQ = sectionEl('💬 Отзывы — карточки', 'qItems');
+  sQ.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Только цитаты с галочкой «одобрено» показываются на сайте; остальные слоты — заглушки (всего 3).</p>');
+  const qHost = document.createElement('div'); sQ.appendChild(qHost);
+  listEditor(qHost, cfg.quotes.items, [
+    { key: 'author', label: 'Автор (@name)' },
+    { key: 'role', label: 'Роль/источник', i18n: true },
+    { key: 'text', label: 'Цитата', i18n: true, type: 'textarea' },
+    { key: 'source', label: 'Ссылка на оригинал (необяз.)' },
+    { key: 'approved', label: 'Одобрено', type: 'checkbox', on: 'показывать на сайте' },
+  ], { addLabel: 'Добавить цитату', makeItem: () => ({ author: '@user', role: { en: 'Early user', ru: 'Ранний пользователь' }, text: { en: '', ru: '' }, source: '', approved: false }), summary: it => `${it.author}${it.approved ? ' ✓' : ''}` });
+  form.appendChild(sQ);
+
+  /* FAQ items */
+  const sFaq = sectionEl('❓ FAQ — вопросы', 'faqItems');
+  const faqHost = document.createElement('div'); sFaq.appendChild(faqHost);
+  listEditor(faqHost, cfg.faq.items, [
+    { key: 'q', label: 'Вопрос', i18n: true },
+    { key: 'a', label: 'Ответ', i18n: true, type: 'textarea' },
+  ], { addLabel: 'Добавить вопрос', makeItem: () => ({ q: { en: 'New question?', ru: 'Новый вопрос?' }, a: { en: '', ru: '' } }), summary: it => it.q?.en || '' });
+  form.appendChild(sFaq);
+
+  /* Media slots */
+  const sMedia = sectionEl('🖼️ Медиа-слоты', 'media');
+  sMedia.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Пустой src → на сайте показывается постер с подсказкой. Укажите файл (assets/…) или URL — он активируется как видео/GIF/картинка.</p>');
+  const MEDIA_LIST = [['heroDemo', 'Hero-демо (первый экран)'], ['filesShot', 'Dive «Файлы» (скриншот)'], ['widgetsGif', 'Dive «Виджеты» (GIF)'], ['aiShot', 'Dive «ИИ» (скриншот)'], ['desktopVideo', 'Dive «Режим стола» (видео)'], ['searchShot', 'Галерея/поиск (запасной)']];
+  for (const [key, label] of MEDIA_LIST) {
+    const d = document.createElement('div'); d.className = 'field';
+    d.innerHTML = `<label>${label}</label>`;
+    const grid = document.createElement('div'); grid.className = 'grid2';
+    const c1 = document.createElement('div'); c1.innerHTML = '<span class="lang-tag">SRC (реальный файл)</span>';
+    c1.appendChild(inputEl(cfg.media[key].src, v => { cfg.media[key].src = v; markDirty(); }));
+    const c2 = document.createElement('div'); c2.innerHTML = '<span class="lang-tag">POSTER (превью)</span>';
+    c2.appendChild(inputEl(cfg.media[key].poster, v => { cfg.media[key].poster = v; markDirty(); }));
+    grid.append(c1, c2); d.appendChild(grid); sMedia.appendChild(d);
+  }
+  form.appendChild(sMedia);
+
+  /* Roles платформ */
+  const sRoles = sectionEl('🗣️ Роли платформ (подписи в «Сообществе»)', 'roles');
+  for (const id of Object.keys(PLATFORMS)) {
+    sRoles.appendChild(fieldEl({ path: `roles.${id}`, label: `${PLATFORMS[id].icon} ${PLATFORMS[id].label}`, i18n: true }));
+  }
+  form.appendChild(sRoles);
+
+  /* Priorities */
+  const sPrio = sectionEl('⭐ Приоритеты платформ', 'prio');
+  sPrio.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:12px">Порядок карточек в «Сообществе» для каждой аудитории. Первая карточка подсвечивается как рекомендуемая.</p>');
+  for (const lang of ['en', 'ru']) {
+    sPrio.insertAdjacentHTML('beforeend', `<span class="lang-tag" style="font-size:.85em">АУДИТОРИЯ ${lang.toUpperCase()}</span>`);
+    const host = document.createElement('div'); sPrio.appendChild(host);
+    prioEditor(host, lang);
+  }
+  form.appendChild(sPrio);
 }
 
-/* ===== Кнопки тулбара ===== */
+/* ===== Тулбар ===== */
 document.getElementById('btnSave').addEventListener('click', () => {
-  saveConfig(cfg);
-  markSaved();
-  toast('💾 Сохранено — откройте «Превью»');
+  saveConfig(cfg); markSaved(); toast('💾 Сохранено — откройте «Превью»');
 });
 
 document.getElementById('btnExport').addEventListener('click', () => {
   const data = diffConfig(DEFAULT_CONFIG, cfg);
   const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'config.json';
-  a.click();
+  a.href = URL.createObjectURL(blob); a.download = 'config.json'; a.click();
   URL.revokeObjectURL(a.href);
   toast('⬇ config.json скачан — положите его рядом с index.html');
 });
 
 document.getElementById('btnImport').addEventListener('click', () => document.getElementById('fileImport').click());
 document.getElementById('fileImport').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const r = new FileReader();
   r.onload = () => {
     try {
       const imported = JSON.parse(r.result);
       cfg = deepMerge(structuredClone(DEFAULT_CONFIG), imported);
-      buildForm();
-      markDirty();
-      toast('⬆ Конфиг загружен. Не забудьте «Сохранить»');
-    } catch (err) {
-      toast('❌ Ошибка: это не валидный JSON');
-    }
+      buildForm(); markDirty(); toast('⬆ Конфиг загружен. Не забудьте «Сохранить»');
+    } catch (err) { toast('❌ Ошибка: это не валидный JSON'); }
   };
-  r.readAsText(file);
-  e.target.value = '';
+  r.readAsText(file); e.target.value = '';
 });
 
 document.getElementById('btnReset').addEventListener('click', () => {
   if (dirty && !confirm('Отменить несохранённые правки?')) return;
   if (!confirm('Вернуть ВСЁ к дефолтам? Локальные правки (localStorage) будут удалены.')) return;
-  resetConfig();
-  cfg = loadConfig();
-  buildForm();
-  markSaved();
-  toast('↺ Конфиг сброшен к дефолтам');
+  resetConfig(); cfg = loadConfig(); buildForm(); markSaved(); toast('↺ Конфиг сброшен к дефолтам');
 });
 
-window.addEventListener('beforeunload', e => {
-  if (dirty) { e.preventDefault(); e.returnValue = ''; }
-});
+window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
 /* Старт */
 buildForm();

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Дефолтный SEO (краулится даже без JS); render() подменяет под язык -->
+<title>CanvasDesk — Free Online Collaborative Whiteboard</title>
+<meta name="description" content="Free open-source online whiteboard. Draw, sketch, collaborate in real time.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CanvasDesk — Free Online Collaborative Whiteboard">
+<meta property="og:description" content="Draw, sketch and collaborate in real time. Free & open source.">
+<meta property="og:image" content="assets/og-cover.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🖼️</text></svg>">
+<script type="application/ld+json" id="ldjson">{}</script>
+<style>
+:root{--bg:#0b0f17;--card:#141a26;--line:#232c3d;--txt:#e8edf5;--mut:#8b96ab;--acc:#5b8cff;--acc2:#9b6bff;--ok:#2ecc71}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font:16px/1.6 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif}
+a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+header{position:sticky;top:0;z-index:10;background:rgba(11,15,23,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;padding:14px 0}
+.logo{font-weight:800;font-size:1.2em}
+.nav .spacer{flex:1}
+.nav a{color:var(--mut)}.nav a:hover{color:var(--txt)}
+.btn{display:inline-block;padding:10px 18px;border-radius:10px;font-weight:600;border:1px solid var(--line);color:var(--txt);cursor:pointer;background:var(--card)}
+.btn.primary{background:linear-gradient(135deg,var(--acc),var(--acc2));border:none;color:#fff}
+.btn:hover{filter:brightness(1.15)}
+section{padding:64px 0}
+h2{font-size:1.9em;margin-bottom:24px}
+.muted{color:var(--mut)}
+.hero{padding:80px 0 40px;text-align:center}
+.badge{display:inline-block;padding:6px 14px;border-radius:99px;border:1px solid var(--line);color:var(--acc);font-size:.9em;margin-bottom:18px}
+.hero h1{font-size:clamp(2em,5vw,3.4em);line-height:1.15;margin-bottom:16px}
+.hero p{max-width:640px;margin:0 auto 28px;color:var(--mut);font-size:1.15em}
+.cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.placeholder{display:flex;align-items:center;justify-content:center;min-height:300px;border:2px dashed var(--line);border-radius:14px;color:var(--mut);background:var(--card)}
+.placeholder.small{min-height:200px}
+.media-frame{border-radius:14px;overflow:hidden;border:1px solid var(--line)}
+.media-frame img,.media-frame video{width:100%;display:block}
+.caption{text-align:center;color:var(--mut);font-size:.9em;margin-top:10px}
+.grid{display:grid;gap:18px}
+.grid.features{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.grid.screens{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card .icon{font-size:1.8em}
+.card h3{margin:10px 0 6px}
+.card p{color:var(--mut);font-size:.95em}
+.panel{background:linear-gradient(135deg,rgba(91,140,255,.08),rgba(155,107,255,.08));border:1px solid var(--line);border-radius:16px;padding:28px}
+.prio-list{display:flex;flex-direction:column;gap:10px;margin-top:18px;max-width:480px}
+.prio-btn{display:flex;align-items:center;gap:12px;padding:13px 18px;border-radius:12px;background:var(--card);border:1px solid var(--line);color:var(--txt);font-weight:600}
+.prio-btn:hover{border-color:var(--acc)}
+.prio-num{width:26px;height:26px;flex:none;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-size:.8em;color:#fff}
+.donate{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:20px}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--mut);font-size:.9em}
+footer .links{display:flex;gap:16px;flex-wrap:wrap;margin-top:10px}
+#langToggle{background:none;border:1px solid var(--line);color:var(--txt);padding:7px 12px;border-radius:8px;cursor:pointer}
+@media(max-width:640px){.nav a.hide-m{display:none}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap nav">
+  <span class="logo" data-c="brand.name">🖼️ CanvasDesk</span>
+  <span class="spacer"></span>
+  <a href="#features" class="hide-m" data-t="features.title">Features</a>
+  <a href="#demo" class="hide-m" data-t="demoBlock.title">Demo</a>
+  <a href="#screens" class="hide-m" data-t="screensBlock.title">Screenshots</a>
+  <a href="#support" class="hide-m" data-t="support.title">Support</a>
+  <button id="langToggle" title="Switch language">RU</button>
+  <a class="btn primary" data-h="links.github" data-t="hero.ctaPrimary">⭐ Star on GitHub</a>
+</div></header>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="badge" data-t="hero.badge">🚀 Open Source · Free forever</span>
+    <h1 data-t="hero.title">Your ideas deserve a bigger canvas</h1>
+    <p data-t="hero.subtitle">CanvasDesk is a lightweight online whiteboard…</p>
+    <div class="cta">
+      <a class="btn primary" data-h="links.github" data-t="hero.ctaPrimary">⭐ Star on GitHub</a>
+      <a class="btn" href="#demo" data-t="hero.ctaSecondary">▶ See it in action</a>
+    </div>
+    <div style="margin-top:40px" id="heroMedia"></div>
+  </div>
+</section>
+
+<!-- PLATFORMS BY PRIORITY -->
+<section id="platforms" style="padding-top:24px">
+  <div class="wrap">
+    <div class="panel">
+      <h2 data-t="platformsBlock.title">Start here — pick your platform</h2>
+      <p class="muted" data-t="platformsBlock.subtitle">We recommend the best channels for your language.</p>
+      <div class="prio-list" id="prioList"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <h2 data-t="features.title">Features</h2>
+    <div class="grid features" id="featuresGrid"></div>
+  </div>
+</section>
+
+<!-- DEMO GIF -->
+<section id="demo" style="padding-top:24px">
+  <div class="wrap">
+    <h2 data-t="demoBlock.title">See it in motion</h2>
+    <div id="gifSlot"></div>
+    <p class="caption" id="gifCaption"></p>
+  </div>
+</section>
+
+<!-- SCREENSHOTS -->
+<section id="screens">
+  <div class="wrap">
+    <h2 data-t="screensBlock.title">Screenshots</h2>
+    <div class="grid screens" id="screensGrid"></div>
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video">
+  <div class="wrap">
+    <h2 data-t="videoBlock.title">Video overview</h2>
+    <div id="videoSlot"></div>
+    <p class="caption" id="videoCaption"></p>
+  </div>
+</section>
+
+<!-- SUPPORT / DONATE -->
+<section id="support">
+  <div class="wrap">
+    <div class="panel" style="text-align:center">
+      <h2 data-t="support.title">Support the project</h2>
+      <p class="muted" data-t="support.subtitle">CanvasDesk is free &amp; open source.</p>
+      <div class="donate">
+        <a class="btn primary" data-h="links.boosty" data-t="support.boostyLabel">🚀 Support on Boosty</a>
+        <a class="btn" data-h="links.donationalerts" data-t="support.donationalertsLabel">💜 Donate via DonationAlerts</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <div data-t="footer.made">Made with ❤️ by the CanvasDesk team</div>
+  <div class="links" id="footerLinks"></div>
+  <div style="margin-top:14px"><a href="admin.html" style="color:var(--mut);font-size:.85em">⚙️ Admin panel</a></div>
+</div></footer>
+
+<script src="config.js"></script>
+<script>
+/* ===== Язык: ?lang → localStorage → браузер → en ===== */
+let LANG = (() => {
+  const q = new URLSearchParams(location.search).get('lang');
+  if (q === 'ru' || q === 'en') return q;
+  const s = localStorage.getItem(LANG_KEY);
+  if (s === 'ru' || s === 'en') return s;
+  return (navigator.language || 'en').toLowerCase().startsWith('ru') ? 'ru' : 'en';
+})();
+
+const $ = sel => document.querySelector(sel);
+
+function setMeta(name, content, attr = 'name') {
+  let el = document.head.querySelector(`meta[${attr}="${name}"]`);
+  if (!el) { el = document.createElement('meta'); el.setAttribute(attr, name); document.head.appendChild(el); }
+  el.setAttribute('content', content);
+}
+
+/* Единая медиа-вставка: пусто → заглушка, видео-расширение → <video>, иначе <img> */
+function mediaHTML(src, poster) {
+  if (!src) {
+    const hint = LANG === 'ru'
+      ? `🖼️ Слот для медиа пуст — добавьте его в <a href="admin.html">админке</a>`
+      : `🖼️ Media slot is empty — add it in <a href="admin.html">admin panel</a>`;
+    return `<div class="placeholder">${hint}</div>`;
+  }
+  if (/\.(mp4|webm|ogg|mov)(\?|$)/i.test(src)) {
+    return `<div class="media-frame"><video src="${src}" ${poster ? `poster="${poster}"` : ''} controls playsinline></video></div>`;
+  }
+  return `<div class="media-frame"><img src="${src}" alt=""></div>`;
+}
+
+function render(cfg) {
+  const T = k => t(getPath(cfg, k), LANG);
+  document.documentElement.lang = LANG;
+
+  /* SEO */
+  document.title = T('seo.title');
+  setMeta('description', T('seo.description'));
+  setMeta('keywords', T('seo.keywords'));
+  setMeta('og:title', T('seo.title'), 'property');
+  setMeta('og:description', T('seo.description'), 'property');
+  setMeta('og:image', cfg.seo.ogImage, 'property');
+  setMeta('og:url', location.href, 'property');
+
+  /* JSON-LD */
+  $('#ldjson').textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: cfg.brand.name,
+    applicationCategory: 'DesignApplication',
+    operatingSystem: 'Web',
+    description: T('seo.description'),
+    url: location.origin + location.pathname,
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+  }, null, 2);
+
+  /* Тексты и ссылки */
+  document.querySelectorAll('[data-t]').forEach(el => { el.textContent = T(el.dataset.t); });
+  document.querySelectorAll('[data-c]').forEach(el => { const v = getPath(cfg, el.dataset.c); if (v) el.textContent = v; });
+  document.querySelectorAll('[data-h]').forEach(el => {
+    const v = getPath(cfg, el.dataset.h);
+    if (v) { el.href = v; el.style.display = ''; } else { el.style.display = 'none'; }
+  });
+
+  /* Переключатель языка показывает целевой язык */
+  $('#langToggle').textContent = LANG === 'en' ? 'RU' : 'EN';
+
+  /* Платформы по приоритету для текущего языка */
+  const prio = (cfg.priorities[LANG] || []).filter(k => cfg.links[k]);
+  $('#prioList').innerHTML = prio.length
+    ? prio.map((k, i) => {
+        const p = PLATFORMS[k] || { icon: '🔗', label: k };
+        return `<a class="prio-btn" href="${cfg.links[k]}" target="_blank" rel="noopener">
+                  <span class="prio-num">${i + 1}</span><span>${p.icon} ${p.label}</span>
+                </a>`;
+      }).join('')
+    : `<div class="placeholder small">${LANG === 'ru' ? 'Ссылки ещё не настроены — добавьте их в админке' : 'No links configured yet — add them in admin panel'}</div>`;
+
+  /* Фичи */
+  $('#featuresGrid').innerHTML = (cfg.features.items || []).map(f => `
+    <div class="card">
+      <div class="icon">${f.icon || '✨'}</div>
+      <h3>${t(f.title, LANG)}</h3>
+      <p>${t(f.text, LANG)}</p>
+    </div>`).join('');
+
+  /* Медиа-слоты */
+  $('#heroMedia').innerHTML = mediaHTML(cfg.media.hero.src);
+
+  $('#gifSlot').innerHTML = mediaHTML(cfg.media.gif.src);
+  $('#gifCaption').textContent = cfg.media.gif.src ? t(cfg.media.gif.caption, LANG) : '';
+
+  $('#screensGrid').innerHTML = (cfg.media.screenshots || []).map(s => `
+    <div>
+      ${s.src ? `<div class="media-frame"><img src="${s.src}" alt="${t(s.caption, LANG)}"></div>`
+              : `<div class="placeholder small">${LANG === 'ru' ? '🖼️ Слот для скриншота' : '🖼️ Screenshot slot'}</div>`}
+      <p class="caption">${t(s.caption, LANG)}</p>
+    </div>`).join('');
+
+  const v = cfg.media.video;
+  $('#videoSlot').innerHTML = mediaHTML(v.src, v.poster);
+  $('#videoCaption').textContent = v.src ? t(v.caption, LANG) : '';
+
+  /* Футер: все платформы с непустыми ссылками */
+  $('#footerLinks').innerHTML = Object.keys(PLATFORMS)
+    .filter(k => cfg.links[k])
+    .map(k => `<a href="${cfg.links[k]}" target="_blank" rel="noopener">${PLATFORMS[k].icon} ${PLATFORMS[k].label}</a>`)
+    .join('');
+}
+
+/* ===== Запуск ===== */
+let CFG;
+(async () => {
+  CFG = await loadConfigAsync();
+  render(CFG);
+})();
+
+/* Переключение языка — один клик, без перезагрузки */
+$('#langToggle').addEventListener('click', () => {
+  LANG = LANG === 'en' ? 'ru' : 'en';
+  localStorage.setItem(LANG_KEY, LANG);
+  render(CFG);
+});
+</script>
+</body>
+</html>

@@ -2,6 +2,8 @@
 
 Лендинг проекта [CanvasDesk](https://github.com/danku13/CanvasDesk) + панель быстрого редактирования контента.
 
+🌐 **Живой сайт: [canvasdesk.tech](https://canvasdesk.tech)** (GitHub Pages, деплой автоматом из `main`)
+
 Чистый **HTML + JS без сборки и зависимостей**: клонировали — и сайт уже работает. Контент страницы полностью управляется конфигом, код править не нужно.
 
 ## Состав репозитория
@@ -12,6 +14,7 @@
 | `admin.html` | Админка: редактирование всех текстов, ссылок, медиа и приоритетов платформ |
 | `config.js` | Дефолтный контент + хелперы (общий для обеих страниц) |
 | `config.json` | Продакшен-переопределения (создаётся экспортом из админки) |
+| `CNAME` | Кастомный домен `canvasdesk.tech` для GitHub Pages (не удаляйте) |
 | `.nojekyll` | Отключает обработку Jekyll на GitHub Pages (нужен, не удаляйте) |
 
 ## Как устроен контент
@@ -60,18 +63,11 @@ npx serve .
 
 Сайт статический — подойдёт любой хостинг статики. Ниже пошаговые инструкции для популярных вариантов.
 
-### Вариант 1. GitHub Pages (этот репозиторий)
+### Вариант 1. GitHub Pages — уже настроен
 
-1. **Сделайте репозиторий публичным** (для бесплатного плана GitHub Pages работает только у публичных репозиторий):
-   `Settings` → `General` → внизу `Danger Zone` → `Change repository visibility` → **Public**.
-   *Альтернатива: оставить приватным и использовать Netlify/Cloudflare Pages (варианты 2–3) — там это бесплатно.*
-2. `Settings` → слева **Pages**.
-3. В блоке **Build and deployment**:
-   - `Source`: **Deploy from a branch**
-   - `Branch`: **main**, папка **/ (root)** → **Save**.
-4. Через 1–2 минуты сайт будет на `https://<ваш-логин>.github.io/CanvasDesk-site/`.
-   Адрес появится на той же странице Settings → Pages.
-5. Обновление сайта = обычный `git push` в `main` (страница передеплоится сама).
+Сайт публикуется из ветки `main` (корень) на **canvasdesk.tech**, адрес в настройках: `Settings → Pages`.
+
+Обновление сайта = обычный `git push` в `main` — GitHub Pages пересоберёт сайт сам (~1 минута).
 
 Через командную строку обновление выглядит так:
 
@@ -110,10 +106,18 @@ git push
 1. [vercel.com/new](https://vercel.com/new) → импортируйте `CanvasDesk-site`.
 2. Framework preset: **Other**, всё остальное по умолчанию → **Deploy**.
 
-### Свой домен (опционально)
+### Свой домен — canvasdesk.tech (подключён)
 
-- **GitHub Pages**: в корне создайте файл `CNAME` с одной строкой — вашим доменом (`site.example.com`), в DNS добавьте `CNAME`-запись на `<логин>.github.io`. Подробности: [docs.github.com/pages/custom-domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
-- **Netlify / Cloudflare / Vercel**: домен подключается в панели (Domain settings → Add domain), DNS-записи они подскажут сами.
+Сайт доступен на **https://canvasdesk.tech** (плюс апекс-редиректы с www и github.io). Текущая конфигурация:
+
+- **CNAME-файл** в корне репозитория (одна строка: `canvasdesk.tech`) — обязателен для режима «Deploy from a branch», не удаляйте: именно он сохраняет домен при деплоях.
+- **DNS у регистратора** (reg.ru):
+  - `@` (апекс) → 4 × A-записи GitHub Pages: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - `www` → CNAME на `danku13.github.io` (тогда `www.canvasdesk.tech` будет редиректить на апекс)
+- **HTTPS**: после того как DNS заработал, GitHub сам выпускает сертификат Let's Encrypt (обычно до часа). Затем в `Settings → Pages` появляется галочка **Enforce HTTPS** — включите её.
+- Проверить, куда указывает DNS из разных стран: [whatsmydns.net](https://whatsmydns.net/#A/canvasdesk.tech).
+
+Хотите сменить домен — поменяйте строку в `CNAME`, записи DNS и поле «Custom domain» в `Settings → Pages`.
 
 ---
 

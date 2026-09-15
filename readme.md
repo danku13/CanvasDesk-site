@@ -97,9 +97,38 @@ git push
 
 ### Вариант 3. Cloudflare Pages (бесплатно, быстрый CDN)
 
-1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. Выберите репозиторий `CanvasDesk-site`.
-3. Preset: **None**; Build command: *пусто*; Output directory: `/` → **Save and Deploy**.
+Сайт полностью статический — **сборка не нужна**. Но не оставляйте настройки сборки пустыми: автоопределение Cloudflare видит в корне `config.json`, а такое же имя файла используется генератором Hugo для своего конфига. В итоге Cloudflare решает, что это Hugo-проект, запускает `npx hugo` и деплой падает:
+
+```
+✘ [ERROR] Command failed with exit code 1: npx hugo
+  npm error could not determine executable to run
+```
+
+**Создание проекта (правильные настройки сразу):**
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → вкладка **Pages** → **Connect to Git** → репозиторий `CanvasDesk-site`.
+2. На шаге «Set up builds and deployments» заполните вручную:
+
+   | Поле | Значение |
+   |---|---|
+   | Framework preset | **None** |
+   | Build command | `echo "static site, nothing to build"` |
+   | Build output directory | `/` |
+
+3. **Save and Deploy** — через ~минуту сайт будет доступен на `https://<имя-проекта>.pages.dev`.
+
+**Если проект уже создан и падает с `npx hugo`:**
+1. Откройте проект → **Settings** → **Build** → **Build configuration** → **Edit**.
+2. Выставьте значения из таблицы выше (preset `None`, build command `echo "static site, nothing to build"`, output directory `/`) и сохраните.
+3. Вкладка **Deployments** → у последнего деплоя меню **⋯ → Retry deployment**.
+
+**Альтернатива — загрузка через CLI, без привязки к Git:**
+
+```bash
+npx wrangler login
+npx wrangler pages deploy . --project-name=canvasdesk
+```
+
+> Свой домен для Cloudflare Pages подключается в **Custom domains**, но требует, чтобы DNS домена обслуживался Cloudflare (смена NS-серверов у регистратора). Пока сайт живёт на GitHub Pages, переключать NS `canvasdesk.tech` на Cloudflare **не нужно** — иначе GitHub-версия перестанет открываться. Для проверки Cloudflare-деплоя используйте адрес `<имя-проекта>.pages.dev`.
 
 ### Вариант 4. Vercel
 

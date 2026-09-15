@@ -124,7 +124,6 @@ function diffConfig(base, over) {
 function inputEl(value, oninput, opts = {}) {
   const el = document.createElement(opts.textarea ? 'textarea' : 'input');
   if (!opts.textarea) el.type = 'text';
-  if (opts.mono) el.classList.add(opts.textarea ? '' : '');
   if (opts.textarea && !opts.mono) el.classList.add('txt');
   el.value = value ?? '';
   el.spellcheck = false;

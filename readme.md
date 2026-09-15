@@ -16,6 +16,8 @@
 | `config.json` | Продакшен-переопределения (создаётся экспортом из админки) |
 | `CNAME` | Кастомный домен `canvasdesk.tech` для GitHub Pages (не удаляйте) |
 | `.nojekyll` | Отключает обработку Jekyll на GitHub Pages (нужен, не удаляйте) |
+| `wrangler.jsonc` | Конфигурация деплоя на Cloudflare (Workers Static Assets): «это статический сайт, сборка не нужна». Поле `"name"` должно совпадать с именем проекта в Cloudflare |
+| `.assetsignore` | Служебные файлы, исключаемые из деплоя на Cloudflare (readme, CNAME и т.п.) |
 
 ## Как устроен контент
 
@@ -95,40 +97,42 @@ git push
 3. Ничего не меняйте: Publish directory = `.` (по умолчанию), команд сборки нет → **Deploy**.
 4. Каждый `push` в `main` будет автоматически обновлять сайт.
 
-### Вариант 3. Cloudflare Pages (бесплатно, быстрый CDN)
+### Вариант 3. Cloudflare (бесплатно, быстрый CDN)
 
-Сайт полностью статический — **сборка не нужна**. Но не оставляйте настройки сборки пустыми: автоопределение Cloudflare видит в корне `config.json`, а такое же имя файла используется генератором Hugo для своего конфига. В итоге Cloudflare решает, что это Hugo-проект, запускает `npx hugo` и деплой падает:
+Сайт полностью статический — сборка не нужна. В корне репозитория лежит готовый конфиг **`wrangler.jsonc`** (Workers Static Assets), который говорит Cloudflare: «публикуй файлы как есть». С ним деплой работает из коробки.
+
+> ⚠️ Поле `"name"` в `wrangler.jsonc` должно совпадать с именем проекта в Cloudflare. По умолчанию это `canvasdesk-site` — если ваш проект называется иначе, поправьте эту строку.
+
+**Создание проекта:**
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Import a repository** → выберите `CanvasDesk-site`.
+2. Имя проекта: `canvasdesk-site` (или любое другое — тогда не забудьте про `"name"` в `wrangler.jsonc`).
+3. Настройки сборки оставьте предложенные мастером, например:
+   - Build command: `echo "static site, nothing to build"` (или пусто);
+   - Deploy command: `npx wrangler deploy` — команда подхватит `wrangler.jsonc` из репозитория.
+4. **Create and deploy** — через ~минуту сайт будет доступен на `https://<имя-проекта>.<ваш-аккаунт>.workers.dev`.
+
+**Зачем нужен `wrangler.jsonc`.** Без него Cloudflare пытается угадать тип проекта и ошибается: автоопределение видит в корне `config.json`, а такое же имя файла используется генератором Hugo для своего конфига → Cloudflare решает, что это Hugo-сайт, и деплой падает:
 
 ```
 ✘ [ERROR] Command failed with exit code 1: npx hugo
   npm error could not determine executable to run
 ```
 
-**Создание проекта (правильные настройки сразу):**
-1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → вкладка **Pages** → **Connect to Git** → репозиторий `CanvasDesk-site`.
-2. На шаге «Set up builds and deployments» заполните вручную:
+Важно: Hugo-детект срабатывает на шаге **Deploy command** (`npx wrangler deploy`), а не на Build command — поэтому менять только build-команду бесполезно. `wrangler.jsonc` в репозитории решает проблему радикально: раз есть явный конфиг, wrangler пропускает автодетект вообще.
 
-   | Поле | Значение |
-   |---|---|
-   | Framework preset | **None** |
-   | Build command | `echo "static site, nothing to build"` |
-   | Build output directory | `/` |
+**Если проект уже создан и падал с `npx hugo`:**
+1. Убедитесь, что в вашей локальной копии есть `wrangler.jsonc` (появился 15.09.2026): `git pull` или проверьте файл на GitHub.
+2. Проверьте, что `"name"` в нём совпадает с именем вашего проекта в Cloudflare.
+3. В проекте: **Deployments → последний деплой → Retry deployment** — либо просто сделайте любой `git push`, сборка запустится сама.
 
-3. **Save and Deploy** — через ~минуту сайт будет доступен на `https://<имя-проекта>.pages.dev`.
-
-**Если проект уже создан и падает с `npx hugo`:**
-1. Откройте проект → **Settings** → **Build** → **Build configuration** → **Edit**.
-2. Выставьте значения из таблицы выше (preset `None`, build command `echo "static site, nothing to build"`, output directory `/`) и сохраните.
-3. Вкладка **Deployments** → у последнего деплоя меню **⋯ → Retry deployment**.
-
-**Альтернатива — загрузка через CLI, без привязки к Git:**
+**Альтернатива — CLI, без привязки к Git:**
 
 ```bash
 npx wrangler login
-npx wrangler pages deploy . --project-name=canvasdesk
+npx wrangler deploy
 ```
 
-> Свой домен для Cloudflare Pages подключается в **Custom domains**, но требует, чтобы DNS домена обслуживался Cloudflare (смена NS-серверов у регистратора). Пока сайт живёт на GitHub Pages, переключать NS `canvasdesk.tech` на Cloudflare **не нужно** — иначе GitHub-версия перестанет открываться. Для проверки Cloudflare-деплоя используйте адрес `<имя-проекта>.pages.dev`.
+> Свой домен подключается в настройках проекта → **Custom domains**, но требует, чтобы DNS домена обслуживался Cloudflare (смена NS-серверов у регистратора). Пока сайт живёт на GitHub Pages, переключать NS `canvasdesk.tech` на Cloudflare **не нужно** — иначе GitHub-версия перестанет открываться. Для проверки Cloudflare-деплоя используйте адрес `*.workers.dev`.
 
 ### Вариант 4. Vercel
 

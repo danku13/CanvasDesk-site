@@ -1,0 +1,6 @@
+# Служебные файлы репозитория — не публиковать как статические ассеты
+readme.md
+CNAME
+.nojekyll
+wrangler.jsonc
+.assetsignore

@@ -1,0 +1,13 @@
+// CanvasDesk — статический сайт, деплой на Cloudflare (Workers Static Assets).
+// Этот файл говорит wrangler: «никакой сборки нет, публикуй файлы из корня как есть»,
+// и отключает автодетект фреймворков (иначе Cloudflare принимает config.json за конфиг Hugo).
+//
+// ВАЖНО: "name" должен совпадать с именем проекта в Cloudflare.
+// Если ваш проект называется иначе — поправьте эту строку.
+{
+  "name": "canvasdesk-site",
+  "compatibility_date": "2025-01-01",
+  "assets": {
+    "directory": "."
+  }
+}

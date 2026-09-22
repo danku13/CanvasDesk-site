@@ -362,9 +362,10 @@ const SIMPLE_SECTIONS = [
     I18N('gallery.kicker', 'Кикер'), I18N('gallery.title', 'Заголовок'),
     I18N('gallery.subtitle', 'Подзаголовок', 'textarea'),
   ]),
-  sec('useCases', '👥 Сценарии', [
-    I18N('useCases.kicker', 'Кикер'), I18N('useCases.title', 'Заголовок'),
-    I18N('useCases.subtitle', 'Подзаголовок', 'textarea'),
+  sec('personas', '🎯 Персоны («зачем мне это»)', [
+    I18N('personas.kicker', 'Кикер'), I18N('personas.title', 'Заголовок'),
+    I18N('personas.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('personas.cta', 'Кнопка на карточках'),
   ]),
   sec('compare', '⚖️ Сравнение (шапка)', [
     I18N('compare.kicker', 'Кикер'), I18N('compare.title', 'Заголовок'),
@@ -513,15 +514,19 @@ function buildForm() {
   ], { addLabel: 'Добавить слот', makeItem: () => ({ title: { en: 'New shot', ru: 'Новый скриншот' }, hint: 'assets/shot-new.png', poster: 'assets/shot-search.png' }), summary: it => it.title?.en || '' });
   form.appendChild(sGal);
 
-  /* Use cases */
-  const sUc = sectionEl('👥 Сценарии — карточки', 'ucItems');
-  const ucHost = document.createElement('div'); sUc.appendChild(ucHost);
-  listEditor(ucHost, cfg.useCases.items, [
+  /* Personas (карточки аудиторий) */
+  const sPc = sectionEl('🎯 Персоны — карточки', 'personaItems');
+  sPc.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Первый скролл после hero: кто вы → зачем вам сервис (goal) → доказательство (proof). Пустая ссылка = веб-версия.</p>');
+  const pcHost = document.createElement('div'); sPc.appendChild(pcHost);
+  listEditor(pcHost, cfg.personas.items, [
     { key: 'icon', label: 'Иконка (эмодзи)' },
-    { key: 'title', label: 'Заголовок', i18n: true },
-    { key: 'text', label: 'Описание', i18n: true, type: 'textarea' },
-  ], { addLabel: 'Добавить сценарий', makeItem: () => ({ icon: '🔹', title: { en: 'New persona', ru: 'Новая аудитория' }, text: { en: '', ru: '' } }), summary: it => it.title?.en || '' });
-  form.appendChild(sUc);
+    { key: 'id', label: 'ID (для ссылок #p-…, латиницей)' },
+    { key: 'title', label: 'Кто вы', i18n: true },
+    { key: 'goal', label: 'Зачем (коротко!)', i18n: true },
+    { key: 'proof', label: 'Доказательство', i18n: true, type: 'textarea' },
+    { key: 'href', label: 'Ссылка (необяз., по умолч. веб-версия)' },
+  ], { addLabel: 'Добавить персону', makeItem: () => ({ icon: '🔹', id: 'new', title: { en: 'New persona', ru: 'Новая аудитория' }, goal: { en: 'Why in a few words', ru: 'Зачем — парой слов' }, proof: { en: '', ru: '' }, href: '' }), summary: it => it.title?.en || '' });
+  form.appendChild(sPc);
 
   /* Compare: шапка в SIMPLE_SECTIONS + RAW */
   const sCmp = sectionEl('⚖️ Сравнение — таблица (JSON)', 'cmpRaw');
@@ -543,7 +548,7 @@ function buildForm() {
   listEditor(rmHost, cfg.roadmap.items, [
     { key: 'id', label: 'ID (M1…)' },
     { key: 'title', label: 'Название', i18n: true },
-    { key: 'status', label: 'Статус', type: 'select', options: ['done', 'progress'] },
+    { key: 'status', label: 'Статус', type: 'select', options: ['done', 'progress', 'plan'] },
   ], { addLabel: 'Добавить майлстоун', makeItem: () => ({ id: 'M8', title: { en: 'New milestone', ru: 'Новый майлстоун' }, status: 'progress' }), summary: it => `${it.id} · ${it.status}` });
   form.appendChild(sRm);
 

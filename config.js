@@ -1,4 +1,4 @@
-/* ===== CanvasDesk — конфигурация сайта (v3: визуальная система математического моделирования) =====
+/* ===== CanvasDesk — конфигурация сайта (v4: копирайт по аудиториям + CJM-аудит) =====
    Дефолтные значения. Админка (admin.html) сохраняет правки в localStorage,
    а для деплоя экспортирует config.json в корень сайта.
 
@@ -9,7 +9,11 @@
 
    Позиционирующий контракт — ADR-0007 (репозиторий CanvasDesk):
    «CanvasDesk — визуальная система математического моделирования».
-   Факты: 45 шаблонов, 39 MCP-инструментов, <10 мс на 1000 нод, WebGPU-веб-версия. */
+
+   CJM-принцип страницы (v4): каждый тип пользователя за 5 секунд
+   (заголовок + подзаголовок + CTA) и один скролл (секция personas)
+   получает ответ «зачем мне этот сервис». Копирайт упрощён:
+   без FR-кодов и внутренней терминологии на первых экранах. */
 
 const PLATFORMS = {
   github:         { icon: '🐙', label: 'GitHub',          kind: 'code' },
@@ -57,17 +61,17 @@ const DEFAULT_CONFIG = {
   },
 
   announcement: {
-    text: { en: 'New: the same engine runs in your browser — CanvasDesk Web (WebGPU)', ru: 'Новое: тот же движок работает в браузере — CanvasDesk Web (WebGPU)' },
+    text: { en: 'New: the same engine runs in your browser — CanvasDesk Web', ru: 'Новое: тот же движок работает в браузере — CanvasDesk Web' },
     cta:  { en: 'Open the app', ru: 'Открыть приложение' }
   },
 
   hero: {
-    badge: { en: 'Visual mathematical modeling system · Rust · wgpu · WebGPU', ru: 'Визуальная система математического моделирования · Rust · wgpu · WebGPU' },
+    badge: { en: 'Free & open source · Rust · WebGPU', ru: 'Бесплатно · открытый код · Rust · WebGPU' },
     titleA: { en: 'The canvas that', ru: 'Канвас, который' },
     titleAccent: { en: 'does the math', ru: 'считает сам' },
     subtitle: {
-      en: 'CanvasDesk builds executable mathematical models from Numi sheets and templates on an infinite zoomable canvas. Values flow along value-edges and recalculate live, domain math — units, queueing, finance — is built into the core, and an AI agent assembles and verifies the whole model via MCP.',
-      ru: 'CanvasDesk собирает исполняемые математические модели из Numi-листов и шаблонов на бесконечном зумируемом канвасе. Значения проливаются по value-связям и пересчитываются мгновенно, доменная математика — единицы, теория очередей, финансы — встроена в ядро, а ИИ-агент соберёт и проверит всю модель через MCP.'
+      en: 'Build models that compute themselves: service capacity, unit economics, startup runway — the math lives right on the canvas.',
+      ru: 'Собирайте модели, которые считают себя сами: capacity сервиса, юнит-экономика, runway стартапа — математика живёт прямо на канвасе.'
     },
     ctaPrimary:   { en: 'Try in the browser', ru: 'Открыть веб-версию' },
     ctaSecondary: { en: 'Star on GitHub',     ru: 'Звезда на GitHub' },
@@ -76,6 +80,30 @@ const DEFAULT_CONFIG = {
     mediaTitle: { en: 'Reference model: service capacity on the canvas', ru: 'Эталонная модель: расчёт capacity сервиса на канвасе' },
     mediaHint:  { en: 'Numi-sheets, value-edges with live labels, template nodes', ru: 'Numi-листы, value-связи с живыми подписями, шаблонные ноды' },
     communityLink: { en: 'Pick your platform', ru: 'Выберите свою платформу' }
+  },
+
+  /* CJM: один скролл от hero — и каждый находит себя.
+     Карточка = кто вы (title) → зачем вам сервис (goal, ≤ 8 слов)
+     → доказательство (proof) → кнопка «попробовать». */
+  personas: {
+    kicker: { en: 'Find yourself', ru: 'Найдите себя' },
+    title:  { en: 'Why CanvasDesk — for you', ru: 'Зачем вам CanvasDesk' },
+    subtitle: { en: 'One canvas — four kinds of problems. Pick yours and build a working model in minutes.', ru: 'Один канвас — четыре класса задач. Выберите свой и соберите рабочую модель за минуты.' },
+    cta: { en: 'Try in browser', ru: 'Открыть в браузере' },
+    items: [
+      { icon: '🏗️', id: 'arch', title: { en: 'System architects', ru: 'Архитекторам' },
+        goal: { en: 'Capacity and bottlenecks — before deployment', ru: 'Capacity и узкие места — до деплоя' },
+        proof: { en: 'Erlang-C and M/M/1 built in, overload ρ ≥ 1 lights up on the canvas, what-if without touching prod', ru: 'Erlang-C и M/M/1 из коробки, перегрузка ρ ≥ 1 подсвечивается на канвасе, what-if без продакшена' } },
+      { icon: '📈', id: 'analyst', title: { en: 'Product analysts', ru: 'Продуктовым аналитикам' },
+        goal: { en: 'Unit economics and growth on one plane', ru: 'Юнит-экономика и рост на одном экране' },
+        proof: { en: 'LTV, CAC, retention D1/D7/D30, funnels — 30 ready templates instead of a jungle of tabs', ru: 'LTV, CAC, retention D1/D7/D30, воронки — 30 готовых шаблонов вместо джунглей табличек' } },
+      { icon: '💰', id: 'finance', title: { en: 'Finance & founders', ru: 'Финансам и фаундерам' },
+        goal: { en: 'Numbers you can defend', ru: 'Цифры, которые не стыдно защитить' },
+        proof: { en: 'NPV, IRR, runway and scenario grids: was → became (+Δ) — see where the money flows', ru: 'NPV, IRR, runway и сценарные сетки: было → стало (+Δ) — видно, куда текут деньги' } },
+      { icon: '🤖', id: 'ai', title: { en: 'Working with AI', ru: 'Работающим с ИИ' },
+        goal: { en: 'Describe the model in words — the agent builds it', ru: 'Опишите модель словами — агент соберёт' },
+        proof: { en: '39 MCP tools for Claude and others: assembly in minutes, verified against a reference within ±1%', ru: '39 MCP-инструментов для Claude и других: сборка за минуты, проверка по эталону ±1%' } }
+    ]
   },
 
   stats: [
@@ -99,20 +127,20 @@ const DEFAULT_CONFIG = {
 
   features: {
     kicker: { en: 'Features', ru: 'Возможности' },
-    title:  { en: 'Executable models on one endless plane', ru: 'Исполняемые модели на одной бесконечной плоскости' },
+    title:  { en: 'A model that computes itself', ru: 'Модель, которая считает себя сама' },
     subtitle: {
-      en: 'Not a picture of a model — a model that computes: formulas, flows and domain math live right on the canvas.',
-      ru: 'Не картинка модели, а считающая модель: формулы, потоки значений и доменная математика живут прямо на канвасе.'
+      en: 'Not a picture, not a spreadsheet — the math lives on the canvas and recalculates as you watch.',
+      ru: 'Не картинка и не табличка — математика живёт на канвасе и пересчитывается у вас на глазах.'
     },
     items: [
-      { icon: '♾️', title: { en: 'Infinite zoomable canvas', ru: 'Бесконечный зумируемый канвас' }, text: { en: 'Pan with Space+drag, zoom to cursor 0.05–4×, infinite grid, groups and focus mode. R-tree + culling keep 5000 nodes at 60 FPS.', ru: 'Панорамирование Space+drag, зум к курсору 0.05–4×, бесконечная сетка, группы и режим фокуса. R-tree + culling держат 5000 нод при 60 FPS.' } },
-      { icon: '🧮', title: { en: 'Numi sheets — formulas in plain language', ru: 'Numi-листы — формулы человеческим языком' }, text: { en: 'Any note line “name = expression” computes: rps = 1000, latency = 50 ms. Units with dimensions convert automatically, variables flow top-down.', ru: 'Любая строка заметки «имя = выражение» становится вычисляемой: rps = 1000, latency = 50 ms. Единицы с размерностями конвертируются автоматически, переменные протекают сверху вниз.' } },
-      { icon: '🌊', title: { en: 'Value flow between nodes', ru: 'Поток значений между нодами' }, text: { en: 'Shift+drag draws a value-edge: the source value instantly recalculates the whole downstream — as $in or $1..$N. The graph is a DAG, cycles are blocked.', ru: 'Shift+drag рисует value-связь: значение источника мгновенно пересчитывает весь downstream — как $in или $1..$N. Граф — DAG, циклы блокируются.' } },
-      { icon: '📚', title: { en: '45 built-in templates', ru: '45 встроенных шаблонов' }, text: { en: 'Infrastructure (LB, gateway, cache, DB, Kafka, CDN), unit economics (CAC, LTV, MRR, runway), product analytics (retention, funnel, NPS). Palette Ctrl+P and wheel-menu.', ru: 'Инфраструктура (балансировщик, шлюз, кэш, БД, Kafka, CDN), юнит-экономика (CAC, LTV, MRR, runway), продуктовая аналитика (retention, воронка, NPS). Палитра Ctrl+P и wheel-меню.' } },
-      { icon: '📐', title: { en: 'Domain math in the core', ru: 'Доменная математика в ядре' }, text: { en: 'Queueing: mm1, mmc, erlang_c, littles_law — overload at ρ ≥ 1 is detected. Finance: npv, irr, cagr, cohort_ltv. Units cancel and convert on their own.', ru: 'Теория очередей: mm1, mmc, erlang_c, littles_law — перегрузка ρ ≥ 1 детектируется. Финансы: npv, irr, cagr, cohort_ltv. Единицы сокращаются и конвертируются сами.' } },
-      { icon: '🔎', title: { en: 'Bottlenecks & what-if', ru: 'Узкие места и what-if' }, text: { en: 'Bottleneck indicators (ρ, response time) color the canvas edges; scenarios swap parameters and show “was → became (+Δ)” deltas with one-undo apply.', ru: 'Индикаторы узких мест (ρ, время ответа) подсвечивают канвас; сценарии подменяют параметры и показывают дельты «было → стало (+Δ)» с применением одним undo-шагом.' } },
-      { icon: '🤖', title: { en: 'AI agent via MCP', ru: 'ИИ-агент через MCP' }, text: { en: 'One command — canvasdesk mcp — gives Claude and any MCP client 39 typed tools: the agent assembles reference models in minutes and verifies numbers against oracles ±1%.', ru: 'Одна команда — canvasdesk mcp — даёт Claude и любому MCP-клиенту 39 типизированных инструментов: агент собирает эталонные модели за минуты и сверяет числа с оракулами ±1%.' } },
-      { icon: '🗂️', title: { en: 'Open format, real files', ru: 'Открытый формат, настоящие файлы' }, text: { en: 'Storage is JSON Canvas (.canvas) — the layout opens in Obsidian and back, unknown fields survive round-trip. Cards are real files; widgets and desktop mode are the carrier.', ru: 'Формат хранения — JSON Canvas (.canvas): раскладка открывается в Obsidian и наоборот, неизвестные поля переживают round-trip. Карточки — настоящие файлы; виджеты и desktop-режим — носитель.' } }
+      { icon: '♾️', title: { en: 'Infinite canvas', ru: 'Бесконечный канвас' }, text: { en: 'Zoom to cursor, infinite grid, groups and focus mode — 5000 nodes at 60 FPS.', ru: 'Зум к курсору, бесконечная сетка, группы и фокус — 5000 нод при 60 FPS.' } },
+      { icon: '🧮', title: { en: 'Numi sheets', ru: 'Numi-листы' }, text: { en: 'Formulas in plain language: rps = 1000, latency = 50 ms — every line computes as you type.', ru: 'Формулы человеческим языком: rps = 1000, latency = 50 ms — строка считает себя по мере ввода.' } },
+      { icon: '🌊', title: { en: 'Value flow', ru: 'Поток значений' }, text: { en: 'Draw an edge — the value recalculates the whole chain instantly.', ru: 'Проведите связь — значение пересчитает всю цепочку мгновенно.' } },
+      { icon: '📚', title: { en: '45 templates', ru: '45 шаблонов' }, text: { en: 'Infrastructure, unit economics, product analytics — ready-made calculation nodes for three worlds.', ru: 'Инфраструктура, юнит-экономика, продуктовая аналитика — готовые расчётные ноды для трёх миров.' } },
+      { icon: '📐', title: { en: 'Math in the core', ru: 'Математика в ядре' }, text: { en: 'Erlang-C, NPV, cohort LTV and unit conversion — built in, not hand-written formulas.', ru: 'Erlang-C, NPV, cohort LTV и конвертация единиц — встроены, а не пишутся вручную.' } },
+      { icon: '🔎', title: { en: 'Bottlenecks & what-if', ru: 'Узкие места и what-if' }, text: { en: 'Overloads light up on the canvas; scenarios show was → became (+Δ).', ru: 'Перегрузки подсвечиваются на канвасе; сценарии показывают «было → стало (+Δ)».' } },
+      { icon: '🤖', title: { en: 'AI agent via MCP', ru: 'ИИ-агент через MCP' }, text: { en: 'Describe the model in words — the agent assembles and verifies it in minutes.', ru: 'Опишите модель словами — агент соберёт и проверит её за минуты.' } },
+      { icon: '🗂️', title: { en: 'Open format', ru: 'Открытый формат' }, text: { en: 'JSON Canvas files: open in Obsidian and back, no lock-in.', ru: 'JSON Canvas-файлы: открываются в Obsidian и обратно, без lock-in.' } }
     ]
   },
 
@@ -120,16 +148,16 @@ const DEFAULT_CONFIG = {
     kicker: { en: 'Get started', ru: 'Начало работы' },
     title:  { en: 'First model in three steps', ru: 'Первая модель — три шага' },
     subtitle: {
-      en: 'No install needed: the same Rust engine runs in the browser (WebGPU) and as a native binary.',
-      ru: 'Установка не нужна: тот же движок на Rust работает в браузере (WebGPU) и нативным бинарем.'
+      en: 'No install needed: the same engine runs in the browser and natively.',
+      ru: 'Без установки: тот же движок работает в браузере и нативно.'
     },
     items: [
-      { icon: '🌐', title: { en: 'Open the web version', ru: 'Откройте веб-версию' }, text: { en: 'CanvasDesk Web runs in Chrome/Edge on WebGPU with browser storage (OPFS). Prefer desktop? Grab a CI build for Windows 10/11 — Linux and macOS run the windowed canvas.', ru: 'CanvasDesk Web работает в Chrome/Edge на WebGPU с хранением в браузере (OPFS). Нужен десктоп? Возьмите сборку CI для Windows 10/11 — Linux и macOS запускают оконный канвас.' } },
-      { icon: '🧮', title: { en: 'Build the model', ru: 'Соберите модель' }, text: { en: 'Write Numi formulas in plain language or drop templates from the palette (Ctrl+P). Connect nodes with value-edges — numbers flow and recalculate live.', ru: 'Пишите Numi-формулы человеческим языком или раскладывайте шаблоны из палитры (Ctrl+P). Соедините ноды value-связями — числа потекут и пересчитываются на лету.' } },
-      { icon: '🤖', title: { en: 'Bring in the AI agent', ru: 'Подключите ИИ-агента' }, text: { en: 'One command exposes MCP tools: the agent assembles a reference model in minutes and validates it — you twist parameters and watch deltas.', ru: 'Одна команда открывает MCP-инструменты: агент соберёт эталонную модель за минуты и провалидирует её — вам останется крутить параметры и смотреть дельты.' } }
+      { icon: '🌐', title: { en: 'Open the web version', ru: 'Откройте веб-версию' }, text: { en: 'CanvasDesk Web runs in Chrome/Edge. Prefer desktop? Builds for Windows, Linux and macOS.', ru: 'CanvasDesk Web работает в Chrome/Edge. Нужен десктоп? Сборки для Windows, Linux и macOS.' } },
+      { icon: '🧮', title: { en: 'Build the model', ru: 'Соберите модель' }, text: { en: 'Write Numi formulas or drop templates from the palette (Ctrl+P). Connect nodes — numbers recalculate on the fly.', ru: 'Пишите формулы Numi или берите шаблоны из палитры (Ctrl+P). Соедините ноды — числа пересчитываются на лету.' } },
+      { icon: '🤖', title: { en: 'Bring in the AI agent', ru: 'Подключите ИИ-агента' }, text: { en: 'canvasdesk mcp — and Claude assembles the reference model for you. You get the parameters and the deltas.', ru: 'canvasdesk mcp — и Claude соберёт эталонную модель за вас. Вам останутся параметры и дельты.' } }
     ],
     installTitle: { en: 'Connect the agent (MCP)', ru: 'Подключение ИИ-агента (MCP)' },
-    installHint: { en: 'Add CanvasDesk to any MCP client (Claude Desktop and others). The whole stack — GUI service + tools — in one command. On Windows use canvasdesk.exe, on Linux/macOS — canvasdesk.', ru: 'Добавьте CanvasDesk в любой MCP-клиент (Claude Desktop и другие). Весь стек — GUI-сервис и инструменты — одной командой. На Windows это canvasdesk.exe, на Linux/macOS — canvasdesk.' },
+    installHint: { en: 'Add this to Claude Desktop or any MCP client — the whole stack in one command.', ru: 'Добавьте блок в Claude Desktop или любой MCP-клиент — весь стек одной командой.' },
     installCommands: '{\n  "mcpServers": {\n    "canvasdesk": {\n      "command": "canvasdesk.exe",\n      "args": ["mcp"]\n    }\n  }\n}',
     copy:   { en: 'Copy',     ru: 'Копировать' },
     copied: { en: 'Copied!',  ru: 'Скопировано!' }
@@ -139,10 +167,10 @@ const DEFAULT_CONFIG = {
     files: {
       kicker: { en: 'Calculation core', ru: 'Расчётное ядро' },
       title: { en: 'Numi sheets: formulas that flow across the canvas', ru: 'Numi-листы: формулы, которые текут по канвасу' },
-      text: { en: 'A note becomes a program: assignment lines compute top-down, prose and code fences are ignored. Values travel along teal value-edges with live labels — change the source, and the downstream recalculates within the frame (a 1000-node graph recalcs in under 10 ms).', ru: 'Заметка становится программой: строки-присваивания считаются сверху вниз, проза и код-фенсы игнорируются. Значения передаются по бирюзовым value-связям с живыми подписями — поменяйте источник, и downstream пересчитается в пределах кадра (граф из 1000 нод — быстрее 10 мс).' },
+      text: { en: 'A note becomes a program: lines compute top-down, values flow along edges into neighboring nodes. Change the source — the downstream recalculates within the frame.', ru: 'Заметка становится программой: строки считаются сверху вниз, значения текут по связям в соседние ноды. Поменяли источник — downstream пересчитался в пределах кадра.' },
       bullets: {
-        en: ['Units with dimensions: 100 req / 2 sec = 50 req/s', '$in, $1..$N and named value ports (FR-029)', '“Pouring” a value into a template overrides its default', 'Autocomplete: functions, units, variables, $-references (FR-021)'],
-        ru: ['Единицы с размерностями: 100 req / 2 sec = 50 req/s', '$in, $1..$N и именованные порты значений (FR-029)', '«Проливание» значения в шаблон перекрывает его дефолт', 'Автодополнение: функции, единицы, переменные, $-ссылки (FR-021)']
+        en: ['Units with dimensions: 100 req / 2 sec = 50 req/s', '$in, $1..$N and named value ports', 'A value poured from a node overrides the template default', 'Autocomplete: functions, units, variables'],
+        ru: ['Единицы с размерностями: 100 req / 2 sec = 50 req/s', '$in, $1..$N и именованные порты значений', 'Значение из ноды перекрывает дефолт шаблона', 'Автодополнение: функции, единицы, переменные']
       },
       mediaTitle: { en: 'Numi sheet with autocomplete and a result line', ru: 'Numi-лист с автодополнением и строкой результата' },
       mediaHint:  { en: 'An erroneous line is highlighted — the rest keep computing', ru: 'Ошибочная строка подсвечена — остальные продолжают считать' }
@@ -150,10 +178,10 @@ const DEFAULT_CONFIG = {
     widgets: {
       kicker: { en: 'Library · 45 templates', ru: 'Библиотека · 45 шаблонов' },
       title: { en: 'Ready-made calculations from three worlds', ru: 'Готовые расчёты из трёх миров' },
-      text: { en: 'A template is a calculation role of a node: typed parameters plus a formula with $param. Take it from the palette (Ctrl+P), the wheel-menu or MCP — and pour values into it from neighboring nodes.', ru: 'Шаблон — расчётная роль ноды: типизированные параметры плюс формула с $param. Возьмите его из палитры (Ctrl+P), wheel-меню или MCP — и пролейте в него значения из соседних нод.' },
+      text: { en: 'A template is a calculation role for a node: typed parameters plus a formula. Grab it from the palette and pour values in from neighboring nodes.', ru: 'Шаблон — расчётная роль ноды: типизированные параметры плюс формула. Возьмите из палитры — и пролейте в него значения из соседних нод.' },
       bullets: {
-        en: ['Infrastructure · 15: LB, gateway, cache, DB master/replica, Kafka, CDN, S3', 'Unit economics · 18: CAC, LTV, MRR, ARPU, runway, contribution margin', 'Product analytics · 12: retention D1/D7/D30, funnel, NPS, stickiness, TTFV', 'Custom templates and composites — planned (FR-020, R4)'],
-        ru: ['Инфраструктура · 15: балансировщик, шлюз, кэш, БД master/replica, Kafka, CDN, S3', 'Юнит-экономика · 18: CAC, LTV, MRR, ARPU, runway, contribution margin', 'Продуктовая аналитика · 12: retention D1/D7/D30, воронка, NPS, stickiness, TTFV', 'Custom-шаблоны и композиты — в планах (FR-020, R4)']
+        en: ['Infrastructure · 15: LB, gateway, cache, DB, Kafka, CDN', 'Unit economics · 18: CAC, LTV, MRR, ARPU, runway', 'Product analytics · 12: retention, funnel, NPS, stickiness', 'Custom templates and composites — planned'],
+        ru: ['Инфраструктура · 15: балансировщик, шлюз, кэш, БД, Kafka, CDN', 'Юнит-экономика · 18: CAC, LTV, MRR, ARPU, runway', 'Продуктовая аналитика · 12: retention, воронка, NPS, stickiness', 'Свои шаблоны и композиты — в планах']
       },
       mediaTitle: { en: 'Template palette: search across 45 calculation nodes', ru: 'Палитра шаблонов: поиск по 45 расчётным нодам' },
       mediaHint:  { en: 'Categories: infrastructure, unit economics, product analytics', ru: 'Категории: инфраструктура, юнит-экономика, продуктовая аналитика' }
@@ -161,21 +189,21 @@ const DEFAULT_CONFIG = {
     ai: {
       kicker: { en: 'AI · MCP', ru: 'ИИ · MCP' },
       title: { en: 'The agent assembles — the human explores', ru: 'Агент собирает — человек исследует' },
-      text: { en: 'CanvasDesk ships an MCP server: Claude or any MCP client gets typed tools to read the graph, validate it and apply changes atomically. Reference models — Instagram MVP and catalog №1–5 — converge with oracle numbers within ±1%.', ru: 'CanvasDesk содержит MCP-сервер: Claude или любой MCP-клиент получает типизированные инструменты чтения графа, валидации и атомарных изменений. Эталонные модели — Instagram MVP и каталог №1–5 — сходятся с оракул-числами в пределах ±1%.' },
+      text: { en: 'CanvasDesk ships an MCP server: Claude or any MCP client gets tools to read the graph, validate it and apply changes atomically. Reference models converge with oracle numbers within ±1%.', ru: 'CanvasDesk содержит MCP-сервер: Claude или любой MCP-клиент получает инструменты чтения графа, валидации и атомарных изменений. Эталонные модели сходятся с оракулом в пределах ±1%.' },
       bullets: {
-        en: ['canvasdesk mcp — the whole stack in one command', 'graph_apply: assemble a model in one call, one undo step', 'graph_validate: E-CYCLE, E-UNIT, E-OVERLOAD error codes', 'Skills package for external agents — in the repository'],
-        ru: ['canvasdesk mcp — весь стек одной командой', 'graph_apply: сборка модели одним вызовом, один undo-шаг', 'graph_validate: коды ошибок E-CYCLE, E-UNIT, E-OVERLOAD', 'Пакет скиллов для внешних агентов — в репозитории']
+        en: ['canvasdesk mcp — the whole stack in one command', 'graph_apply: assemble a model in one call', 'graph_validate: cycles, units, overloads', '39 tools, verified against references ±1%'],
+        ru: ['canvasdesk mcp — весь стек одной командой', 'graph_apply: сборка модели одним вызовом', 'graph_validate: циклы, единицы, перегрузки', '39 инструментов, проверка по эталонам ±1%']
       },
       mediaTitle: { en: 'AI agent assembles a reference model via MCP', ru: 'ИИ-агент собирает эталонную модель по MCP' },
       mediaHint:  { en: 'Validate, apply, analyze bottlenecks, what-if — 39 tools', ru: 'Валидация, сборка, анализ узких мест, what-if — 39 инструментов' }
     },
     desktop: {
       kicker: { en: 'Format · carrier', ru: 'Формат · носитель' },
-      title: { en: '.canvas: open format, real files, whole desktop', ru: '.canvas: открытый формат, настоящие файлы, весь рабочий стол' },
-      text: { en: 'The storage format is JSON Canvas: the layout opens in Obsidian and back, unknown fields survive round-trip. File cards are real files with system thumbnails; JS/HTML widgets and the desktop mode are the carrier your models live on.', ru: 'Формат хранения — JSON Canvas: раскладка открывается в Obsidian и обратно, неизвестные поля переживают round-trip. Файловые карточки — настоящие файлы с системными тамбнейлами; JS/HTML-виджеты и режим «вместо рабочего стола» — носитель, на котором живут модели.' },
+      title: { en: '.canvas: open format, real files', ru: '.canvas: открытый формат, настоящие файлы' },
+      text: { en: 'The storage format is JSON Canvas: layouts open in Obsidian and back, fields survive the round-trip. Cards are real files; widgets and desktop mode are the carrier for your models.', ru: 'Формат хранения — JSON Canvas: раскладки открываются в Obsidian и обратно, поля не теряются. Карточки — настоящие файлы, а виджеты и режим «вместо стола» — носитель ваших моделей.' },
       bullets: {
-        en: ['Round-trip with Obsidian: layout and data survive', 'Cards are real files — drag-and-drop from Explorer', 'Widget SDK: sdk/canvasdesk.ts, install by drag-and-drop', 'Desktop mode (--desktop) on Windows'],
-        ru: ['Round-trip с Obsidian: раскладка и данные не теряются', 'Карточки — реальные файлы, drag-and-drop из проводника', 'SDK виджетов: sdk/canvasdesk.ts, установка drag-ом', 'Режим «вместо рабочего стола» (--desktop) на Windows']
+        en: ['Round-trip with Obsidian: layout and data survive', 'Cards are real files — drag-and-drop from Explorer', 'Widget SDK: sdk/canvasdesk.ts', 'Desktop mode on Windows'],
+        ru: ['Round-trip с Obsidian: раскладка и данные не теряются', 'Карточки — реальные файлы, drag-and-drop из проводника', 'SDK виджетов: sdk/canvasdesk.ts', 'Режим «вместо рабочего стола» на Windows']
       },
       mediaTitle: { en: 'The canvas carrier: files, widgets and models together', ru: 'Канвас-носитель: файлы, виджеты и модели вместе' },
       mediaHint:  { en: 'Autosave every 2 s + .bak of the previous version', ru: 'Автосейв каждые 2 с + .bak предыдущей версии' }
@@ -193,18 +221,6 @@ const DEFAULT_CONFIG = {
       { title: { en: 'Bottlenecks: ρ thresholds and overload', ru: 'Узкие места: пороги ρ и перегрузки' }, hint: 'assets/shot-bottleneck.png', poster: 'assets/shot-bottleneck.png' },
       { title: { en: 'What-if: scenarios and deltas', ru: 'What-if: сценарии и дельты' }, hint: 'assets/shot-whatif.png', poster: 'assets/shot-whatif.png' },
       { title: { en: 'AI agent assembles a model via MCP', ru: 'ИИ-агент собирает модель по MCP' }, hint: 'assets/shot-agent.png', poster: 'assets/shot-agent.png' }
-    ]
-  },
-
-  useCases: {
-    kicker: { en: 'Who it is for', ru: 'Кому подходит' },
-    title:  { en: 'One canvas — four classes of problems', ru: 'Один канвас — четыре класса задач' },
-    subtitle: { en: 'Reference models ship in the box: from service capacity to startup runway. Build your own — or ask the agent.', ru: 'Эталонные модели уже в комплекте: от capacity сервиса до runway стартапа. Соберите свою — или попросите агента.' },
-    items: [
-      { icon: '🏗️', title: { en: 'System architects', ru: 'Системным архитекторам' }, text: { en: 'Capacity and load: Erlang-C, M/M/1, bottlenecks at ρ ≥ 1 visible on the canvas before deployment. References №1–№2 cover system design.', ru: 'Capacity и нагрузка: Erlang-C, M/M/1, узкие места при ρ ≥ 1 видны на канвасе до деплоя. Эталоны №1–№2 закрывают system design.' } },
-      { icon: '📈', title: { en: 'Product analysts', ru: 'Продуктовым аналитикам' }, text: { en: 'Unit economics and growth: LTV/CAC, retention D1/D7/D30, funnels, stickiness — 18 ue-* and 12 pa-* templates.', ru: 'Юнит-экономика и рост: LTV/CAC, retention D1/D7/D30, воронки, stickiness — 18 шаблонов ue-* и 12 pa-*.' } },
-      { icon: '💰', title: { en: 'Finance & founders', ru: 'Финансам и владельцам' }, text: { en: 'Budgets, P&L and defending the numbers: NPV, IRR, CAGR, runway; what-if grids for references №2–№4.', ru: 'Бюджеты, P&L и защита цифр: NPV, IRR, CAGR, runway; сценарные сетки «что если» для эталонов №2–№4.' } },
-      { icon: '🤖', title: { en: 'Engineers with AI', ru: 'Инженерам с ИИ' }, text: { en: 'Describe the model in words — the agent assembles it via MCP in minutes and verifies it against the reference; you just twist the parameters.', ru: 'Опишите модель словами — агент соберёт её через MCP за минуты и проверит по эталону; вам останется крутить параметры.' } }
     ]
   },
 
@@ -239,16 +255,15 @@ const DEFAULT_CONFIG = {
   matrix: {
     kicker: { en: 'Platforms', ru: 'Платформы' },
     title:  { en: 'Where CanvasDesk runs', ru: 'Где работает CanvasDesk' },
-    subtitle: { en: 'Windows 10/11 x64 — the full feature set; Linux and macOS — the windowed canvas, platform-specific features land by the M7 plan. CI builds artifacts for all three OSes, and the web version (WebGPU) runs in Chrome/Edge.', ru: 'Windows 10/11 x64 — полная функциональность; Linux и macOS — оконный канвас, платформенные фичи закрываются по плану M7. CI собирает артефакты для всех трёх ОС, а веб-версия (WebGPU) работает в Chrome/Edge.' },
+    subtitle: { en: 'Windows — the full set; Linux and macOS — the windowed canvas with more to come. The web version runs in Chrome/Edge.', ru: 'Windows — полный набор; Linux и macOS — оконный канвас, дальше — больше. Веб-версия работает в Chrome/Edge.' },
     columns: { en: ['Capability', 'Windows', 'Linux', 'macOS'], ru: ['Возможность', 'Windows', 'Linux', 'macOS'] },
     rows: [
       { name: { en: 'Canvas, notes, edges, minimap, search, undo', ru: 'Канвас, заметки, связи, миникарта, поиск, undo' }, win: 'yes', linux: 'yes', mac: 'yes' },
       { name: { en: 'Numi engine, value flow, templates', ru: 'Numi-движок, поток значений, шаблоны' }, win: 'yes', linux: 'yes', mac: 'yes' },
-      { name: { en: 'File watcher', ru: 'Файловый вотчер' }, win: 'RDCW', linux: 'inotify', mac: 'FSEvents' },
-      { name: { en: 'File thumbnails', ru: 'Тамбнейлы файлов' }, win: 'yes', linux: 'M7 · T27', mac: 'M7 · T27' },
-      { name: { en: 'Drag-and-drop from file manager', ru: 'Drag-and-drop из файлового менеджера' }, win: 'yes', linux: 'M7 · T28', mac: 'M7 · T28' },
-      { name: { en: 'MCP (AI clients)', ru: 'MCP (ИИ-клиенты)' }, win: 'Named pipe', linux: 'M7 · UDS', mac: 'M7 · UDS' },
-      { name: { en: 'Live widgets / desktop mode', ru: 'Живые виджеты / режим «вместо стола»' }, win: 'WebView2 · yes', linux: 'Snapshot · —', mac: 'Snapshot · —' }
+      { name: { en: 'File thumbnails', ru: 'Тамбнейлы файлов' }, win: 'yes', linux: 'planned', mac: 'planned' },
+      { name: { en: 'Drag-and-drop from file manager', ru: 'Drag-and-drop из файлового менеджера' }, win: 'yes', linux: 'planned', mac: 'planned' },
+      { name: { en: 'MCP (AI clients)', ru: 'MCP (ИИ-клиенты)' }, win: 'yes', linux: 'planned', mac: 'planned' },
+      { name: { en: 'Live widgets / desktop mode', ru: 'Живые виджеты / режим «вместо стола»' }, win: 'yes', linux: '—', mac: '—' }
     ],
     yes: { en: 'Full', ru: 'Полностью' },
     hotkeysTitle: { en: 'Hotkeys', ru: 'Горячие клавиши' },
@@ -270,14 +285,14 @@ const DEFAULT_CONFIG = {
     subtitle: { en: 'Waves are planned and closed in the public repository — this page never oversells the current state.', ru: 'Волны планируются и закрываются в публичном репозитории — эта страница не приукрашивает текущее состояние.' },
     changelog: { en: 'Follow the changelog', ru: 'Следить за changelog' },
     items: [
-      { id: 'M1–M6', title: { en: 'Core: infinite canvas, real files, notes, edges, search, widgets', ru: 'Ядро: бесконечный канвас, настоящие файлы, заметки, связи, поиск, виджеты' }, status: 'done' },
-      { id: 'Numi', title: { en: 'Modeling wave: Numi engine, value flow, units, queueing, 45 templates', ru: 'Расчётная волна: Numi-движок, поток значений, единицы, queueing, 45 шаблонов' }, status: 'done' },
-      { id: 'A', title: { en: 'Wave A · composition: value ports (FR-029), graph_validate (FR-032), graph_apply (FR-033), agent recipe', ru: 'Волна A · композиция: порты значений (FR-029), graph_validate (FR-032), graph_apply (FR-033), рецепт агента' }, status: 'done' },
-      { id: 'B', title: { en: 'Wave B · analytics: bottleneck indicators (FR-016) and what-if scenarios (FR-017)', ru: 'Волна B · аналитика: индикаторы узких мест (FR-016) и what-if сценарии (FR-017)' }, status: 'done' },
-      { id: 'Web', title: { en: 'Web version: the same engine in the browser on WebGPU (OPFS storage)', ru: 'Веб-версия: тот же движок в браузере на WebGPU (хранение в OPFS)' }, status: 'done' },
-      { id: 'M7', title: { en: 'Cross-platform: Linux and macOS — windowed canvas works, platform features by plan', ru: 'Кроссплатформенность: Linux и macOS — оконный канвас работает, платформенные фичи по плану' }, status: 'progress' },
-      { id: 'V', title: { en: 'Wave V · demand check: dogfooding and live demos — gate: ≥5 users return to their model on their own', ru: 'Волна V · проверка спроса: догфудинг и живые демо — гейт: ≥5 пользователей вернулись к своей модели сами' }, status: 'progress' },
-      { id: 'S', title: { en: 'Wave S · after the gate: statistics & distributions, Monte Carlo, composite templates', ru: 'Волна S · после гейта: статистика и распределения, Monte Carlo, композитные шаблоны' }, status: 'plan' }
+      { id: 'M1–M6', title: { en: 'Core: canvas, files, notes, edges, search, widgets', ru: 'Ядро: канвас, файлы, заметки, связи, поиск, виджеты' }, status: 'done' },
+      { id: 'Numi', title: { en: 'Math: Numi engine, value flow, units, 45 templates', ru: 'Расчёты: Numi-движок, поток значений, единицы, 45 шаблонов' }, status: 'done' },
+      { id: 'A', title: { en: 'Composition: value ports, graph_apply & graph_validate, agent recipe', ru: 'Композиция: порты значений, graph_apply и graph_validate, рецепт агента' }, status: 'done' },
+      { id: 'B', title: { en: 'Analytics: bottlenecks and what-if scenarios', ru: 'Аналитика: узкие места и what-if сценарии' }, status: 'done' },
+      { id: 'Web', title: { en: 'Web version: the same engine in the browser', ru: 'Веб-версия: тот же движок в браузере' }, status: 'done' },
+      { id: 'M7', title: { en: 'Cross-platform: Linux and macOS', ru: 'Кроссплатформенность: Linux и macOS' }, status: 'progress' },
+      { id: 'V', title: { en: 'Demand check: dogfooding and live demos', ru: 'Проверка спроса: догфудинг и живые демо' }, status: 'progress' },
+      { id: 'S', title: { en: 'Statistics, Monte Carlo, composite templates', ru: 'Статистика, Monte Carlo, композитные шаблоны' }, status: 'plan' }
     ]
   },
 
@@ -301,13 +316,13 @@ const DEFAULT_CONFIG = {
     kicker: { en: 'FAQ', ru: 'FAQ' },
     title:  { en: 'Frequently asked questions', ru: 'Частые вопросы' },
     items: [
-      { q: { en: 'What is CanvasDesk?', ru: 'Что такое CanvasDesk?' }, a: { en: 'A visual mathematical modeling system: an infinite zoomable canvas where executable models are assembled from calculation nodes — Numi sheets and templates. Values pour along value-edges (a DAG engine with live recalculation), domain math — units, queueing, finance — is built into the core, and an AI agent assembles and verifies models via MCP.', ru: 'Это визуальная система математического моделирования: бесконечный зумируемый канвас, на котором исполняемые модели собираются из расчётных нод — Numi-листов и шаблонов. Значения проливаются по value-связям (DAG-движок с live-пересчётом), доменная математика — единицы, теория очередей, финансы — встроена в ядро, а ИИ-агент собирает и проверяет модели через MCP.' } },
-      { q: { en: 'Can I try it without installing?', ru: 'Можно ли попробовать без установки?' }, a: { en: 'Yes. CanvasDesk Web runs the same engine in the browser on WebGPU (Chrome/Edge) with storage in OPFS. For the full desktop experience grab a CI build: Windows 10/11 x64 has the complete feature set; Linux and macOS run the windowed canvas.', ru: 'Да. CanvasDesk Web запускает тот же движок в браузере на WebGPU (Chrome/Edge) с хранением в OPFS. Для полноценного десктопа возьмите сборку CI: Windows 10/11 x64 — полная функциональность; Linux и macOS — оконный канвас.' } },
-      { q: { en: 'What is a Numi sheet?', ru: 'Что такое Numi-лист?' }, a: { en: 'A note whose lines compute: “rps = 1000”, “latency = 50 ms”. Units with dimensions convert automatically (1 sec + 500 ms = 1.5 sec), variables flow top-down, prose and code fences are ignored, and the result line updates as you type.', ru: 'Заметка, чьи строки считаются: «rps = 1000», «latency = 50 ms». Единицы с размерностями конвертируются автоматически (1 sec + 500 ms = 1.5 sec), переменные протекают сверху вниз, проза и код-фенсы игнорируются, а строка результата обновляется по мере ввода.' } },
-      { q: { en: 'How is it different from Excel?', ru: 'Чем это отличается от Excel?' }, a: { en: 'Formulas live on a canvas as nodes connected by value-flow edges: the model structure is visible, overload (ρ ≥ 1) and bottlenecks are highlighted, what-if deltas show “was → became”. Plus domain functions Excel lacks — mm1, erlang_c, cohort_ltv — and an open file format.', ru: 'Формулы живут на канвасе нодами, соединёнными потоками значений: структура модели видна, перегрузки (ρ ≥ 1) и узкие места подсвечиваются, what-if показывает дельты «было → стало». Плюс доменные функции, которых в Excel нет, — mm1, erlang_c, cohort_ltv — и открытый формат файла.' } },
-      { q: { en: 'How is it different from Miro or Obsidian Canvas?', ru: 'Чем это отличается от Miro или Obsidian Canvas?' }, a: { en: 'Boards store pictures of thinking; CanvasDesk nodes compute. At the same time the storage format is JSON Canvas, so .canvas layouts open in Obsidian and back — compatibility is part of the carrier, not the positioning.', ru: 'Доски хранят картинки мыслей; ноды CanvasDesk считаются. При этом формат хранения — JSON Canvas: раскладки .canvas открываются в Obsidian и обратно — совместимость часть носителя, а не позиционирование.' } },
-      { q: { en: 'How do I connect an AI agent?', ru: 'Как подключить ИИ-агента?' }, a: { en: 'One command — canvasdesk mcp — starts the whole stack as an MCP server for Claude Desktop or any MCP client: 39 typed tools including graph_apply (assemble a model in one call) and graph_validate. A skills package for external agents ships in the repository.', ru: 'Одна команда — canvasdesk mcp — поднимает весь стек как MCP-сервер для Claude Desktop или любого MCP-клиента: 39 типизированных инструментов, включая graph_apply (сборка модели одним вызовом) и graph_validate. Пакет скиллов для внешних агентов приложен в репозитории.' } },
-      { q: { en: 'How fast is the engine?', ru: 'Что с производительностью?' }, a: { en: 'The value-flow recalc handles a 1000-node graph in under 10 ms; the canvas keeps 5000 nodes at 60 FPS thanks to an R-tree spatial index and culling. HUD (F3) shows fps and p95 live.', ru: 'Пересчёт потока значений держит граф из 1000 нод быстрее 10 мс; канвас рисует 5000 нод при 60 FPS благодаря пространственному индексу R-tree и culling. HUD (F3) показывает fps и p95 вживую.' } },
+      { q: { en: 'What is CanvasDesk?', ru: 'Что такое CanvasDesk?' }, a: { en: 'A visual mathematical modeling system: on an infinite canvas you assemble models from Numi sheets and templates, values flow along edges and recalculate instantly. An AI agent can assemble and verify the model for you.', ru: 'Визуальная система математического моделирования: на бесконечном канвасе вы собираете модели из Numi-листов и шаблонов, значения текут по связям и пересчитываются мгновенно. ИИ-агент может собрать и проверить модель за вас.' } },
+      { q: { en: 'Can I try it without installing?', ru: 'Можно ли попробовать без установки?' }, a: { en: 'Yes — CanvasDesk Web runs in Chrome/Edge right in the browser. For desktop there are builds for Windows 10/11, Linux and macOS.', ru: 'Да — CanvasDesk Web работает в Chrome/Edge прямо в браузере. Для десктопа есть сборки для Windows 10/11, Linux и macOS.' } },
+      { q: { en: 'What is a Numi sheet?', ru: 'Что такое Numi-лист?' }, a: { en: 'A note whose lines compute: “rps = 1000”, “latency = 50 ms”. Units convert automatically (1 sec + 500 ms = 1.5 sec), variables flow top-down.', ru: 'Заметка, чьи строки считаются: «rps = 1000», «latency = 50 ms». Единицы конвертируются автоматически (1 sec + 500 ms = 1.5 sec), переменные текут сверху вниз.' } },
+      { q: { en: 'How is it different from Excel?', ru: 'Чем это отличается от Excel?' }, a: { en: 'Formulas live on the canvas as connected nodes: the model structure is visible, bottlenecks are highlighted, what-if shows was → became deltas. Plus domain functions — erlang_c, npv, cohort_ltv — and an open file format.', ru: 'Формулы живут на канвасе нодами со связями: структура модели видна, узкие места подсвечиваются, what-if показывает дельты «было → стало». Плюс доменные функции — erlang_c, npv, cohort_ltv — и открытый формат.' } },
+      { q: { en: 'How is it different from Miro or Obsidian Canvas?', ru: 'Чем это отличается от Miro или Obsidian Canvas?' }, a: { en: 'Boards store pictures of thoughts; CanvasDesk nodes compute numbers. The format is JSON Canvas: layouts open in Obsidian and back.', ru: 'Доски хранят картинки мыслей; ноды CanvasDesk считают числа. Формат — JSON Canvas: раскладки открываются в Obsidian и обратно.' } },
+      { q: { en: 'How do I connect an AI agent?', ru: 'Как подключить ИИ-агента?' }, a: { en: 'One command — canvasdesk mcp — starts an MCP server for Claude Desktop and any MCP client: 39 tools including graph_apply and graph_validate.', ru: 'Одна команда — canvasdesk mcp — поднимает MCP-сервер для Claude Desktop и любых MCP-клиентов: 39 инструментов, включая graph_apply и graph_validate.' } },
+      { q: { en: 'How fast is the engine?', ru: 'Что с производительностью?' }, a: { en: 'A 1000-node graph recalculates in under 10 ms; the canvas keeps 5000 nodes at 60 FPS.', ru: 'Граф из 1000 нод пересчитывается быстрее 10 мс; канвас держит 5000 нод при 60 FPS.' } },
       { q: { en: 'How can I support the project?', ru: 'Как поддержать проект?' }, a: { en: 'Star the repository on GitHub, share it with architects and analysts, or use the donation links below — they fund the development directly.', ru: 'Поставьте звезду репозиторию на GitHub, поделитесь им с архитекторами и аналитиками или воспользуйтесь ссылками на поддержку ниже — они идут напрямую в разработку.' } }
     ]
   },
@@ -323,7 +338,7 @@ const DEFAULT_CONFIG = {
 
   finalCta: {
     title:    { en: 'From a formula to a working model', ru: 'От формулы — к работающей модели' },
-    text:     { en: 'Try the web version, grab a build for Windows or connect the agent — and assemble your first model today.', ru: 'Попробуйте веб-версию, заберите сборку для Windows или подключите агента — и соберите свою первую модель уже сегодня.' },
+    text:     { en: 'Try the web version or wire up the agent — and build your first model today.', ru: 'Попробуйте веб-версию или подключите агента — и соберите первую модель уже сегодня.' },
     download: { en: 'Download for Windows', ru: 'Скачать для Windows' },
     star:     { en: 'Star on GitHub', ru: 'Звезда на GitHub' },
     support:  { en: 'or support the author via', ru: 'или поддержите автора через' }

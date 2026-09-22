@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Дефолтный SEO (краулится даже без JS); render() подменяет под язык -->
-<title>CanvasDesk — Infinite Canvas Desktop. Your real files as zoomable cards</title>
-<meta name="description" content="CanvasDesk turns your desktop into an infinite zoomable canvas: real file cards, notes, connections, sandboxed JS/HTML widgets and AI via MCP. Open source, written in Rust.">
+<title>CanvasDesk — Visual Mathematical Modeling System. Executable models on an infinite canvas</title>
+<meta name="description" content="Build executable math models from Numi sheets and 45 templates on an infinite zoomable canvas. Values flow along value-edges, domain math built in, AI agent via MCP. Rust + WebGPU.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="CanvasDesk — Infinite Canvas Desktop">
-<meta property="og:description" content="Real file cards, notes and widgets on an endless zoomable canvas. Rust, 5000 nodes at 60 FPS.">
+<meta property="og:title" content="CanvasDesk — visual mathematical modeling system">
+<meta property="og:description" content="Executable math models from Numi sheets and 45 templates on an infinite canvas. Value flow (DAG), bottlenecks, what-if, AI agent via MCP. Web version on WebGPU.">
 <meta property="og:image" content="assets/og-cover.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="robots" content="max-image-preview:large">
@@ -569,7 +569,7 @@ function render(cfg) {
   }]);
 
   /* Announcement */
-  const annHref = LANG === 'ru' ? platHref(cfg, 'habr') : platHref(cfg, 'medium');
+  const annHref = cfg.links.webapp || (LANG === 'ru' ? platHref(cfg, 'habr') : platHref(cfg, 'medium'));
   $('#announcement').innerHTML = `<div class="in"><span style="display:inline-flex;align-items:center;gap:.375rem;font-weight:600">${I('spark', 14)} ${T(cfg.announcement.text)}</span>
     <a class="cta" href="${esc(annHref)}" target="_blank" rel="noopener noreferrer">${T(cfg.announcement.cta)} <span aria-hidden="true">→</span></a></div>`;
 
@@ -590,9 +590,9 @@ function render(cfg) {
       <h1>${T(cfg.hero.titleA)} <span class="acc">${T(cfg.hero.titleAccent)}</span></h1>
       <p class="sub">${T(cfg.hero.subtitle)}</p>
       <div class="ctas">
-        <a class="btn btn-amber" href="${esc(platHref(cfg, 'github', '/releases'))}" target="_blank" rel="noopener noreferrer">${I('download', 18)} ${T(cfg.hero.ctaPrimary)}</a>
+        <a class="btn btn-amber" href="${esc(cfg.links.webapp || platHref(cfg, 'github', '/releases'))}" target="_blank" rel="noopener noreferrer">${I('spark', 18)} ${T(cfg.hero.ctaPrimary)}</a>
         <a class="btn btn-ghost" href="${esc(cfg.links.github)}" target="_blank" rel="noopener noreferrer">${I('starFill', 15)} ${T(cfg.hero.ctaSecondary)}</a>
-        <a class="btn-link" href="${esc(platHref(cfg, 'github', '#readme'))}" target="_blank" rel="noopener noreferrer">${I('book', 15)} ${T(cfg.hero.ctaTertiary)}</a>
+        <a class="btn-link" href="${esc(cfg.links.docs || platHref(cfg, 'github', '#readme'))}" target="_blank" rel="noopener noreferrer">${I('book', 15)} ${T(cfg.hero.ctaTertiary)}</a>
       </div>
       <ul class="chips">${cfg.hero.chips.map(c => `<span>${I('mouse', 12)} ${esc(c)}</span>`).join('')}</ul>
     </div>
@@ -745,7 +745,9 @@ function render(cfg) {
         <span class="ttl">${T(m.title)}</span>
         ${m.status === 'done'
           ? `<span class="st">${I('circleCheck', 14)}<span class="sr-only">done</span><span class="dn" style="display:inline" aria-hidden="true">100%</span></span>`
-          : `<span class="st prog">${I('dot', 14)} <span aria-hidden="true">in progress</span><span class="sr-only">in progress</span></span>`}
+          : m.status === 'plan'
+            ? `<span class="st" style="color:var(--mut2)">${I('dot', 14)} <span aria-hidden="true">${LANG === 'ru' ? 'в плане' : 'planned'}</span><span class="sr-only">planned</span></span>`
+            : `<span class="st prog">${I('dot', 14)} <span aria-hidden="true">${LANG === 'ru' ? 'в работе' : 'in progress'}</span><span class="sr-only">in progress</span></span>`}
         <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
       </li>`).join('')}</ol></div>`;
   document.querySelectorAll('.rm .st .dn').forEach(el => { if (window.innerWidth < 640) el.style.display = 'none'; });

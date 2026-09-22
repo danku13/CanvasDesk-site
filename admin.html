@@ -376,15 +376,10 @@ const SIMPLE_SECTIONS = [
     I18N('matrix.subtitle', 'Подзаголовок', 'textarea'),
     I18N('matrix.yes', '«Полностью»'), I18N('matrix.hotkeysTitle', 'Заголовок хоткеев'),
   ]),
-  sec('roadmap', '🗺️ Роадмап (шапка)', [
-    I18N('roadmap.kicker', 'Кикер'), I18N('roadmap.title', 'Заголовок'),
-    I18N('roadmap.subtitle', 'Подзаголовок', 'textarea'), I18N('roadmap.changelog', 'Ссылка changelog'),
-  ]),
-  sec('quotes', '💬 Отзывы (шапка)', [
-    I18N('quotes.kicker', 'Кикер'), I18N('quotes.title', 'Заголовок'),
-    I18N('quotes.subtitle', 'Подзаголовок', 'textarea'),
-    I18N('quotes.slotHint', 'Подсказка в пустых слотах', 'textarea'),
-    I18N('quotes.emptyAuthor', 'Подпись пустого слота'),
+  sec('early', '🌟 Ранние пользователи (шапка)', [
+    I18N('early.kicker', 'Кикер'), I18N('early.title', 'Заголовок'),
+    I18N('early.subtitle', 'Подзаголовок', 'textarea'),
+    I18N('early.ctaPrimary', 'Кнопка 1 (веб-версия)'), I18N('early.ctaSecondary', 'Кнопка 2 (Discussions)'),
   ]),
   sec('ctaBand', '📣 CTA-полоса (середина)', [
     I18N('ctaBand.title', 'Заголовок'), I18N('ctaBand.text', 'Текст', 'textarea'),
@@ -542,28 +537,15 @@ function buildForm() {
     o => { if (o.columns) cfg.matrix.columns = o.columns; if (o.rows) cfg.matrix.rows = o.rows; if (o.hotkeys) cfg.matrix.hotkeys = o.hotkeys; }));
   form.appendChild(sMx);
 
-  /* Roadmap items */
-  const sRm = sectionEl('🗺️ Роадмап — майлстоуны', 'rmItems');
-  const rmHost = document.createElement('div'); sRm.appendChild(rmHost);
-  listEditor(rmHost, cfg.roadmap.items, [
-    { key: 'id', label: 'ID (M1…)' },
-    { key: 'title', label: 'Название', i18n: true },
-    { key: 'status', label: 'Статус', type: 'select', options: ['done', 'progress', 'plan'] },
-  ], { addLabel: 'Добавить майлстоун', makeItem: () => ({ id: 'M8', title: { en: 'New milestone', ru: 'Новый майлстоун' }, status: 'progress' }), summary: it => `${it.id} · ${it.status}` });
-  form.appendChild(sRm);
-
-  /* Quotes items */
-  const sQ = sectionEl('💬 Отзывы — карточки', 'qItems');
-  sQ.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Только цитаты с галочкой «одобрено» показываются на сайте; остальные слоты — заглушки (всего 3).</p>');
-  const qHost = document.createElement('div'); sQ.appendChild(qHost);
-  listEditor(qHost, cfg.quotes.items, [
-    { key: 'author', label: 'Автор (@name)' },
-    { key: 'role', label: 'Роль/источник', i18n: true },
-    { key: 'text', label: 'Цитата', i18n: true, type: 'textarea' },
-    { key: 'source', label: 'Ссылка на оригинал (необяз.)' },
-    { key: 'approved', label: 'Одобрено', type: 'checkbox', on: 'показывать на сайте' },
-  ], { addLabel: 'Добавить цитату', makeItem: () => ({ author: '@user', role: { en: 'Early user', ru: 'Ранний пользователь' }, text: { en: '', ru: '' }, source: '', approved: false }), summary: it => `${it.author}${it.approved ? ' ✓' : ''}` });
-  form.appendChild(sQ);
+  /* Early users items */
+  const sEu = sectionEl('🌟 Ранние пользователи — карточки', 'euItems');
+  const euHost = document.createElement('div'); sEu.appendChild(euHost);
+  listEditor(euHost, cfg.early.items, [
+    { key: 'icon', label: 'Иконка (эмодзи)' },
+    { key: 'title', label: 'Заголовок', i18n: true },
+    { key: 'text', label: 'Текст', i18n: true, type: 'textarea' },
+  ], { addLabel: 'Добавить карточку', makeItem: () => ({ icon: '⭐', title: { en: 'New benefit', ru: 'Новая выгода' }, text: { en: '', ru: '' } }), summary: it => it.title?.en || '' });
+  form.appendChild(sEu);
 
   /* FAQ items */
   const sFaq = sectionEl('❓ FAQ — вопросы', 'faqItems');

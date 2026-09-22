@@ -345,36 +345,19 @@ table.cmp td.hl{background:var(--acc-soft);font-weight:500}
 .hk{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;border:1px solid var(--line);background:var(--card);padding:.5rem .875rem;font-size:.75rem;color:var(--mut)}
 .hk kbd{font-family:var(--font-m);font-size:.72rem;font-weight:600;color:var(--acc);background:var(--acc-soft);border:1px solid var(--line);border-radius:.375rem;padding:.1rem .4rem}
 
-/* ===== Roadmap ===== */
-.rm-grid{display:grid;grid-template-columns:1fr;gap:2.5rem}
-@media(min-width:1024px){.rm-grid{grid-template-columns:1fr 1.2fr;gap:4rem}}
-.rm-list{position:relative;display:flex;flex-direction:column;gap:.75rem;list-style:none}
-.rm{display:flex;align-items:center;gap:1rem;border:1px solid var(--line);background:var(--card);border-radius:.75rem;padding:1rem 1.25rem;transition:.2s}
-.rm.prog{border-color:var(--acc);background:var(--acc-soft)}
-.rm .mid{flex:none;display:flex;height:2.25rem;width:3.5rem;align-items:center;justify-content:center;border-radius:.5rem;border:1px solid var(--line);background:var(--bg2);font-family:var(--font-m);font-size:.72rem;font-weight:700;letter-spacing:.06em;color:var(--mut)}
-.rm.prog .mid{border-color:var(--acc);background:var(--acc-soft);color:var(--acc)}
-.rm .ttl{flex:1;font-size:.875rem;font-weight:500;color:var(--txt)}
-@media(min-width:640px){.rm .ttl{font-size:1rem}}
-.rm .st{display:inline-flex;align-items:center;gap:.35rem;font-size:.72rem;font-weight:600;color:var(--acc);white-space:nowrap}
-.rm .st.prog svg{animation:pulse 2s infinite}
-@keyframes pulse{50%{opacity:.4}}
-.rm .n{color:var(--dim);font-size:.72rem}
-@media(max-width:767px){.rm .n{display:none}}
-
-/* ===== Quotes ===== */
-.qgrid{margin-top:2.5rem;display:grid;grid-template-columns:1fr;gap:1.25rem}
-@media(min-width:768px){.qgrid{grid-template-columns:repeat(3,1fr)}}
-.qslot{display:flex;flex-direction:column;align-items:flex-start;gap:1rem;border:1px dashed var(--line);background:transparent;border-radius:var(--r-card);padding:1.5rem}
-.qslot .ic{display:flex;height:2.5rem;width:2.5rem;align-items:center;justify-content:center;border-radius:.75rem;border:1px solid var(--line);color:var(--mut);font-size:1.1rem}
-.qslot blockquote{font-size:.875rem;font-style:italic;color:var(--mut2);line-height:1.7}
-.qslot figcaption{margin-top:auto;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.08em;color:var(--dim)}
-.qcard{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);border-radius:var(--r-card);padding:1.5rem}
-.qcard blockquote{flex:1;font-size:.875rem;color:var(--txt2);line-height:1.7}
-.qcard .who{margin-top:1rem;display:flex;align-items:center;gap:.75rem}
-.qcard .ava{display:flex;height:2.25rem;width:2.25rem;align-items:center;justify-content:center;border-radius:99px;background:var(--btn-bg);font-size:.8rem;font-weight:700;color:var(--btn-fg)}
-.qcard .who b{display:block;font-size:.875rem;font-weight:600}
-.qcard .who span{display:block;font-size:.72rem;color:var(--mut2)}
-.qcard .who a:hover{color:var(--acc)}
+/* ===== Early users ===== */
+.egrid{margin-top:2.5rem;display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:768px){.egrid{grid-template-columns:repeat(3,1fr)}}
+.ecard{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);border-radius:var(--r-card);padding:1.5rem;transition:.2s}
+.ecard:hover{transform:translateY(-4px);border-color:var(--acc)}
+.ecard .ic{display:inline-flex;height:2.75rem;width:2.75rem;align-items:center;justify-content:center;border-radius:.75rem;border:1px solid var(--line);background:var(--acc-soft);font-size:1.25rem}
+.ecard h3{margin-top:1rem;font-size:1rem;font-weight:600;color:var(--txt);line-height:1.35}
+@media(min-width:640px){.ecard h3{font-size:1.0625rem}}
+.ecard p{margin-top:.5rem;font-size:.875rem;color:var(--mut);line-height:1.65}
+.eacts{margin-top:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem}
+@media(min-width:640px){.eacts{flex-direction:row}}
+.eacts .btn{width:100%}
+@media(min-width:640px){.eacts .btn{width:auto}}
 
 /* ===== FAQ ===== */
 .faq-grid{display:grid;grid-template-columns:1fr;gap:2.5rem}
@@ -612,8 +595,7 @@ footer.site ul.col a:hover{color:var(--acc)}
   <section id="compare"><div class="wrap sec-pad" id="compareIn"></div></section>
   <section id="platforms"><div class="wrap sec-pad" id="matrixIn"></div></section>
 
-  <section id="roadmap" class="tint"><div class="wrap sec-pad" id="roadmapIn"></div></section>
-  <section id="quotes"><div class="wrap sec-pad" id="quotesIn"></div></section>
+  <section id="early" class="tint"><div class="wrap sec-pad" id="earlyIn"></div></section>
   <section id="faq"><div class="wrap sec-pad" id="faqIn"></div></section>
   <section id="community" class="tint"><div class="wrap sec-pad" id="communityIn"></div></section>
   <section id="final-cta"><div class="bg" aria-hidden="true"></div><div class="in" id="finalCtaIn"></div></section>
@@ -908,42 +890,18 @@ function render(cfg) {
     <div class="hotwrap"><h3>${T(cfg.matrix.hotkeysTitle)}</h3>
       <div class="hotkeys">${cfg.matrix.hotkeys.map(h => `<span class="hk"><kbd>${esc(h.keys)}</kbd> ${T(h.action)}</span>`).join('')}</div></div>`;
 
-  /* Roadmap */
-  $('#roadmapIn').innerHTML = `<div class="rm-grid">
+  /* Early users — «стань ранним пользователем» */
+  $('#earlyIn').innerHTML = `
     <div class="sec-head">
-      <p class="kicker">${T(cfg.roadmap.kicker)}</p>
-      <h2 class="sec-title">${T(cfg.roadmap.title)}</h2>
-      <p class="sec-sub">${T(cfg.roadmap.subtitle)}</p>
-      <a href="${esc(platHref(cfg, 'github', '/commits'))}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost" style="margin-top:1.5rem;padding:.625rem 1.25rem;font-size:.875rem">${I('commit', 16)} ${T(cfg.roadmap.changelog)}</a>
+      <p class="kicker">${T(cfg.early.kicker)}</p>
+      <h2 class="sec-title">${T(cfg.early.title)}</h2>
+      <p class="sec-sub">${T(cfg.early.subtitle)}</p>
     </div>
-    <ol class="rm-list">${cfg.roadmap.items.map((m, i) => `
-      <li class="rm ${m.status === 'progress' ? 'prog' : ''}">
-        <span class="mid">${esc(m.id)}</span>
-        <span class="ttl">${T(m.title)}</span>
-        ${m.status === 'done'
-          ? `<span class="st">${I('circleCheck', 14)}<span class="sr-only">done</span><span class="dn" style="display:inline" aria-hidden="true">100%</span></span>`
-          : m.status === 'plan'
-            ? `<span class="st" style="color:var(--mut2)">${I('dot', 14)} <span aria-hidden="true">${LANG === 'ru' ? 'в плане' : 'planned'}</span><span class="sr-only">planned</span></span>`
-            : `<span class="st prog">${I('dot', 14)} <span aria-hidden="true">${LANG === 'ru' ? 'в работе' : 'in progress'}</span><span class="sr-only">in progress</span></span>`}
-        <span class="n" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span>
-      </li>`).join('')}</ol></div>`;
-  document.querySelectorAll('.rm .st .dn').forEach(el => { if (window.innerWidth < 640) el.style.display = 'none'; });
-
-  /* Quotes */
-  const approved = (cfg.quotes.items || []).filter(q => q.approved);
-  const slots = Math.max(3 - approved.length, 0);
-  $('#quotesIn').innerHTML = `
-    <div class="sec-head">
-      <p class="kicker">${T(cfg.quotes.kicker)}</p>
-      <h2 class="sec-title">${T(cfg.quotes.title)}</h2>
-      <p class="sec-sub">${T(cfg.quotes.subtitle)}</p>
-    </div>
-    <div class="qgrid">
-      ${approved.map(q => `<figure class="qcard"><blockquote>“${T(q.text)}”</blockquote>
-        <figcaption class="who"><span class="ava">${esc((q.author || '?').replace(/^@/, '').charAt(0).toUpperCase())}</span>
-        <span>${q.source ? `<a href="${esc(q.source)}" target="_blank" rel="noopener noreferrer"><b>${esc(q.author)}</b></a>` : `<b>${esc(q.author)}</b>`}<span>${T(q.role)}</span></span></figcaption></figure>`).join('')}
-      ${Array.from({ length: slots }, (_, i) => `<figure class="qslot"><span class="ic">${I('quote', 18)}</span>
-        <blockquote>${T(cfg.quotes.slotHint)}</blockquote><figcaption>${T(cfg.quotes.emptyAuthor)}</figcaption></figure>`).join('')}
+    <div class="egrid">${(cfg.early.items || []).map(e => `
+      <article class="ecard"><span class="ic" aria-hidden="true">${esc(e.icon)}</span><h3>${T(e.title)}</h3><p>${T(e.text)}</p></article>`).join('')}</div>
+    <div class="eacts">
+      <a class="btn btn-amber" href="${esc(cfg.links.webapp || platHref(cfg, 'github', '/releases'))}" target="_blank" rel="noopener noreferrer">${I('spark', 18)} ${T(cfg.early.ctaPrimary)}</a>
+      <a class="btn btn-ghost" href="${esc(platHref(cfg, 'github', '/discussions'))}" target="_blank" rel="noopener noreferrer">${I('quote', 16)} ${T(cfg.early.ctaSecondary)}</a>
     </div>`;
 
   /* FAQ */
@@ -1005,7 +963,7 @@ function render(cfg) {
       <nav aria-label="${T(cfg.footer.sectionsContent)}"><h3>${T(cfg.footer.sectionsContent)}</h3>
         <ul class="col"><li><a href="#gallery">${T(cfg.gallery.kicker)}</a></li><li><a href="#faq">${T(cfg.faq.kicker)}</a></li><li><a href="#community">${T(cfg.nav.community)}</a></li><li><a href="${esc(cfg.links.github)}" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="admin.html">⚙️ Admin</a></li></ul></nav>
       <nav aria-label="${T(cfg.footer.sectionsAbout)}"><h3>${T(cfg.footer.sectionsAbout)}</h3>
-        <ul class="col"><li><a href="#roadmap">${T(cfg.roadmap.kicker)}</a></li><li><a href="#compare">${T(cfg.compare.kicker)}</a></li><li><a href="${esc(cfg.links.github)}" target="_blank" rel="noopener noreferrer">${esc(cfg.links.github.replace(/^https?:\/\//, ''))}</a></li></ul></nav>
+        <ul class="col"><li><a href="#early">${T(cfg.early.kicker)}</a></li><li><a href="#compare">${T(cfg.compare.kicker)}</a></li><li><a href="${esc(cfg.links.github)}" target="_blank" rel="noopener noreferrer">${esc(cfg.links.github.replace(/^https?:\/\//, ''))}</a></li></ul></nav>
     </div>
     <div class="fbottom">
       <p>© ${new Date().getFullYear()} ${esc(cfg.brand.name)} · danku13 · ${T(cfg.footer.made)}</p>

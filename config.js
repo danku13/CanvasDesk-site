@@ -97,9 +97,9 @@ const DEFAULT_CONFIG = {
       { icon: '📈', id: 'analyst', title: { en: 'Product analysts', ru: 'Продуктовым аналитикам' },
         goal: { en: 'Unit economics and growth on one plane', ru: 'Юнит-экономика и рост на одном экране' },
         proof: { en: 'LTV, CAC, retention D1/D7/D30, funnels — 30 ready templates instead of a jungle of tabs', ru: 'LTV, CAC, retention D1/D7/D30, воронки — 30 готовых шаблонов вместо джунглей табличек' } },
-      { icon: '💰', id: 'finance', title: { en: 'Finance & founders', ru: 'Финансам и фаундерам' },
-        goal: { en: 'Numbers you can defend', ru: 'Цифры, которые не стыдно защитить' },
-        proof: { en: 'NPV, IRR, runway and scenario grids: was → became (+Δ) — see where the money flows', ru: 'NPV, IRR, runway и сценарные сетки: было → стало (+Δ) — видно, куда текут деньги' } },
+      { icon: '🧭', id: 'pm', title: { en: 'Product managers', ru: 'Продакт-менеджерам' },
+        goal: { en: 'Product bets — into checkable models', ru: 'Продуктовые гипотезы — в проверяемые модели' },
+        proof: { en: 'What-if scenarios was → became (+Δ), pricing and runway business cases — a model you can show, not a screenshot', ru: 'What-if сценарии «было → стало (+Δ)», бизнес-кейсы по прайсингу и runway — модель, которую можно показать, а не скриншот' } },
       { icon: '🤖', id: 'ai', title: { en: 'Working with AI', ru: 'Работающим с ИИ' },
         goal: { en: 'Describe the model in words — the agent builds it', ru: 'Опишите модель словами — агент соберёт' },
         proof: { en: '39 MCP tools for Claude and others: assembly in minutes, verified against a reference within ±1%', ru: '39 MCP-инструментов для Claude и других: сборка за минуты, проверка по эталону ±1%' } }
@@ -279,30 +279,20 @@ const DEFAULT_CONFIG = {
     ]
   },
 
-  roadmap: {
-    kicker: { en: 'Roadmap', ru: 'Дорожная карта' },
-    title:  { en: 'Ships in the open', ru: 'Разработка идёт открыто' },
-    subtitle: { en: 'Waves are planned and closed in the public repository — this page never oversells the current state.', ru: 'Волны планируются и закрываются в публичном репозитории — эта страница не приукрашивает текущее состояние.' },
-    changelog: { en: 'Follow the changelog', ru: 'Следить за changelog' },
+  early: {
+    kicker: { en: 'Shape the product', ru: 'Влияйте на продукт' },
+    title:  { en: 'Become an early user', ru: 'Станьте ранним пользователем' },
+    subtitle: { en: 'CanvasDesk is young — early users still shape it: your scenarios go straight into development, and new features reach you first.', ru: 'CanvasDesk ещё молодой — ранние пользователи влияют на него напрямую: ваши сценарии попадают в разработку, а новое вы видите первым.' },
     items: [
-      { id: 'M1–M6', title: { en: 'Core: canvas, files, notes, edges, search, widgets', ru: 'Ядро: канвас, файлы, заметки, связи, поиск, виджеты' }, status: 'done' },
-      { id: 'Numi', title: { en: 'Math: Numi engine, value flow, units, 45 templates', ru: 'Расчёты: Numi-движок, поток значений, единицы, 45 шаблонов' }, status: 'done' },
-      { id: 'A', title: { en: 'Composition: value ports, graph_apply & graph_validate, agent recipe', ru: 'Композиция: порты значений, graph_apply и graph_validate, рецепт агента' }, status: 'done' },
-      { id: 'B', title: { en: 'Analytics: bottlenecks and what-if scenarios', ru: 'Аналитика: узкие места и what-if сценарии' }, status: 'done' },
-      { id: 'Web', title: { en: 'Web version: the same engine in the browser', ru: 'Веб-версия: тот же движок в браузере' }, status: 'done' },
-      { id: 'M7', title: { en: 'Cross-platform: Linux and macOS', ru: 'Кроссплатформенность: Linux и macOS' }, status: 'progress' },
-      { id: 'V', title: { en: 'Demand check: dogfooding and live demos', ru: 'Проверка спроса: догфудинг и живые демо' }, status: 'progress' },
-      { id: 'S', title: { en: 'Statistics, Monte Carlo, composite templates', ru: 'Статистика, Monte Carlo, композитные шаблоны' }, status: 'plan' }
-    ]
-  },
-
-  quotes: {
-    kicker: { en: 'Wall of love', ru: 'Отзывы' },
-    title:  { en: 'What early users say', ru: 'Что говорят ранние пользователи' },
-    subtitle: { en: 'Hand-moderated quotes from live demos and GitHub Discussions — never invented, never auto-pulled.', ru: 'Отобранные вручную цитаты с живых демо и из GitHub Discussions — без выдумок и автоподтяжки.' },
-    slotHint: { en: 'Quote slot — add a real user quote from GitHub Discussions in the admin panel', ru: 'Место для цитаты — добавьте реальный отзыв из GitHub Discussions в админке' },
-    emptyAuthor: { en: 'Awaiting a real quote', ru: 'Ждём настоящий отзыв' },
-    items: []
+      { icon: '🧪', title: { en: 'Try it first', ru: 'Пробуйте первым' },
+        text: { en: 'Open the web version — no install. Desktop builds for Windows, Linux and macOS.', ru: 'Откройте веб-версию — без установки. Есть сборки для Windows, Linux и macOS.' } },
+      { icon: '💬', title: { en: 'Say what’s missing', ru: 'Скажите, чего не хватает' },
+        text: { en: 'Drop your use case in GitHub Discussions — it can become the next template. The author reads everything.', ru: 'Опишите сценарий в GitHub Discussions — он может стать следующим шаблоном. Автор читает всё.' } },
+      { icon: '🚀', title: { en: 'Get new features first', ru: 'Получайте новое первым' },
+        text: { en: 'Watch releases and the devlog — early users see features before they land in the docs.', ru: 'Следите за релизами и devlog — ранние пользователи видят фичи раньше, чем они попадут в документацию.' } }
+    ],
+    ctaPrimary:   { en: 'Open in browser',     ru: 'Открыть в браузере' },
+    ctaSecondary: { en: 'Join Discussions',    ru: 'Написать в Discussions' }
   },
 
   ctaBand: {
@@ -323,7 +313,7 @@ const DEFAULT_CONFIG = {
       { q: { en: 'How is it different from Miro or Obsidian Canvas?', ru: 'Чем это отличается от Miro или Obsidian Canvas?' }, a: { en: 'Boards store pictures of thoughts; CanvasDesk nodes compute numbers. The format is JSON Canvas: layouts open in Obsidian and back.', ru: 'Доски хранят картинки мыслей; ноды CanvasDesk считают числа. Формат — JSON Canvas: раскладки открываются в Obsidian и обратно.' } },
       { q: { en: 'How do I connect an AI agent?', ru: 'Как подключить ИИ-агента?' }, a: { en: 'One command — canvasdesk mcp — starts an MCP server for Claude Desktop and any MCP client: 39 tools including graph_apply and graph_validate.', ru: 'Одна команда — canvasdesk mcp — поднимает MCP-сервер для Claude Desktop и любых MCP-клиентов: 39 инструментов, включая graph_apply и graph_validate.' } },
       { q: { en: 'How fast is the engine?', ru: 'Что с производительностью?' }, a: { en: 'A 1000-node graph recalculates in under 10 ms; the canvas keeps 5000 nodes at 60 FPS.', ru: 'Граф из 1000 нод пересчитывается быстрее 10 мс; канвас держит 5000 нод при 60 FPS.' } },
-      { q: { en: 'How can I support the project?', ru: 'Как поддержать проект?' }, a: { en: 'Star the repository on GitHub, share it with architects and analysts, or use the donation links below — they fund the development directly.', ru: 'Поставьте звезду репозиторию на GitHub, поделитесь им с архитекторами и аналитиками или воспользуйтесь ссылками на поддержку ниже — они идут напрямую в разработку.' } }
+      { q: { en: 'How can I support the project?', ru: 'Как поддержать проект?' }, a: { en: 'Star the repository on GitHub, share it with architects, analysts and product managers, or use the donation links below — they fund the development directly.', ru: 'Поставьте звезду репозиторию на GitHub, поделитесь им с архитекторами, аналитиками и продакт-менеджерами или воспользуйтесь ссылками на поддержку ниже — они идут напрямую в разработку.' } }
     ]
   },
 

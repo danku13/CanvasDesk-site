@@ -204,20 +204,35 @@ h1 .acc{color:var(--acc)}
 .hero .downstream a{display:inline-flex;align-items:center;gap:.25rem;font-weight:500;color:var(--acc)}
 .hero .downstream a:hover{color:var(--acc2)}
 
-/* ===== Personas — «зачем мне это» ===== */
-.pgrid{margin-top:2.5rem;display:grid;grid-template-columns:1fr;gap:1rem}
-@media(min-width:640px){.pgrid{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.pgrid{grid-template-columns:repeat(4,1fr);gap:1.25rem}}
-.pcard{display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);border-radius:var(--r-card);padding:1.5rem;transition:.2s;scroll-margin-top:6rem}
-.pcard:hover{transform:translateY(-4px);border-color:var(--acc)}
-.pcard .ptop{display:flex;align-items:center;justify-content:space-between}
-.pcard .pnum{font-family:var(--font-d);font-size:1.375rem;font-weight:700;line-height:1;color:var(--dim)}
-.pcard .pic{font-size:1.5rem}
-.pcard h3{margin-top:.875rem;font-size:1rem;font-weight:600;color:var(--txt)}
-.pcard .pgoal{margin-top:.5rem;font-family:var(--font-d);font-size:1.1rem;line-height:1.35;color:var(--txt)}
-.pcard .pproof{margin-top:.5rem;font-size:.85rem;color:var(--mut);line-height:1.6}
-.pcard .plink{margin-top:auto;padding-top:1.125rem;display:inline-flex;align-items:center;gap:.375rem;font-size:.875rem;font-weight:600;color:var(--acc)}
-.pcard .plink:hover{text-decoration:underline;text-underline-offset:4px}
+/* ===== Personas — user story + интерактивный выбор роли ===== */
+.pstory{margin-top:2.25rem;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem;max-width:54rem}
+.pstory h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--txt);line-height:1.35}
+.pstory p{margin-top:.75rem;color:var(--txt2);line-height:1.65;font-size:.95rem}
+.proles{margin-top:1.75rem}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pillbtn{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);border-radius:var(--r-pill);padding:.55rem 1.1rem;font-size:.9rem;font-weight:600;color:var(--txt2);background:var(--card);transition:.15s;scroll-margin-top:6rem}
+.pillbtn:hover{border-color:var(--acc);color:var(--acc)}
+.pillbtn.on{background:var(--btn-bg);color:var(--btn-fg);border-color:transparent;box-shadow:var(--btn-glow)}
+.ppanel{margin-top:1rem;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem;max-width:54rem;animation:pfade .25s ease}
+@keyframes pfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.ppanel{animation:none}}
+.ppanel .ptop{display:flex;gap:.9rem;align-items:flex-start}
+.ppanel .pic{font-size:1.6rem;line-height:1.4}
+.ppanel h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--txt);line-height:1.3}
+.ppanel .pgoal{margin-top:.2rem;color:var(--acc);font-weight:600;font-size:.95rem}
+.pdetails{margin-top:1.1rem;list-style:none;display:grid;gap:.55rem}
+.pdetails li{display:flex;gap:.55rem;align-items:flex-start;color:var(--txt2);font-size:.925rem;line-height:1.55}
+.pdetails svg{flex:none;color:var(--acc2);margin-top:.2rem}
+.ppanel .pact{margin-top:1.25rem;display:inline-flex;align-items:center;gap:.5rem;border-radius:var(--r-btn);background:var(--btn-bg);color:var(--btn-fg);padding:.625rem 1.25rem;font-size:.875rem;font-weight:600;box-shadow:var(--btn-glow);transition:.2s}
+.ppanel .pact:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.phint{margin-top:1rem;font-size:.85rem;color:var(--mut);display:inline-flex;align-items:center;gap:.4rem}
+.proles.has-sel .phint{display:none}
+.pplan{margin-top:1.75rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:.8rem;color:var(--mut)}
+.pplan .plabel{font-weight:600;color:var(--mut2);text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
+.pchip{display:inline-flex;align-items:center;gap:.35rem;border:1px dashed var(--line);border-radius:var(--r-pill);padding:.3rem .8rem;color:var(--mut)}
+.pchip svg{color:var(--acc2)}
+.pplan a{display:inline-flex;align-items:center;gap:.3rem;font-weight:600;color:var(--acc2)}
+.pplan a:hover{text-decoration:underline;text-underline-offset:4px}
 
 /* ===== Trust strip ===== */
 .trust{border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
@@ -348,11 +363,6 @@ table.cmp td.hl{background:var(--acc-soft);font-weight:500}
 .cell-tag{display:inline-flex;align-items:center;border-radius:var(--r-pill);border:1px solid var(--line);padding:.125rem .625rem;font-size:.72rem;font-weight:500;color:var(--txt2)}
 .cell-tag.plan{color:var(--mut2)}
 .tbl-note{margin-top:.75rem;font-size:.75rem;color:var(--mut2)}
-.hotwrap{margin-top:2.5rem}
-.hotwrap h3{font-size:1.125rem;font-weight:600;margin-bottom:1rem}
-.hotkeys{display:flex;flex-wrap:wrap;gap:.5rem}
-.hk{display:inline-flex;align-items:center;gap:.5rem;border-radius:.75rem;border:1px solid var(--line);background:var(--card);padding:.5rem .875rem;font-size:.75rem;color:var(--mut)}
-.hk kbd{font-family:var(--font-m);font-size:.72rem;font-weight:600;color:var(--acc);background:var(--acc-soft);border:1px solid var(--line);border-radius:.375rem;padding:.1rem .4rem}
 
 /* ===== Early users ===== */
 .egrid{margin-top:2.5rem;display:grid;grid-template-columns:1fr;gap:1rem}
@@ -534,13 +544,11 @@ footer.site ul.col a:hover{color:var(--acc)}
 [data-theme="dark"] .mslot .kind{color:#9df2ff;border-color:rgba(0,229,255,.4);text-shadow:0 0 8px rgba(0,229,255,.6)}
 [data-theme="dark"] .stat b{text-shadow:0 0 16px rgba(0,229,255,.4)}
 [data-theme="dark"] .card:hover{box-shadow:0 0 30px rgba(255,46,196,.12)}
-[data-theme="dark"] .pcard:hover{box-shadow:0 0 34px rgba(255,46,196,.14)}
 [data-theme="dark"] .plat.primary{box-shadow:0 0 30px rgba(255,46,196,.16)}
 [data-theme="dark"] .cta-band{border-color:rgba(255,46,196,.4);background:linear-gradient(135deg,rgba(255,46,196,.09),rgba(124,58,237,.08) 55%,rgba(0,229,255,.05));box-shadow:0 0 50px rgba(255,46,196,.09)}
 [data-theme="dark"] .cell-yes{text-shadow:0 0 10px rgba(0,229,255,.5)}
 [data-theme="dark"] #final-cta .bg{background-image:radial-gradient(circle at 50% 0%,rgba(255,46,196,.16),transparent 55%),radial-gradient(rgba(0,229,255,.07) 1px,transparent 1px);background-size:auto,26px 26px}
 [data-theme="dark"] .btn-ghost:hover{border-color:var(--acc2);color:var(--acc2)}
-[data-theme="dark"] .pcard .pnum{color:transparent;-webkit-text-stroke:1px rgba(0,229,255,.4)}
 
 /* ============================================================
    LIGHT — typography / editorial decorations
@@ -557,11 +565,6 @@ footer.site ul.col a:hover{color:var(--acc)}
 [data-theme="light"] .stat{background:transparent;border:none;border-top:1px solid var(--line);border-radius:0;padding:1rem .25rem}
 [data-theme="light"] .stat:hover{border-top-color:var(--txt)}
 [data-theme="light"] .stat b{font-size:1.6rem}
-[data-theme="light"] .pcard{background:transparent;border:none;border-top:2px solid var(--txt);border-radius:0;padding:1.25rem .25rem 1rem}
-[data-theme="light"] .pcard:hover{transform:none;border-top-color:var(--acc)}
-[data-theme="light"] .pcard .pgoal{font-size:1.18rem;line-height:1.3}
-[data-theme="light"] .pcard:hover .pgoal{color:var(--acc)}
-[data-theme="light"] .pcard .pnum{color:#ddd3bf}
 [data-theme="light"] .card{box-shadow:0 1px 0 rgba(30,26,20,.03)}
 [data-theme="light"] .card:hover{transform:translateY(-2px);border-color:var(--txt);box-shadow:0 10px 30px rgba(30,26,20,.08)}
 [data-theme="light"] .card h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700}
@@ -580,8 +583,7 @@ footer.site ul.col a:hover{color:var(--acc)}
 [data-theme="light"] .faq-item summary{font-family:var(--font-d);font-size:1.125rem;font-weight:700}
 [data-theme="light"] .donate{background:rgba(179,55,44,.05)}
 [data-theme="light"] .step:hover{border-color:var(--txt)}
-[data-theme="light"] .hk kbd{background:var(--bg2)}
-[data-theme="light"] .num{color:#ddd3bf;font-weight:600}
+[data-theme="light"] .num{color:#ddd3bf;font-weight:700}
 [data-theme="light"] .logo .mark{border-radius:.6rem}
 [data-theme="light"] .gal figure:hover .frame{border-color:var(--txt)}
 [data-theme="light"] .cell-yes{color:#15803d}
@@ -883,21 +885,65 @@ function render(cfg) {
     <dl class="stats">${cfg.stats.map(s => `<div class="stat"><dd><b>${esc(s.value)}</b></dd><span>${T(s.label)}</span></div>`).join('')}</dl>
     <p class="downstream"><a href="#community">${T(cfg.hero.communityLink)} ${I('right', 14)}</a></p>`;
 
-  /* Personas — ответ на вопрос «зачем мне это» (первый скролл) */
+  /* Personas v5 — user story по умолчанию + интерактивный выбор роли.
+     ИИ — не роль, а инструмент: его история в dive «AI & MCP», steps и FAQ. */
+  const pRoles = cfg.personas.items || [];
+  const pPlanned = (cfg.personas.planned || {})[LANG] || [];
   $('#personasIn').innerHTML = `
     <div class="sec-head">
       <p class="kicker">${T(cfg.personas.kicker)}</p>
       <h2 class="sec-title">${T(cfg.personas.title)}</h2>
       <p class="sec-sub">${T(cfg.personas.subtitle)}</p>
     </div>
-    <div class="pgrid">${cfg.personas.items.map((p, i) => `
-      <article class="pcard" id="p-${esc(p.id || i)}">
-        <div class="ptop"><span class="pnum" aria-hidden="true">${String(i + 1).padStart(2, '0')}</span><span class="pic" aria-hidden="true">${esc(p.icon)}</span></div>
-        <h3>${T(p.title)}</h3>
-        <p class="pgoal">${T(p.goal)}</p>
-        <p class="pproof">${T(p.proof)}</p>
-        <a class="plink" href="${esc(p.href || cfg.links.webapp || platHref(cfg, 'github', '/releases'))}" target="_blank" rel="noopener noreferrer">${T(cfg.personas.cta)} <span aria-hidden="true">→</span></a>
-      </article>`).join('')}</div>`;
+    ${T(cfg.personas.story) ? `
+    <div class="pstory">
+      <h3>${T(cfg.personas.storyTitle)}</h3>
+      ${T(cfg.personas.story).split('\n\n').map(par => `<p>${esc(par)}</p>`).join('')}
+    </div>` : ''}
+    ${pRoles.length ? `
+    <div class="proles" id="proles">
+      <div class="pills" role="tablist" aria-label="${LANG === 'ru' ? 'Роли' : 'Roles'}">
+        ${pRoles.map((p, i) => `<button class="pillbtn" type="button" role="tab" id="p-${esc(p.id || i)}" aria-selected="false" aria-controls="ppanel" data-idx="${i}"><span aria-hidden="true">${esc(p.icon)}</span>${T(p.title)}</button>`).join('')}
+      </div>
+      <div class="ppanel" id="ppanel" role="tabpanel" aria-live="polite" hidden></div>
+      <p class="phint">${I('mouse', 13)} ${T(cfg.personas.hint)}</p>
+    </div>` : ''}
+    ${pPlanned.length ? `
+    <div class="pplan">
+      <span class="plabel">${T(cfg.personas.plannedLabel)}</span>
+      ${pPlanned.map(x => `<span class="pchip">${I('spark', 13)} ${esc(x)}</span>`).join('')}
+      <a href="${esc(cfg.links.roadmap)}" target="_blank" rel="noopener noreferrer">${LANG === 'ru' ? 'Все планы — в roadmap' : 'Full plans in the roadmap'} ${I('upRight', 12)}</a>
+    </div>` : ''}`;
+
+  const showRole = idx => {
+    const p = pRoles[idx];
+    const panel = $('#ppanel');
+    if (!p || !panel) return;
+    const pills = document.querySelectorAll('#proles .pillbtn');
+    const wasActive = pills[idx] && pills[idx].classList.contains('on');
+    pills.forEach(b => { b.classList.remove('on'); b.setAttribute('aria-selected', 'false'); });
+    if (wasActive) { panel.hidden = true; $('#proles').classList.remove('has-sel'); return; }
+    pills[idx].classList.add('on'); pills[idx].setAttribute('aria-selected', 'true');
+    $('#proles').classList.add('has-sel');
+    panel.innerHTML = `
+      <div class="ptop"><span class="pic" aria-hidden="true">${esc(p.icon)}</span>
+        <div><h3>${T(p.title)}</h3><p class="pgoal">${T(p.goal)}</p></div></div>
+      <ul class="pdetails">${(p.details?.[LANG] || []).map(d => `<li>${I('circleCheck', 15)}<span>${esc(d)}</span></li>`).join('')}</ul>
+      <a class="pact" href="${esc(p.href || cfg.links.webapp || platHref(cfg, 'github', '/releases'))}" target="_blank" rel="noopener noreferrer">${T(cfg.personas.cta)} ${I('upRight', 14)}</a>`;
+    panel.hidden = false;
+  };
+  document.querySelectorAll('#proles .pillbtn').forEach(b => b.addEventListener('click', () => showRole(+b.dataset.idx)));
+  /* Ссылки «#p-<id>» (hero .who) — открыть секцию с выбранной ролью */
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href^="#p-"]');
+    if (!a) return;
+    const id = a.getAttribute('href').slice(3);
+    const idx = pRoles.findIndex((p, i) => String(p.id || i) === id);
+    if (idx < 0) return;
+    e.preventDefault();
+    showRole(idx);
+    $('#personas').scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  });
 
   /* Trust strip (бейджи сразу; цифры GitHub подтянутся асинхронно) */
   $('#trustIn').innerHTML = `
@@ -1003,7 +1049,7 @@ function render(cfg) {
     </table></div>
     <p class="tbl-note">${T(cfg.compare.subtitle)}</p>`;
 
-  /* Matrix + hotkeys */
+  /* Matrix — платформы */
   $('#matrixIn').innerHTML = `
     <div class="sec-head">
       <p class="kicker">${T(cfg.matrix.kicker)}</p>
@@ -1017,9 +1063,7 @@ function render(cfg) {
         const val = v => v === 'yes' ? `<span class="cell-yes">${I('check', 14)}<span class="sr-only">${T(cfg.matrix.yes)}</span><span aria-hidden="true">${T(cfg.matrix.yes)}</span></span>` : (v === '—' ? `<span class="cell-no">${I('minus', 14)}<span class="sr-only">—</span></span>` : (v === 'planned' ? `<span class="cell-tag plan">${LANG === 'ru' ? 'в планах' : 'planned'}</span>` : `<span class="cell-tag">${esc(v)}</span>`));
         return `<tr><th scope="row">${T(r.name)}</th><td>${val(r.win)}</td><td>${val(r.linux)}</td><td>${val(r.mac)}</td></tr>`;
       }).join('')}</tbody>
-    </table></div>
-    <div class="hotwrap"><h3>${T(cfg.matrix.hotkeysTitle)}</h3>
-      <div class="hotkeys">${cfg.matrix.hotkeys.map(h => `<span class="hk"><kbd>${esc(h.keys)}</kbd> ${T(h.action)}</span>`).join('')}</div></div>`;
+    </table></div>`;
 
   /* Early users — «стань ранним пользователем» */
   $('#earlyIn').innerHTML = `

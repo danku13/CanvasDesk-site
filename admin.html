@@ -362,10 +362,14 @@ const SIMPLE_SECTIONS = [
     I18N('gallery.kicker', 'Кикер'), I18N('gallery.title', 'Заголовок'),
     I18N('gallery.subtitle', 'Подзаголовок', 'textarea'),
   ]),
-  sec('personas', '🎯 Персоны («зачем мне это»)', [
+  sec('personas', '🎯 Персоны (story + роли)', [
     I18N('personas.kicker', 'Кикер'), I18N('personas.title', 'Заголовок'),
     I18N('personas.subtitle', 'Подзаголовок', 'textarea'),
-    I18N('personas.cta', 'Кнопка на карточках'),
+    I18N('personas.storyTitle', 'Заголовок user story', 'textarea'),
+    I18N('personas.story', 'User story (абзацы через пустую строку)', 'textarea'),
+    I18N('personas.hint', 'Подсказка под ролями'),
+    I18N('personas.plannedLabel', 'Метка «В планах»'),
+    I18N('personas.cta', 'Кнопка в панели роли'),
   ]),
   sec('compare', '⚖️ Сравнение (шапка)', [
     I18N('compare.kicker', 'Кикер'), I18N('compare.title', 'Заголовок'),
@@ -374,7 +378,7 @@ const SIMPLE_SECTIONS = [
   sec('matrix', '🖥️ Матрица платформ (шапка)', [
     I18N('matrix.kicker', 'Кикер'), I18N('matrix.title', 'Заголовок'),
     I18N('matrix.subtitle', 'Подзаголовок', 'textarea'),
-    I18N('matrix.yes', '«Полностью»'), I18N('matrix.hotkeysTitle', 'Заголовок хоткеев'),
+    I18N('matrix.yes', '«Полностью»'),
   ]),
   sec('early', '🌟 Ранние пользователи (шапка)', [
     I18N('early.kicker', 'Кикер'), I18N('early.title', 'Заголовок'),
@@ -513,16 +517,21 @@ function buildForm() {
 
   /* Personas (карточки аудиторий) */
   const sPc = sectionEl('🎯 Персоны — карточки', 'personaItems');
-  sPc.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Первый скролл после hero: кто вы → зачем вам сервис (goal) → доказательство (proof). Пустая ссылка = веб-версия.</p>');
+  sPc.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">User story видна по умолчанию; клик по роли раскрывает панель (goal + details). Пустая ссылка = веб-версия.</p>');
   const pcHost = document.createElement('div'); sPc.appendChild(pcHost);
   listEditor(pcHost, cfg.personas.items, [
     { key: 'icon', label: 'Иконка (эмодзи)' },
     { key: 'id', label: 'ID (для ссылок #p-…, латиницей)' },
-    { key: 'title', label: 'Кто вы', i18n: true },
+    { key: 'title', label: 'Роль', i18n: true },
     { key: 'goal', label: 'Зачем (коротко!)', i18n: true },
-    { key: 'proof', label: 'Доказательство', i18n: true, type: 'textarea' },
     { key: 'href', label: 'Ссылка (необяз., по умолч. веб-версия)' },
-  ], { addLabel: 'Добавить персону', makeItem: () => ({ icon: '🔹', id: 'new', title: { en: 'New persona', ru: 'Новая аудитория' }, goal: { en: 'Why in a few words', ru: 'Зачем — парой слов' }, proof: { en: '', ru: '' }, href: '' }), summary: it => it.title?.en || '' });
+  ], { addLabel: 'Добавить персону', makeItem: () => ({ icon: '🔹', id: 'new', title: { en: 'New persona', ru: 'Новая аудитория' }, goal: { en: 'Why in a few words', ru: 'Зачем — парой слов' }, details: { en: [], ru: [] }, href: '' }), summary: it => it.title?.en || '' });
+  sPc.appendChild(rawJsonField('details по ролям (JSON: [{en:[…],ru:[…]}, …] — порядок как в списке выше)',
+    () => (cfg.personas.items || []).map(it => it.details || { en: [], ru: [] }),
+    o => { if (Array.isArray(o)) cfg.personas.items.forEach((it, i) => { if (o[i]) it.details = o[i]; }); }));
+  sPc.appendChild(rawJsonField('planned-чипы «В планах» (JSON)',
+    () => ({ planned: cfg.personas.planned }),
+    o => { if (o.planned) cfg.personas.planned = o.planned; }));
   form.appendChild(sPc);
 
   /* Compare: шапка в SIMPLE_SECTIONS + RAW */
@@ -533,10 +542,10 @@ function buildForm() {
   form.appendChild(sCmp);
 
   /* Matrix RAW */
-  const sMx = sectionEl('🖥️ Матрица — таблица и хоткеи (JSON)', 'mxRaw');
-  sMx.appendChild(rawJsonField('columns / rows / hotkeys',
-    () => ({ columns: cfg.matrix.columns, rows: cfg.matrix.rows, hotkeys: cfg.matrix.hotkeys }),
-    o => { if (o.columns) cfg.matrix.columns = o.columns; if (o.rows) cfg.matrix.rows = o.rows; if (o.hotkeys) cfg.matrix.hotkeys = o.hotkeys; }));
+  const sMx = sectionEl('🖥️ Матрица — таблица (JSON)', 'mxRaw');
+  sMx.appendChild(rawJsonField('columns / rows',
+    () => ({ columns: cfg.matrix.columns, rows: cfg.matrix.rows }),
+    o => { if (o.columns) cfg.matrix.columns = o.columns; if (o.rows) cfg.matrix.rows = o.rows; }));
   form.appendChild(sMx);
 
   /* Early users items */

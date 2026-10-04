@@ -18,6 +18,7 @@
 const PLATFORMS = {
   github:         { icon: '🐙', label: 'GitHub',          kind: 'code' },
   telegram:       { icon: '✈️', label: 'Telegram',         kind: 'chat' },
+  discord:        { icon: '💬', label: 'Discord',          kind: 'chat' },
   habr:           { icon: '📝', label: 'Habr',             kind: 'articles' },
   linkedin:       { icon: '💼', label: 'LinkedIn',         kind: 'chat' },
   medium:         { icon: '✍️', label: 'Medium',           kind: 'articles' },
@@ -362,7 +363,8 @@ const DEFAULT_CONFIG = {
     github:         'https://github.com/danku13/CanvasDesk',
     webapp:         'https://danku13.github.io/CanvasDesk/app/',
     docs:           'https://danku13.github.io/CanvasDesk/',
-    telegram:       '',   // TODO: вставьте ссылку на канал
+    telegram:       'https://t.me/+k1dTKp_3cHZiM2My',
+    discord:        'https://discord.gg/gXZmF7695',
     habr:           'https://habr.com/ru/users/danku13/',
     linkedin:       '',   // TODO: вставьте ссылку
     medium:         '',   // TODO: вставьте ссылку
@@ -375,14 +377,15 @@ const DEFAULT_CONFIG = {
     linkedin:       { en: 'Development updates in your feed', ru: 'Новости разработки в вашей ленте' },
     medium:         { en: 'Long-form articles and deep dives', ru: 'Большие статьи и разборы' },
     habr:           { en: 'Articles and devlog in Russian', ru: 'Статьи и devlog проекта' },
-    telegram:       { en: 'News, chat and quick help', ru: 'Новости, чат и быстрая помощь' },
+    telegram:       { en: 'Official chat and quick help', ru: 'Официальный чат и быстрая помощь' },
+    discord:        { en: 'Community chat, support and discussions', ru: 'Чат сообщества, поддержка и обсуждения' },
     boosty:         { en: 'Monthly support with bonus content', ru: 'Постоянная поддержка и бонусный контент' },
     donationalerts: { en: 'One-time donation to the author', ru: 'Разовое пожертвование автору' }
   },
 
   priorities: {
-    en: ['linkedin', 'medium', 'github', 'donationalerts'],
-    ru: ['habr', 'telegram', 'github', 'boosty', 'donationalerts']
+    en: ['github', 'telegram', 'discord', 'donationalerts'],
+    ru: ['habr', 'telegram', 'discord', 'github', 'boosty', 'donationalerts']
   }
 };
 

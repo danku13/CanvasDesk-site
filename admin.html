@@ -362,11 +362,9 @@ const SIMPLE_SECTIONS = [
     I18N('gallery.kicker', 'Кикер'), I18N('gallery.title', 'Заголовок'),
     I18N('gallery.subtitle', 'Подзаголовок', 'textarea'),
   ]),
-  sec('personas', '🎯 Персоны (story + роли)', [
+  sec('personas', '🎯 Персоны (схема + роли)', [
     I18N('personas.kicker', 'Кикер'), I18N('personas.title', 'Заголовок'),
     I18N('personas.subtitle', 'Подзаголовок', 'textarea'),
-    I18N('personas.storyTitle', 'Заголовок user story', 'textarea'),
-    I18N('personas.story', 'User story (абзацы через пустую строку)', 'textarea'),
     I18N('personas.hint', 'Подсказка под ролями'),
     I18N('personas.plannedLabel', 'Метка «В планах»'),
     I18N('personas.cta', 'Кнопка в панели роли'),
@@ -517,7 +515,7 @@ function buildForm() {
 
   /* Personas (карточки аудиторий) */
   const sPc = sectionEl('🎯 Персоны — карточки', 'personaItems');
-  sPc.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">User story видна по умолчанию; клик по роли раскрывает панель (goal + details). Пустая ссылка = веб-версия.</p>');
+  sPc.insertAdjacentHTML('beforeend', '<p class="sub" style="color:var(--mut2);margin-bottom:10px">Схема «Сейчас vs С CanvasDesk» (flow) видна по умолчанию; клик по роли раскрывает панель (goal + details). Пустая ссылка = веб-версия.</p>');
   const pcHost = document.createElement('div'); sPc.appendChild(pcHost);
   listEditor(pcHost, cfg.personas.items, [
     { key: 'icon', label: 'Иконка (эмодзи)' },
@@ -526,6 +524,9 @@ function buildForm() {
     { key: 'goal', label: 'Зачем (коротко!)', i18n: true },
     { key: 'href', label: 'Ссылка (необяз., по умолч. веб-версия)' },
   ], { addLabel: 'Добавить персону', makeItem: () => ({ icon: '🔹', id: 'new', title: { en: 'New persona', ru: 'Новая аудитория' }, goal: { en: 'Why in a few words', ru: 'Зачем — парой слов' }, details: { en: [], ru: [] }, href: '' }), summary: it => it.title?.en || '' });
+  sPc.appendChild(rawJsonField('flow — схема «Сейчас vs С CanvasDesk» (JSON, см. DEFAULT_CONFIG.personas.flow)',
+    () => ({ flow: cfg.personas.flow }),
+    o => { if (o.flow) cfg.personas.flow = o.flow; }));
   sPc.appendChild(rawJsonField('details по ролям (JSON: [{en:[…],ru:[…]}, …] — порядок как в списке выше)',
     () => (cfg.personas.items || []).map(it => it.details || { en: [], ru: [] }),
     o => { if (Array.isArray(o)) cfg.personas.items.forEach((it, i) => { if (o[i]) it.details = o[i]; }); }));

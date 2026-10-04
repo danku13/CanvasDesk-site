@@ -94,10 +94,34 @@ const DEFAULT_CONFIG = {
     kicker: { en: 'Find yourself', ru: 'Найдите себя' },
     title:  { en: 'Why CanvasDesk — for you', ru: 'Зачем вам CanvasDesk' },
     subtitle: { en: 'One canvas — five roles. Pick yours and see exactly what you get.', ru: 'Один канвас — пять ролей. Выберите свою — и увидите, что именно вы получите.' },
-    storyTitle: { en: 'The diagram-in-Miro, math-in-Excel treadmill — replaced by one file', ru: 'Схема в одной системе, цифры в другой — вместо этого один файл' },
-    story: {
-      en: 'Usually the numbers live apart from the diagram: the system in Miro or drawio, the math in Excel, the notes in a doc. One input changes — and you manually sync spreadsheets, diagrams and slides. The more people touch the model, the faster the versions drift, and decisions get made on stale numbers.\n\nCanvasDesk replaces that bundle with one file. Schema, formulas and calculation live together: change an input and the whole chain recalculates. The math is visible — structure and connections instead of columns of numbers — and variability is live: “what if traffic doubles? what if churn drops a point?” Hand the file to a teammate: same numbers, same logic — no “my version says otherwise”.',
-      ru: 'Обычно расчёт живёт отдельно от схемы: система — в Miro или drawio, цифры — в Excel, пояснения — в документе. Меняется одно число — синхронизировать приходится всё: таблицы, схемы, презентации. Чем больше людей работает с моделью, тем быстрее версии расходятся, и решения принимаются по устаревшим цифрам.\n\nCanvasDesk заменяет эту связку одним файлом. Схема, формулы и расчёт живут вместе: меняете исходное значение — пересчитывается вся цепочка. Расчёт видно наглядно — со структурой и связями, а не колонками цифр, — и вариативность показывается вживую: «а если трафик вырастет вдвое? а если churn упадёт на пункт?» Модель передаётся коллеге одним файлом: он откроет те же цифры и зависимости — без «у меня в версии посчитано иначе».'
+    /* flow — визуальная схема «как сейчас» (круг из 4 инструментов, ломается на возврате)
+       против «с CanvasDesk» (один файл, автопересчёт). Рендерится в index.html как HTML-схема. */
+    flow: {
+      before: {
+        tag:    { en: 'Today', ru: 'Сейчас' },
+        title:  { en: 'Four tools, one model — synced by hand', ru: 'Четыре инструмента — и синхронизация вручную' },
+        steps: [
+          { tool: 'Miro / draw.io', do: { en: 'the structure and architecture live on a board', ru: 'структура и архитектура — на доске' } },
+          { tool: 'Excel',          do: { en: 'the numbers live in a sheet, recalculated by hand', ru: 'цифры живут в таблице, пересчёт — руками' } },
+          { tool: 'Slides & docs',  do: { en: 'for the idea defense: screenshots of both, plus explanations', ru: 'для защиты идеи: скриншоты того и другого + пояснения' } },
+          { tool: 'Approvals',      do: { en: 'edits come back — one input changes', ru: 'правки вернулись — меняется одна вводная' } }
+        ],
+        loop: { en: 'and back to step 1 — sync every tool by hand, again', ru: 'и снова на круг 1 — вся синхронизация вручную, заново' },
+        fail: { en: 'this is where it breaks: versions drift, decisions run on stale numbers', ru: 'на этом круге всё ломается: версии расходятся, решения принимаются по устаревшим цифрам' }
+      },
+      after: {
+        tag:    { en: 'With CanvasDesk', ru: 'С CanvasDesk' },
+        title:  { en: 'One tool, one file — no loop', ru: 'Один инструмент, один файл — без круга' },
+        fileLabel: { en: 'one file', ru: 'один файл' },
+        chain:  [ { en: 'Schema', ru: 'Схема' }, { en: 'Formulas', ru: 'Формулы' }, { en: 'Numbers', ru: 'Цифры' } ],
+        recalc: { en: 'change one input — the chain recalculates itself', ru: 'меняете одну вводную — цепочка пересчитывается сама' },
+        points: [
+          { en: 'the diagram never drifts from the math — they are one file', ru: 'схема не расходится с расчётом — это один файл' },
+          { en: 'defend the idea from the same file where the math lives', ru: 'идею защищаете из того же файла, где живёт расчёт' },
+          { en: 'what-if live: traffic ×2, churn −1 pp — right in front of the team', ru: 'what-if вживую: трафик ×2, churn −1 п.п. — прямо перед командой' },
+          { en: 'nothing to re-sync: everyone opens the same numbers', ru: 'синхронизировать нечего: все открывают одни и те же цифры' }
+        ]
+      }
     },
     hint: { en: 'Pick a role — the panel below unfolds what you get', ru: 'Нажмите на роль — ниже раскроется, что именно вы получите' },
     plannedLabel: { en: 'Planned', ru: 'В планах' },

@@ -49,7 +49,7 @@
   --line:#31205f;--line-soft:rgba(139,92,246,.22);
   --txt:#f4efff;--txt2:#ddd1fa;--mut:#a795d6;--mut2:#7f6cb4;--dim:#5a4889;
   --acc:#ff2ec4;--acc2:#00e5ff;--acc3:#8b5cf6;
-  --teal:#00e5ff;--rose:#ff5c8a;
+  --teal:#00e5ff;--rose:#ff5c8a;--ok:#34d399;
   --acc-soft:rgba(255,46,196,.08);
   --dot-c:rgba(255,255,255,.05);
   --head-bg:rgba(10,1,24,.82);
@@ -69,7 +69,7 @@
   --line:#e0d8c8;--line-soft:rgba(30,26,20,.14);
   --txt:#1e1a14;--txt2:#403a30;--mut:#6f675a;--mut2:#918878;--dim:#b5ab97;
   --acc:#c2410c;--acc2:#1e1a14;--acc3:#a16207;
-  --teal:#a16207;--rose:#b3372c;
+  --teal:#a16207;--rose:#b3372c;--ok:#15803d;
   --acc-soft:rgba(194,65,12,.06);
   --dot-c:rgba(30,26,20,.07);
   --head-bg:rgba(250,247,241,.86);
@@ -204,16 +204,51 @@ h1 .acc{color:var(--acc)}
 .hero .downstream a{display:inline-flex;align-items:center;gap:.25rem;font-weight:500;color:var(--acc)}
 .hero .downstream a:hover{color:var(--acc2)}
 
-/* ===== Personas — user story + интерактивный выбор роли ===== */
-.pstory{margin-top:2.25rem;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem;max-width:54rem}
-.pstory h3{font-family:var(--font-d);font-size:1.15rem;font-weight:700;color:var(--txt);line-height:1.35}
-.pstory p{margin-top:.75rem;color:var(--txt2);line-height:1.65;font-size:.95rem}
-.proles{margin-top:1.75rem}
-.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+/* ===== Personas — центрированная композиция: схема «сейчас vs CanvasDesk» + роли =====
+   Все блоки секции центрируются (margin-inline:auto), чтобы не липнуть к левому краю .wrap */
+#personas .sec-head{max-width:46rem;margin-inline:auto;text-align:center}
+#personas .sec-sub{margin-inline:auto}
+.pvs{margin:2.5rem auto 0;max-width:72rem;display:grid;gap:1rem}
+@media(min-width:1024px){.pvs{grid-template-columns:1fr 1fr;gap:1.25rem;align-items:stretch}}
+.pvs-col{display:flex;flex-direction:column;align-items:stretch;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem}
+.pvs-tag{display:inline-flex;align-self:flex-start;align-items:center;gap:.45rem;border:1px solid var(--line);border-radius:var(--r-pill);padding:.3rem .85rem;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut2)}
+.pvs-tag::before{content:'';width:.5rem;height:.5rem;border-radius:50%;background:var(--mut2)}
+.pvs-col.before .pvs-tag{color:var(--rose)}
+.pvs-col.before .pvs-tag::before{background:var(--rose)}
+.pvs-col.after .pvs-tag{color:var(--ok)}
+.pvs-col.after .pvs-tag::before{background:var(--ok)}
+.pvs-col h3{margin-top:.9rem;font-family:var(--font-d);font-size:1.1rem;font-weight:700;line-height:1.35;color:var(--txt)}
+/* «Сейчас»: вертикальный степпер 1-4 со сплайном и красным блоком возврата цикла */
+.ploop{list-style:none;margin-top:1.1rem;position:relative}
+.ploop::before{content:'';position:absolute;left:16px;top:14px;bottom:14px;width:2px;background:var(--line)}
+.ploop li{position:relative;display:flex;gap:.85rem;align-items:flex-start;padding:.4rem 0}
+.ploop .n{flex:none;width:2rem;height:2rem;border-radius:50%;border:1.5px solid var(--line);background:var(--card);display:grid;place-items:center;font-family:var(--font-m);font-size:.8rem;font-weight:700;color:var(--txt2);position:relative;z-index:1}
+.ploop b{display:block;font-size:.925rem;font-weight:700;color:var(--txt);line-height:1.3}
+.ploop .d{display:block;margin-top:.1rem;font-size:.85rem;color:var(--mut);line-height:1.5}
+.ploop-back{margin-top:1rem;display:flex;gap:.6rem;align-items:flex-start;border:1.5px dashed var(--rose);border-radius:var(--r-card);padding:.85rem 1rem;color:var(--rose)}
+.ploop-back svg{flex:none;margin-top:.15rem}
+.ploop-back b{display:block;font-size:.875rem;font-weight:700;line-height:1.4}
+.ploop-back span{display:block;margin-top:.15rem;font-size:.8rem;line-height:1.5;color:var(--rose);opacity:.85}
+/* «С CanvasDesk»: один файл с цепочкой Схема → Формулы → Цифры и автопересчётом */
+.pfile{margin-top:1.1rem;border:1px solid var(--line);border-radius:calc(var(--r-card) - 4px);overflow:hidden}
+.pfile-head{display:flex;align-items:center;gap:.5rem;padding:.65rem 1rem;border-bottom:1px solid var(--line);font-size:.8rem;color:var(--mut)}
+.pfile-head svg{flex:none;color:var(--acc2)}
+.pfile-head code{font-family:var(--font-m);font-size:.8rem;font-weight:700;color:var(--txt)}
+.pfile-head .flabel{margin-left:.15rem}
+.pchain{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;padding:1rem}
+.pchain .node{border:1px solid var(--line);border-radius:.6rem;padding:.45rem .8rem;font-size:.85rem;font-weight:600;color:var(--txt);background:var(--card)}
+.pchain .edge{display:inline-flex;color:var(--acc2)}
+.precalc{display:flex;gap:.5rem;align-items:center;border-top:1px dashed var(--line);padding:.65rem 1rem;font-size:.8rem;font-weight:600;color:var(--ok)}
+.precalc svg{flex:none}
+.pok{list-style:none;margin-top:1.15rem;display:grid;gap:.55rem}
+.pok li{display:flex;gap:.55rem;align-items:flex-start;color:var(--txt2);font-size:.925rem;line-height:1.55}
+.pok svg{flex:none;color:var(--ok);margin-top:.2rem}
+.proles{margin:2.25rem auto 0;max-width:72rem}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center}
 .pillbtn{display:inline-flex;align-items:center;gap:.45rem;border:1px solid var(--line);border-radius:var(--r-pill);padding:.55rem 1.1rem;font-size:.9rem;font-weight:600;color:var(--txt2);background:var(--card);transition:.15s;scroll-margin-top:6rem}
 .pillbtn:hover{border-color:var(--acc);color:var(--acc)}
 .pillbtn.on{background:var(--btn-bg);color:var(--btn-fg);border-color:transparent;box-shadow:var(--btn-glow)}
-.ppanel{margin-top:1rem;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem;max-width:54rem;animation:pfade .25s ease}
+.ppanel{margin:1.25rem auto 0;border:1px solid var(--line);border-radius:var(--r-card);background:var(--card);padding:1.5rem;max-width:54rem;animation:pfade .25s ease}
 @keyframes pfade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){.ppanel{animation:none}}
 .ppanel .ptop{display:flex;gap:.9rem;align-items:flex-start}
@@ -225,9 +260,9 @@ h1 .acc{color:var(--acc)}
 .pdetails svg{flex:none;color:var(--acc2);margin-top:.2rem}
 .ppanel .pact{margin-top:1.25rem;display:inline-flex;align-items:center;gap:.5rem;border-radius:var(--r-btn);background:var(--btn-bg);color:var(--btn-fg);padding:.625rem 1.25rem;font-size:.875rem;font-weight:600;box-shadow:var(--btn-glow);transition:.2s}
 .ppanel .pact:hover{transform:translateY(-1px);filter:brightness(1.08)}
-.phint{margin-top:1rem;font-size:.85rem;color:var(--mut);display:inline-flex;align-items:center;gap:.4rem}
+.phint{margin:1.1rem auto 0;font-size:.85rem;color:var(--mut);display:flex;justify-content:center;align-items:center;gap:.4rem}
 .proles.has-sel .phint{display:none}
-.pplan{margin-top:1.75rem;display:flex;flex-wrap:wrap;align-items:center;gap:.5rem .6rem;font-size:.8rem;color:var(--mut)}
+.pplan{margin:1.75rem auto 0;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.5rem .6rem;font-size:.8rem;color:var(--mut)}
 .pplan .plabel{font-weight:600;color:var(--mut2);text-transform:uppercase;letter-spacing:.08em;font-size:.72rem}
 .pchip{display:inline-flex;align-items:center;gap:.35rem;border:1px dashed var(--line);border-radius:var(--r-pill);padding:.3rem .8rem;color:var(--mut)}
 .pchip svg{color:var(--acc2)}
@@ -700,6 +735,7 @@ const I = (name, size = 16, cls = '') => {
     copy: '<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>',
     dot: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
     circleCheck: '<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>',
+    rotate: '<path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>',
     dashed: '<circle cx="12" cy="12" r="10" stroke-dasharray="4.6 3.4"/>',
     commit: '<circle cx="12" cy="12" r="3"/><line x1="3" x2="9" y1="12" y2="12"/><line x1="15" x2="21" y1="12" y2="12"/>',
     lang: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
@@ -895,10 +931,26 @@ function render(cfg) {
       <h2 class="sec-title">${T(cfg.personas.title)}</h2>
       <p class="sec-sub">${T(cfg.personas.subtitle)}</p>
     </div>
-    ${T(cfg.personas.story) ? `
-    <div class="pstory">
-      <h3>${T(cfg.personas.storyTitle)}</h3>
-      ${T(cfg.personas.story).split('\n\n').map(par => `<p>${esc(par)}</p>`).join('')}
+    ${cfg.personas.flow ? `
+    <div class="pvs">
+      <div class="pvs-col before">
+        <span class="pvs-tag">${T(cfg.personas.flow.before.tag)}</span>
+        <h3>${T(cfg.personas.flow.before.title)}</h3>
+        <ol class="ploop">
+          ${(cfg.personas.flow.before.steps || []).map((s, i) => `<li><span class="n" aria-hidden="true">${i + 1}</span><div><b>${esc(s.tool)}</b><span class="d">${T(s.do)}</span></div></li>`).join('')}
+        </ol>
+        <div class="ploop-back">${I('rotate', 16)}<div><b>${T(cfg.personas.flow.before.loop)}</b><span>${T(cfg.personas.flow.before.fail)}</span></div></div>
+      </div>
+      <div class="pvs-col after">
+        <span class="pvs-tag">${T(cfg.personas.flow.after.tag)}</span>
+        <h3>${T(cfg.personas.flow.after.title)}</h3>
+        <div class="pfile">
+          <div class="pfile-head">${I('folder', 14)} <code>model.canvas</code><span class="flabel">— ${T(cfg.personas.flow.after.fileLabel)}</span></div>
+          <div class="pchain">${(cfg.personas.flow.after.chain || []).map((n, i, arr) => `<span class="node">${T(n)}</span>${i < arr.length - 1 ? `<span class="edge" aria-hidden="true">${I('right', 14)}</span>` : ''}`).join('')}</div>
+          <div class="precalc">${I('rotate', 13)} ${T(cfg.personas.flow.after.recalc)}</div>
+        </div>
+        <ul class="pok">${(cfg.personas.flow.after.points || []).map(pt => `<li>${I('circleCheck', 15)}<span>${T(pt)}</span></li>`).join('')}</ul>
+      </div>
     </div>` : ''}
     ${pRoles.length ? `
     <div class="proles" id="proles">

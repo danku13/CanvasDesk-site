@@ -1,0 +1,39 @@
+# CanvasDesk
+
+> Visual mathematical modeling system: an infinite canvas where models assembled from Numi formula sheets and 45 calculation templates compute themselves. Values flow along value-edges and the whole chain recalculates instantly. Open source (AGPL-3.0), written in Rust, web version on WebGPU.
+
+CanvasDesk replaces the "Miro + Excel + Google Docs + PowerPoint" stack for mathematical modeling. Built-in domain math: Erlang-C and M/M/1 (service capacity), NPV, cohort LTV (unit economics), retention and funnels (product analytics). Bottlenecks (ρ ≥ 1) light up on the canvas; what-if scenarios show was → became (+Δ) deltas. An AI agent can assemble and verify models via MCP: 39 tools including graph_apply and graph_validate, started with one command (`canvasdesk mcp`). Engine benchmarks: 1000-node graph recalculates in under 10 ms; 5000 nodes at 60 FPS.
+
+## Web app
+
+- [CanvasDesk Web](https://danku13.github.io/CanvasDesk/app/): runs in Chrome/Edge, no sign-up required; models are stored locally in the browser.
+
+## Documentation
+
+- [Docs](https://danku13.github.io/CanvasDesk/): getting started, file format, MCP setup.
+
+## Source code
+
+- [GitHub repository](https://github.com/danku13/CanvasDesk): Rust workspace, issues, CI artifacts, AGPL-3.0.
+
+## AI agents (MCP)
+
+- [MCP section on the landing](https://canvasdesk.tech/#ai): what the agent can do; the MCP config JSON is in the "Get started" section.
+
+## Community
+
+- [Telegram — official channel](https://t.me/CanvasDesk): news and a direct line to the author; the author replies personally.
+- [Discord — community chat](https://discord.gg/gXZmF7695): scenario walkthroughs and peer support.
+
+## Plan
+
+- [Development plan](https://github.com/danku13/CanvasDesk/blob/main/docs/TASKS.md): milestones and tasks; no dates are promised, the repo history is the changelog.
+
+## License
+
+- [AGPL-3.0](https://github.com/danku13/CanvasDesk/blob/main/LICENSE): free to use, study and modify; §13 applies to network use. CLA is required for contributed PRs.
+
+## Limitations (as stated by the author)
+
+- Web version: Chrome/Edge only (WebGPU); Firefox is experimental.
+- Linux and macOS builds ship the windowed canvas; some desktop features (file thumbnails, drag-and-drop, MCP) are Windows-only for now.

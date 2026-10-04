@@ -77,6 +77,8 @@ const DEFAULT_CONFIG = {
     ctaPrimary:   { en: 'Try in the browser', ru: 'Открыть веб-версию' },
     ctaSecondary: { en: 'Star on GitHub',     ru: 'Звезда на GitHub' },
     ctaTertiary:  { en: 'Documentation',      ru: 'Документация' },
+    /* ICE #1: zero-friction trust-строка под CTA — паттерн drawio («Free forever · No sign-up · No lock-in») */
+    trustLine: { en: 'No sign-up · Free · Open source', ru: 'Без регистрации · Бесплатно · Открытый код' },
     chips: ['Web · WebGPU', 'Windows 10/11', 'Linux · macOS', 'JSON Canvas', 'MCP'],
     mediaTitle: { en: 'Reference model: service capacity on the canvas', ru: 'Эталонная модель: расчёт capacity сервиса на канвасе' },
     mediaHint:  { en: 'Numi-sheets, value-edges with live labels, template nodes', ru: 'Numi-листы, value-связи с живыми подписями, шаблонные ноды' },
@@ -114,6 +116,12 @@ const DEFAULT_CONFIG = {
     { value: '5000',   label: { en: 'nodes at 60 FPS',               ru: 'нод при 60 FPS' } },
     { value: '3',      label: { en: 'OS builds in CI + web version', ru: 'ОС в сборках CI + веб-версия' } }
   ],
+
+  /* ICE #6: лицензия — категорийный trust-сигнал (паттерн 15/15 эталонов) */
+  license: {
+    name: 'AGPL-3.0',
+    url:  'https://github.com/danku13/CanvasDesk/blob/main/LICENSE'
+  },
 
   trust: {
     stars:  { en: 'GitHub stars', ru: 'звёзд на GitHub' },
@@ -216,12 +224,13 @@ const DEFAULT_CONFIG = {
     title:  { en: 'See the models in action', ru: 'Посмотрите модели в действии' },
     subtitle: { en: 'Key scenarios of the calculation core: from a Numi sheet to an agent-assembled reference model.', ru: 'Ключевые сценарии расчётного ядра: от Numi-листа до эталонной модели, собранной агентом.' },
     items: [
-      { title: { en: 'Canvas overview: capacity model with minimap', ru: 'Обзор канваса: модель capacity с миникартой' }, hint: 'assets/hero-canvas.png', poster: 'assets/hero-canvas.png' },
-      { title: { en: 'Numi sheet & autocomplete', ru: 'Numi-лист и автодополнение' }, hint: 'assets/shot-numi.png', poster: 'assets/shot-numi.png' },
-      { title: { en: 'Palette: 45 templates in three categories', ru: 'Палитра: 45 шаблонов в трёх категориях' }, hint: 'assets/shot-templates.png', poster: 'assets/shot-templates.png' },
-      { title: { en: 'Bottlenecks: ρ thresholds and overload', ru: 'Узкие места: пороги ρ и перегрузки' }, hint: 'assets/shot-bottleneck.png', poster: 'assets/shot-bottleneck.png' },
-      { title: { en: 'What-if: scenarios and deltas', ru: 'What-if: сценарии и дельты' }, hint: 'assets/shot-whatif.png', poster: 'assets/shot-whatif.png' },
-      { title: { en: 'AI agent assembles a model via MCP', ru: 'ИИ-агент собирает модель по MCP' }, hint: 'assets/shot-agent.png', poster: 'assets/shot-agent.png' }
+      /* ICE #11: сценарные подписи под персоны — вопрос, который решает модель */
+      { scenario: { en: 'Architects: will the service hold 10k rps?', ru: 'Архитекторам: выдержит ли сервис 10k rps?' }, title: { en: 'Canvas overview: capacity model with minimap', ru: 'Обзор канваса: модель capacity с миникартой' }, hint: 'assets/hero-canvas.png', poster: 'assets/hero-canvas.png' },
+      { scenario: { en: 'Analysts: a formula that computes itself', ru: 'Аналитикам: формула, которая считает себя' }, title: { en: 'Numi sheet & autocomplete', ru: 'Numi-лист и автодополнение' }, hint: 'assets/shot-numi.png', poster: 'assets/shot-numi.png' },
+      { scenario: { en: '45 ready calculations — from Erlang-C to LTV', ru: '45 готовых расчётов — от Erlang-C до LTV' }, title: { en: 'Palette: 45 templates in three categories', ru: 'Палитра: 45 шаблонов в трёх категориях' }, hint: 'assets/shot-templates.png', poster: 'assets/shot-templates.png' },
+      { scenario: { en: 'Architects: where is the bottleneck at 2× traffic?', ru: 'Архитекторам: где узкое место при трафике ×2?' }, title: { en: 'Bottlenecks: ρ thresholds and overload', ru: 'Узкие места: пороги ρ и перегрузки' }, hint: 'assets/shot-bottleneck.png', poster: 'assets/shot-bottleneck.png' },
+      { scenario: { en: 'PMs: what if churn drops by 1 pp?', ru: 'Продакт-менеджерам: что если churn упадёт на 1 п.п.?' }, title: { en: 'What-if: scenarios and deltas', ru: 'What-if: сценарии и дельты' }, hint: 'assets/shot-whatif.png', poster: 'assets/shot-whatif.png' },
+      { scenario: { en: 'AI builders: a model from a text description', ru: 'Работающим с ИИ: модель по текстовому описанию' }, title: { en: 'AI agent assembles a model via MCP', ru: 'ИИ-агент собирает модель по MCP' }, hint: 'assets/shot-agent.png', poster: 'assets/shot-agent.png' }
     ]
   },
 
@@ -283,7 +292,8 @@ const DEFAULT_CONFIG = {
   early: {
     kicker: { en: 'Shape the product', ru: 'Влияйте на продукт' },
     title:  { en: 'Become an early user', ru: 'Станьте ранним пользователем' },
-    subtitle: { en: 'CanvasDesk is young — early users still shape it: your scenarios go straight into development, and new features reach you first.', ru: 'CanvasDesk ещё молодой — ранние пользователи влияют на него напрямую: ваши сценарии попадают в разработку, а новое вы видите первым.' },
+    /* ICE #7: честный призыв — причастность и личный доступ к автору, без цифр и обещаний сроков */
+    subtitle: { en: 'CanvasDesk is young — early users still shape it: your scenarios go straight into development, and new features reach you first. We are looking for our first users — the author replies to everyone personally.', ru: 'CanvasDesk ещё молодой — его делают ранние пользователи: ваши сценарии попадают прямо в разработку, а новое вы видите первым. Ищем первых пользователей — автор отвечает каждому лично.' },
     items: [
       { icon: '🧪', title: { en: 'Try it first', ru: 'Пробуйте первым' },
         text: { en: 'Open the web version — no install. Desktop builds for Windows, Linux and macOS.', ru: 'Откройте веб-версию — без установки. Есть сборки для Windows, Linux и macOS.' } },
@@ -314,14 +324,19 @@ const DEFAULT_CONFIG = {
       { q: { en: 'How is it different from Miro or Obsidian Canvas?', ru: 'Чем это отличается от Miro или Obsidian Canvas?' }, a: { en: 'Boards store pictures of thoughts; CanvasDesk nodes compute numbers. The format is JSON Canvas: layouts open in Obsidian and back.', ru: 'Доски хранят картинки мыслей; ноды CanvasDesk считают числа. Формат — JSON Canvas: раскладки открываются в Obsidian и обратно.' } },
       { q: { en: 'How do I connect an AI agent?', ru: 'Как подключить ИИ-агента?' }, a: { en: 'One command — canvasdesk mcp — starts an MCP server for Claude Desktop and any MCP client: 39 tools including graph_apply and graph_validate.', ru: 'Одна команда — canvasdesk mcp — поднимает MCP-сервер для Claude Desktop и любых MCP-клиентов: 39 инструментов, включая graph_apply и graph_validate.' } },
       { q: { en: 'How fast is the engine?', ru: 'Что с производительностью?' }, a: { en: 'A 1000-node graph recalculates in under 10 ms; the canvas keeps 5000 nodes at 60 FPS.', ru: 'Граф из 1000 нод пересчитывается быстрее 10 мс; канвас держит 5000 нод при 60 FPS.' } },
-      { q: { en: 'How can I support the project?', ru: 'Как поддержать проект?' }, a: { en: 'Star the repository on GitHub, share it with architects, analysts and product managers, or use the donation links below — they fund the development directly.', ru: 'Поставьте звезду репозиторию на GitHub, поделитесь им с архитекторами, аналитиками и продакт-менеджерами или воспользуйтесь ссылками на поддержку ниже — они идут напрямую в разработку.' } }
+      { q: { en: 'How can I support the project?', ru: 'Как поддержать проект?' }, a: { en: 'Star the repository on GitHub, share it with architects, analysts and product managers, or use the donation links below — they fund the development directly.', ru: 'Поставьте звезду репозиторию на GitHub, поделитесь им с архитекторами, аналитиками и продакт-менеджерами или воспользуйтесь ссылками на поддержку ниже — они идут напрямую в разработку.' } },
+      /* ICE #12: юридическая гигиена и страх за данные */
+      { q: { en: 'Are model results financial advice?', ru: 'Результаты моделей — это финансовая рекомендация?' }, a: { en: 'No. CanvasDesk is a calculation tool: it computes exactly the model you built — with your inputs and assumptions. Results help you compare scenarios and see how the mechanics work; the decisions remain yours.', ru: 'Нет. CanvasDesk — инструмент расчёта: он честно считает ровно ту модель, которую вы собрали, — с вашими вводными и допущениями. Результаты помогают сравнивать сценарии и видеть механику, но решения остаются за вами.' } },
+      { q: { en: 'Where is my data stored?', ru: 'Где хранятся мои данные?' }, a: { en: 'On your side. The web version keeps models in your browser (nothing is sent to a server, no telemetry). The desktop version stores .canvas files on your disk in the open JSON Canvas format, with autosave and a .bak of the previous version. There is no account and no cloud.', ru: 'У вас. Веб-версия хранит модели в вашем браузере (на сервер ничего не отправляется, телеметрии нет). Десктоп-версия хранит файлы .canvas на вашем диске в открытом формате JSON Canvas, с автосейвом и .bak предыдущей версии. Ни аккаунта, ни облака нет.' } }
     ]
   },
 
   community: {
     kicker: { en: 'Community & support', ru: 'Сообщество и поддержка' },
     title:  { en: 'Pick your platform', ru: 'Выберите свою платформу' },
-    subtitle: { en: 'Follow the development, read deep dives or support the author — choose what suits you. Links below are selected for your region and language.', ru: 'Следите за разработкой, читайте большие статьи или поддержите автора — выбирайте, что вам ближе. Ссылки ниже подобраны под ваш регион и язык.' },
+    /* ICE #3: роли каналов проговорены («спросить автора», «обсудить сценарий») + доказательство жизни чата — доступность автора.
+       Честность: обещаем только то, что уже правда (личный ответ автора), без SLA и сроков. */
+    subtitle: { en: 'Telegram is the official channel: news and a direct line to the author. Discord is the community chat: scenario walkthroughs and peer support. The author reads everything and replies personally — links below match your region and language.', ru: 'Telegram — официальный канал: новости и вопрос автору напрямую. Discord — чат сообщества: разбор сценариев и помощь друг другу. Автор читает всё и отвечает лично; ссылки ниже подобраны под ваш регион и язык.' },
     donateTitle: { en: 'Enjoying CanvasDesk?', ru: 'Нравится CanvasDesk?' },
     donateText: { en: 'The project is developed in open source and for free. A star on GitHub or a small donation keeps the development going.', ru: 'Проект разрабатывается открыто и бесплатно. Звезда на GitHub или небольшое пожертвование помогают разработке двигаться дальше.' },
     donateCta: { en: 'Donate', ru: 'Поддержать' }
@@ -356,15 +371,26 @@ const DEFAULT_CONFIG = {
     sectionsAbout:   { en: 'About',   ru: 'О проекте' },
     disclaimer: { en: 'CanvasDesk is an independent project. The JSON Canvas format (jsoncanvas.org) is an open standard; .canvas layouts are compatible with Obsidian.', ru: 'CanvasDesk — независимый проект. Формат JSON Canvas (jsoncanvas.org) — открытый стандарт; раскладки .canvas совместимы с Obsidian.' },
     builtWith: { en: 'Built with Rust · wgpu · WebGPU · JSON Canvas', ru: 'Сделано на Rust · wgpu · WebGPU · JSON Canvas' },
+    /* ICE #13: публичный план разработки — сигнал «проект живой» без обещаний сроков */
+    roadmap: { en: 'Development plan (roadmap)', ru: 'План разработки (roadmap)' },
+    license: { en: 'License AGPL-3.0', ru: 'Лицензия AGPL-3.0' },
     made: { en: 'Made with ❤️ by the CanvasDesk team', ru: 'Сделано с ❤️ командой CanvasDesk' }
   },
+
+  /* ICE #9: цитаты первых пользователей.
+     ВАЖНО: добавляйте только реальные цитаты из чата — с ником автора и источником (паттерн Logseq).
+     Пока массив пуст, блок на странице не показывается: честность важнее украшения.
+     Формат: { text: { en: '…', ru: '…' }, author: '@username', source: 'https://…', sourceLabel: 'Telegram' } */
+  testimonials: [],
 
   links: {
     github:         'https://github.com/danku13/CanvasDesk',
     webapp:         'https://danku13.github.io/CanvasDesk/app/',
     docs:           'https://danku13.github.io/CanvasDesk/',
-    telegram:       'https://t.me/+k1dTKp_3cHZiM2My',
+    /* ICE #8: публичный username вместо invite-ссылки — канал можно посмотреть до входа */
+    telegram:       'https://t.me/CanvasDesk',
     discord:        'https://discord.gg/gXZmF7695',
+    roadmap:        'https://github.com/danku13/CanvasDesk/blob/main/docs/TASKS.md',
     habr:           'https://habr.com/ru/users/danku13/',
     linkedin:       '',   // TODO: вставьте ссылку
     medium:         '',   // TODO: вставьте ссылку
@@ -377,8 +403,8 @@ const DEFAULT_CONFIG = {
     linkedin:       { en: 'Development updates in your feed', ru: 'Новости разработки в вашей ленте' },
     medium:         { en: 'Long-form articles and deep dives', ru: 'Большие статьи и разборы' },
     habr:           { en: 'Articles and devlog in Russian', ru: 'Статьи и devlog проекта' },
-    telegram:       { en: 'Official chat and quick help', ru: 'Официальный чат и быстрая помощь' },
-    discord:        { en: 'Community chat, support and discussions', ru: 'Чат сообщества, поддержка и обсуждения' },
+    telegram:       { en: 'Official channel: news and questions to the author', ru: 'Официальный канал: новости и вопросы автору' },
+    discord:        { en: 'Community chat: scenario walkthroughs and help', ru: 'Чат сообщества: разбор сценариев и помощь' },
     boosty:         { en: 'Monthly support with bonus content', ru: 'Постоянная поддержка и бонусный контент' },
     donationalerts: { en: 'One-time donation to the author', ru: 'Разовое пожертвование автору' }
   },
